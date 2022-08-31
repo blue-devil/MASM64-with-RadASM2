@@ -1,0 +1,16 @@
+#define IDM_TEST 1
+#define IDM_HELLO 2
+#define IDM_GOODBYE 3
+#define IDM_EXIT 4
+
+FirstMenu MENU
+{
+ POPUP "&PopUp"
+        {
+         MENUITEM "&Say Hello",IDM_HELLO
+         MENUITEM "Say &GoodBye", IDM_GOODBYE
+         MENUITEM SEPARATOR
+         MENUITEM "E&xit",IDM_EXIT
+        }
+ MENUITEM "&Test", IDM_TEST
+}

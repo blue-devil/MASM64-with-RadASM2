@@ -1,0 +1,16 @@
+#define IDM_HELLO 1
+#define IDM_CLEAR 2
+#define IDM_GETTEXT 3
+#define IDM_EXIT 4
+
+FirstMenu MENU
+{
+ POPUP "&Test Controls"
+        {
+         MENUITEM "Say Hello",IDM_HELLO
+         MENUITEM "Clear Edit Box",IDM_CLEAR
+         MENUITEM "Get Text", IDM_GETTEXT
+         MENUITEM SEPARATOR
+         MENUITEM "E&xit",IDM_EXIT
+        }
+}

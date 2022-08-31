@@ -1,0 +1,132 @@
+[Project]
+Assembler=MASM64
+Type=Win64 App
+Description=Dialog App Template x64
+Backup=$P\Bak\
+Group=1
+GroupExpand=1
+Debug=0
+[Files]
+1=DialogAppx64.Asm
+2=DialogAppx64.Inc
+3=DialogAppx64.Rc
+4=Res\DialogAppx64.dlg
+[MakeFiles]
+0=DialogAppx64.rap
+1=DialogAppx64.rc
+2=DialogAppx64.asm
+3=DialogAppx64.obj
+4=DialogAppx64.res
+5=DialogAppx64.exe
+6=DialogAppx64.def
+7=DialogAppx64.dll
+8=DialogAppx64.txt
+9=DialogAppx64.lib
+10=DialogAppx64.mak
+11=DialogAppx64.hla
+12=DialogAppx64.com
+13=DialogAppx64.ocx
+14=DialogAppx64.idl
+15=DialogAppx64.tlb
+16=DialogAppx64.sys
+17=DialogAppx64.dp32
+18=DialogAppx64.pdb
+19=DialogAppx64.dp64
+20=DialogAppx64.md
+[MakeDef]
+Menu=1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+1=4,O,$B\RC.EXE /v,1
+2=3,O,$B\ML64.exe /c -Zp8 /D_WIN64 /Cp /nologo /W2 /I"$I",2
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0  /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
+4=0,0,,5
+5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
+7=0,0,"$E\x64\x64dbg",5
+11=4,O,$B\RC.EXE /v,1
+12=3,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /Zi /Zd /nologo /I"$I",2
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:$.pdb /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
+14=0,0,,5
+15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+16=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2  /I"$I",*.asm
+17=0,0,"$E\x64\x64dbg",$.exe
+[Group]
+Group=Assembly,Resources,Misc
+1=1
+2=1
+3=2
+4=2
+[AutoLoad]
+AutoLoad=
+[RADebugBP]
+1=
+2=
+[Collapse]
+3=
+1=
+2=
+[Size]
+3=0,0,0,0,0
+4=0,0,0,0
+1=0,0,0,0,0
+2=0,0,0,0,1274
+[VersionControl]
+Settings=1246
+Milestones=129
+MilestoneEvery=10
+MilestoneEveryCurrent=0
+MilestoneOnBuild=0.0.0.0
+MilestoneOnTime=2
+MilestoneOnDate=0
+MilestoneOnDateWhen=1
+MilestoneOnDateStatus=0
+MilestoneOnDateDate=31
+MilestoneOnDateTimeYear=2022
+MilestoneOnDateTimeMonth=8
+MilestoneOnDateTimeDate=28
+MilestoneOnDateTimeHour=11
+MilestoneOnDateTimeMin=55
+MilestoneOnDateTimeSec=0
+MilestoneOnDateTimeStatus=0
+BackupLocation=C:\Program Files\SCTTools\Editors\RadASM2\MASM64\Projects\VCBackups\
+CompressionLevel=0
+DefaultComment=Project $N, $Z, Backup Created On $D At $T.
+ExcludeExt1=\
+ExcludeExt2=\
+ExcludeExt3=\
+ExcludeExt4=\
+FileVerLength=4
+FileVer2Range=0
+FileVer3Range=0
+FileVer4Range=0
+ProductVerLength=4
+ProductVer2Range=0
+ProductVer3Range=0
+ProductVer4Range=0
+[Colref]
+0=00FFFFFF
+1=00FFFFFF
+2=00FFFFFF
+3=00FFFFFF
+4=00FFFFFF
+5=00FFFFFF
+6=00FFFFFF
+7=00FFFFFF
+[PTimer]
+PTimer=41449139
+[GroupExpand]
+GroupExpand=1,0,1,0
+[BookMark]
+0=
+1=
+2=
+3=
+4=
+5=
+6=
+7=
+8=
+9=
+[BreakPoint]
+0=
+[Find]
+1=

@@ -1,0 +1,53 @@
+# Force line-endings to be CRLF because we are in Windows platform
+* text eol=crlf
+
+*.tpl linguist-language=Text
+*.inc linguist-language=Assembly
+
+#
+## These files are binary and should be left untouched
+#
+
+# RadASM specific binary files
+*.dlg binary
+*.lib binary
+*.res binary
+*.mnu binary
+*.lng binary
+
+# General binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.ico binary
+*.cur binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.pyc binary
+*.pdf binary
+*.ez binary
+*.bz2 binary
+*.swp binary
+*.xm binary
+*.mod binary
+*.it binary
+*.hlp binary
+*.chm binary
+*.rtf binary
+*.docx binary
+*.doc binary
+*.obj binary
+*.exe binary
+*.dll binary
