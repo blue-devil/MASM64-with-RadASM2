@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# RadASM Specific
+Bak/
+*.undo
+*.res
+*.exe
