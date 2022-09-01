@@ -65,7 +65,7 @@ WinMainCRTStartup proc
     mov     CommandLine,rax
     
     invoke  InitCommonControls
-	mov     icc.dwSize, sizeof INITCOMMONCONTROLSEX
+    mov     icc.dwSize, sizeof INITCOMMONCONTROLSEX
     mov     icc.dwICC, ICC_COOL_CLASSES or ICC_STANDARD_CLASSES or ICC_WIN95_CLASSES
     invoke  InitCommonControlsEx, addr icc
     
@@ -85,20 +85,20 @@ WinMain endp
 
 DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
 
-	.if uMsg==WM_INITDIALOG
+    .if uMsg==WM_INITDIALOG
         ; code that runs before dialog shows up
         ret TRUE
-	.elseif uMsg==WM_COMMAND
+    .elseif uMsg==WM_COMMAND
         ; code of controls, buttons, checkboxes...
-	.elseif uMsg==WM_CLOSE
-		invoke EndDialog,hWnd,0
-		ret
-	.else
-		mov		eax,FALSE
-		ret
-	.endif
-	mov		eax,TRUE
-	ret
+    .elseif uMsg==WM_CLOSE
+        invoke EndDialog,hWnd,0
+        ret
+    .else
+        mov     eax,FALSE
+        ret
+    .endif
+    mov     eax,TRUE
+    ret
 
 DlgProc endp
 
@@ -106,12 +106,12 @@ end
 [*ENDTXT*]
 [*BEGINTXT*]
 DialogApp-Modal-x64.Inc
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
     include \masm64\macros64\vasily.inc     ; main macro file
     include \masm64\macros64\macros64.inc   ; auxillary macro file
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
     include \masm64\include64\win64.inc     ; main include file
     include \masm64\include64\kernel32.inc
@@ -119,35 +119,35 @@ DialogApp-Modal-x64.Inc
     include \masm64\include64\comctl32.inc
     
     STACKFRAME                              ; create a default stack frame
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
     includelib \masm64\lib64\user32.lib
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\comctl32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    DlgProc			    PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    DlgProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
     
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 .const
     ; Main Dialog
-    IDD_DIALOG	        EQU 1000
+    IDD_DIALOG          EQU 1000
     
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 .data
 
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
     CommandLine         LPSTR ?
-    hInstance			HINSTANCE ?
-    icc 				INITCOMMONCONTROLSEX <>
+    hInstance           HINSTANCE ?
+    icc                 INITCOMMONCONTROLSEX <>
 [*ENDTXT*]
 [*BEGINTXT*]
 DialogApp-Modal-x64.Rc

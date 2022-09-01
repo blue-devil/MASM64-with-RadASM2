@@ -30,7 +30,7 @@
     OPTION DOTNAME                          ; required for macro files
     option casemap:none                     ; case sensitive
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
 
     include \masm64\include64\win64.inc     ; main include file
@@ -39,24 +39,24 @@
 
     STACKFRAME                              ; create a default stack frame
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    WndProc			    PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 
 .const
@@ -67,7 +67,7 @@
     IDM_GETTEXT equ 3
     IDM_EXIT    equ 4
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 
 .data
@@ -79,7 +79,7 @@
     EdtClsName  db "edit",0
     TestString  db "Wow! I'm in an edit box now",0
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
@@ -177,12 +177,12 @@ WinMain endp
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
     .if uMsg==WM_DESTROY
-		invoke  PostQuitMessage,NULL
-	.elseif uMsg==WM_CREATE
-	    invoke  CreateWindowEx, \
-	                    WS_EX_CLIENTEDGE, \
-	                    ADDR EdtClsName, \
-	                    NULL,\
+        invoke  PostQuitMessage,NULL
+    .elseif uMsg==WM_CREATE
+        invoke  CreateWindowEx, \
+                        WS_EX_CLIENTEDGE, \
+                        ADDR EdtClsName, \
+                        NULL,\
                         WS_CHILD or WS_VISIBLE or WS_BORDER or ES_LEFT or ES_AUTOHSCROLL,\
                         50, \
                         35, \
@@ -195,47 +195,47 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         mov hEdit, rax
         invoke SetFocus,hEdit
         
-	    invoke  CreateWindowEx, \
-	                    NULL, \
-	                    addr BtnClsName, \
-	                    addr ButtonText, \
-	                    WS_CHILD or WS_VISIBLE or BS_DEFPUSHBUTTON, \
-	                    75, \
-	                    70, \
-	                    140, \
-	                    25, \
-	                    hWnd, \
-	                    ButtonID, \
-	                    hInstance, \
-	                    NULL
-	    mov hButton, rax
-	.elseif uMsg==WM_COMMAND
-	    mov rax,wParam
-	    .if lParam==0
-	        .if ax==IDM_HELLO
-	            invoke  SetWindowText,hEdit,addr TestString
-	            invoke  SendMessage,hEdit,WM_KEYDOWN,VK_END,NULL
-	        .elseif ax==IDM_CLEAR
-	            invoke  SetWindowText,hEdit, NULL
-	        .elseif ax==IDM_GETTEXT
-	            invoke  GetWindowText,hEdit, addr buffer, 512
-	            invoke  MessageBox,NULL, addr buffer, addr AppName,MB_OK
-	        .else
-	            invoke  DestroyWindow,hWnd
-	        .endif
-	    .else
-	        .if ax==ButtonID
-	            shr eax,16
-	            .if ax==BN_CLICKED
-	                invoke  SendMessage,hWnd,WM_COMMAND,IDM_GETTEXT,0
-	            .endif
-	        .endif
-	    .endif
-	.else
-		invoke  DefWindowProc,hWnd,uMsg,wParam,lParam		
-		ret
-	.endif
-	xor eax,eax
+        invoke  CreateWindowEx, \
+                        NULL, \
+                        addr BtnClsName, \
+                        addr ButtonText, \
+                        WS_CHILD or WS_VISIBLE or BS_DEFPUSHBUTTON, \
+                        75, \
+                        70, \
+                        140, \
+                        25, \
+                        hWnd, \
+                        ButtonID, \
+                        hInstance, \
+                        NULL
+        mov hButton, rax
+    .elseif uMsg==WM_COMMAND
+        mov rax,wParam
+        .if lParam==0
+            .if ax==IDM_HELLO
+                invoke  SetWindowText,hEdit,addr TestString
+                invoke  SendMessage,hEdit,WM_KEYDOWN,VK_END,NULL
+            .elseif ax==IDM_CLEAR
+                invoke  SetWindowText,hEdit, NULL
+            .elseif ax==IDM_GETTEXT
+                invoke  GetWindowText,hEdit, addr buffer, 512
+                invoke  MessageBox,NULL, addr buffer, addr AppName,MB_OK
+            .else
+                invoke  DestroyWindow,hWnd
+            .endif
+        .else
+            .if ax==ButtonID
+                shr eax,16
+                .if ax==BN_CLICKED
+                    invoke  SendMessage,hWnd,WM_COMMAND,IDM_GETTEXT,0
+                .endif
+            .endif
+        .endif
+    .else
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        ret
+    .endif
+    xor eax,eax
     ret
 
 WndProc endp

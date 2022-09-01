@@ -16,7 +16,7 @@ WinMainCRTStartup proc
     mov     CommandLine,rax
     
     invoke  InitCommonControls
-	mov     icc.dwSize, sizeof INITCOMMONCONTROLSEX
+    mov     icc.dwSize, sizeof INITCOMMONCONTROLSEX
     mov     icc.dwICC, ICC_COOL_CLASSES or ICC_STANDARD_CLASSES or ICC_WIN95_CLASSES
     invoke  InitCommonControlsEx, addr icc
     
@@ -36,20 +36,20 @@ WinMain endp
 
 DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
 
-	.if uMsg==WM_INITDIALOG
+    .if uMsg==WM_INITDIALOG
         ; code that runs before dialog shows up
         ret TRUE
-	.elseif uMsg==WM_COMMAND
+    .elseif uMsg==WM_COMMAND
         ; code of controls, buttons, checkboxes...
-	.elseif uMsg==WM_CLOSE
-		invoke EndDialog,hWnd,0
-		ret
-	.else
-		mov		eax,FALSE
-		ret
-	.endif
-	mov		eax,TRUE
-	ret
+    .elseif uMsg==WM_CLOSE
+        invoke EndDialog,hWnd,0
+        ret
+    .else
+        mov     eax,FALSE
+        ret
+    .endif
+    mov     eax,TRUE
+    ret
 
 DlgProc endp
 

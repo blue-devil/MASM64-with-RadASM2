@@ -30,7 +30,7 @@
     OPTION DOTNAME                          ; required for macro files
     option casemap:none                     ; case sensitive
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
 
     include \masm64\include64\win64.inc     ; main include file
@@ -39,31 +39,31 @@
 
     STACKFRAME                              ; create a default stack frame
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
     include \masm64\include64\gdi32.inc
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
     includelib \masm64\lib64\gdi32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    WndProc			    PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 
 .const
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 
 .data
@@ -71,7 +71,7 @@
     AppName     db "Our First Window", 0    ; the name of our window
     key         WPARAM 20h                  ; the character the program receives from keyboard
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
@@ -155,21 +155,21 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     LOCAL   ps:PAINTSTRUCT
 
     .if uMsg==WM_DESTROY
-		invoke  PostQuitMessage,NULL
-	.elseif uMsg==WM_CHAR
-	    push    wParam
-	    pop     key
-	    invoke  InvalidateRect,hWnd,NULL,TRUE
-	.elseif uMsg==WM_PAINT
-	    invoke  BeginPaint,hWnd, addr ps
-	    mov     hdc,rax
-	    invoke  TextOut,hdc,0,0,addr key,1
-	    invoke  EndPaint,hWnd,addr ps
-	.else
-		invoke  DefWindowProc,hWnd,uMsg,wParam,lParam		
-		ret
-	.endif
-	xor eax,eax
+        invoke  PostQuitMessage,NULL
+    .elseif uMsg==WM_CHAR
+        push    wParam
+        pop     key
+        invoke  InvalidateRect,hWnd,NULL,TRUE
+    .elseif uMsg==WM_PAINT
+        invoke  BeginPaint,hWnd, addr ps
+        mov     hdc,rax
+        invoke  TextOut,hdc,0,0,addr key,1
+        invoke  EndPaint,hWnd,addr ps
+    .else
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        ret
+    .endif
+    xor eax,eax
     ret
 
 WndProc endp

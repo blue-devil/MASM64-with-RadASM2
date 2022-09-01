@@ -5,19 +5,19 @@
 
 .code
 
-WinMainCRTStartup proc 
-    
+WinMainCRTStartup proc
+
     invoke  GetModuleHandleEx,0,0,hInstance
     .if(rax {} 0)
         invoke  ExitProcess,NULL
     .endif
-    
+
     invoke  GetCommandLine
     mov     CommandLine,rax
-    
+
     invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
     invoke  ExitProcess,eax
-    
+
     ret
 
 WinMainCRTStartup endp
@@ -27,12 +27,12 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     LOCAL   wcex:WNDCLASSEX
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
-    
+
     invoke  LoadIcon,hInst,IDI_APPLICATION
     mov     hIcon, rax
     invoke  LoadCursor,hInst,IDC_ARROW
     mov     hCursor, rax
-    
+
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, DlgProc
@@ -51,7 +51,7 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     wcex.lpszClassName, rdi;offset ClassName
     mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
-	
+
     invoke  CreateDialogParam,hInst,IDD_DIALOG,NULL,addr DlgProc,NULL
     mov     hWnd,rax
     
@@ -73,22 +73,22 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
 WinMain endp
 
 DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
-	
-	.if uMsg==WM_INITDIALOG
+    
+    .if uMsg==WM_INITDIALOG
 
-	.elseif uMsg==WM_COMMAND
+    .elseif uMsg==WM_COMMAND
         
-	.elseif uMsg==WM_CLOSE
-		invoke  DestroyWindow,hWnd
-	.elseif uMsg==WM_DESTROY
-	    invoke  PostQuitMessage,NULL
-	.else
-		invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
-		ret
-	.endif
-	xor		eax,eax
-	ret
+    .elseif uMsg==WM_CLOSE
+        invoke  DestroyWindow,hWnd
+    .elseif uMsg==WM_DESTROY
+        invoke  PostQuitMessage,NULL
+    .else
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        ret
+    .endif
+    xor     eax,eax
+    ret
 
 DlgProc endp
 
-end 
+end

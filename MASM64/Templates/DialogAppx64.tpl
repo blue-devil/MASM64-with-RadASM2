@@ -72,20 +72,20 @@ WinMainCRTStartup endp
 
 STACKFRAME                                  ; create a default stack frame
 DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
-	
-	.if uMsg==WM_INITDIALOG
+    
+    .if uMsg==WM_INITDIALOG
         
-	.elseif uMsg==WM_COMMAND
+    .elseif uMsg==WM_COMMAND
         
-	.elseif uMsg==WM_CLOSE
-		invoke EndDialog,hWnd,0
-		ret
-	.else
-		mov		eax,FALSE
-		ret
-	.endif
-	mov		eax,TRUE
-	ret
+    .elseif uMsg==WM_CLOSE
+        invoke EndDialog,hWnd,0
+        ret
+    .else
+        mov     eax,FALSE
+        ret
+    .endif
+    mov     eax,TRUE
+    ret
 
 DlgProc endp
 
@@ -93,41 +93,41 @@ end
 [*ENDTXT*]
 [*BEGINTXT*]
 DialogAppx64.Inc
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
     include \masm64\macros64\vasily.inc     ; main macro file
     include \masm64\macros64\macros64.inc   ; auxillary macro file
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
     include \masm64\include64\win64.inc     ; main include file
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
     include \masm64\include64\comctl32.inc
     ;STACKFRAME                              ; create a default stack frame
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
     includelib \masm64\lib64\user32.lib
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\comctl32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    DlgProc			PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    DlgProc         PROTO   :HWND,:UINT,:WPARAM,:LPARAM
     
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 .const
     ; Main Dialog
-    IDD_DIALOG		EQU 1000
+    IDD_DIALOG      EQU 1000
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 .data
 
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 .data?
 [*ENDTXT*]

@@ -88,6 +88,9 @@ pgoui.dll
 * [RadASM2][web-github-radasm2]
 * [RadASM2 v2.2.2.4][web-github-radasm2-release]
 
+## Thanks
+I have inspired from @mrfearless while creating this repo. He has already maintained a repo named [UASM-with-RadASM2][web-github-uasm-with-radasm2]. [UASM][web-uasm] is MASM compatible open source assembler project. Also check that out!
+
 ## Contributors
 * [Blue DeviL // SCT][web-github-bluedevil]
 
@@ -102,3 +105,6 @@ This project is under GPLv3 license.
 [web-ms-vs-build-tools]: https://visualstudio.microsoft.com/downloads/?q=build+tools
 [web-github-radasm2-release]: https://github.com/blue-devil/RadASM2/blob/master/Release/RadASM-2.2.2.4-FullPackage.zip
 [web-github-radasm2]: https://github.com/mrfearless/RadASM2
+[web-github-fearless]: https://github.com/mrfearless
+[web-github-uasm-with-radasm2]: https://github.com/mrfearless/UASM-with-RadASM
+[web-uasm]: http://www.terraspace.co.uk/uasm.html

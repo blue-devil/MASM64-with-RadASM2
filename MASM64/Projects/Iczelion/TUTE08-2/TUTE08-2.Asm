@@ -26,35 +26,37 @@
 ;  |                         Tutorial 8-2 - Menu                          |
 ;  \______________________________________________________________________/
 
+
     OPTION DOTNAME                          ; required for macro files
     option casemap:none                     ; case sensitive
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
+
     include \masm64\include64\win64.inc     ; main include file
     include \masm64\macros64\vasily.inc     ; main macro file
     include \masm64\macros64\macros64.inc   ; auxillary macro file
 
     STACKFRAME                              ; create a default stack frame
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    WndProc			    PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 
 .const
@@ -63,7 +65,7 @@
     IDM_GOODBYE equ 3
     IDM_EXIT    equ 4
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 
 .data
@@ -74,7 +76,7 @@
     Hello_str   db "Hello, my friend",0
     Goodbye_str db "See you again, bye",0
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
@@ -172,23 +174,23 @@ WinMain endp
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
     .if uMsg==WM_DESTROY
-		invoke  PostQuitMessage,NULL
-	.elseif uMsg==WM_COMMAND
-	    mov rax,wParam
-	    .if eax==IDM_TEST
-	        invoke  MessageBox,NULL,addr Test_str,addr AppName,MB_OK
-	    .elseif ax==IDM_HELLO
-	        invoke  MessageBox,NULL,addr Hello_str,addr AppName,MB_OK
-	    .elseif ax==IDM_GOODBYE
-	        invoke  MessageBox,NULL,addr Goodbye_str,addr AppName,MB_OK
-	    .else
-	        invoke  DestroyWindow,hWnd
-	    .endif
-	.else
-		invoke  DefWindowProc,hWnd,uMsg,wParam,lParam		
-		ret
-	.endif
-	xor eax,eax
+        invoke  PostQuitMessage,NULL
+    .elseif uMsg==WM_COMMAND
+        mov rax,wParam
+        .if eax==IDM_TEST
+            invoke  MessageBox,NULL,addr Test_str,addr AppName,MB_OK
+        .elseif ax==IDM_HELLO
+            invoke  MessageBox,NULL,addr Hello_str,addr AppName,MB_OK
+        .elseif ax==IDM_GOODBYE
+            invoke  MessageBox,NULL,addr Goodbye_str,addr AppName,MB_OK
+        .else
+            invoke  DestroyWindow,hWnd
+        .endif
+    .else
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        ret
+    .endif
+    xor eax,eax
     ret
 
 WndProc endp

@@ -30,7 +30,7 @@
     OPTION DOTNAME                          ; required for macro files
     option casemap:none                     ; case sensitive
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
 
     include \masm64\include64\win64.inc     ; main include file
@@ -39,29 +39,29 @@
 
     STACKFRAME                              ; create a default stack frame
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    WndProc			    PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 
 .const
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 
 .data
@@ -69,7 +69,7 @@
     AppName     db "Our First Window", 0    ; the name of our window
     OurText     db "Win64 assembly is great and easy!",0
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
@@ -167,24 +167,24 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     LOCAL   rect:RECT
     
     .if uMsg==WM_DESTROY
-		invoke  PostQuitMessage,NULL
-	.elseif uMsg==WM_PAINT
-	    invoke  BeginPaint, hWnd, addr ps
-	    mov     hdc, rax
-	    invoke  GetClientRect, hWnd, addr rect
-	    invoke  DrawText, \
-	                    hdc, \
-	                    addr OurText, \
-	                    -1, \
-	                    addr rect, \
-	                    DT_SINGLELINE or DT_CENTER or DT_VCENTER
-	    invoke  EndPaint, hWnd, addr ps
-	.else
-		invoke  DefWindowProc,hWnd,uMsg,wParam,lParam		
-		ret
-	.endif
-	xor eax,eax
-	
+        invoke  PostQuitMessage,NULL
+    .elseif uMsg==WM_PAINT
+        invoke  BeginPaint, hWnd, addr ps
+        mov     hdc, rax
+        invoke  GetClientRect, hWnd, addr rect
+        invoke  DrawText, \
+                        hdc, \
+                        addr OurText, \
+                        -1, \
+                        addr rect, \
+                        DT_SINGLELINE or DT_CENTER or DT_VCENTER
+        invoke  EndPaint, hWnd, addr ps
+    .else
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        ret
+    .endif
+    xor eax,eax
+    
     ret
 
 WndProc endp

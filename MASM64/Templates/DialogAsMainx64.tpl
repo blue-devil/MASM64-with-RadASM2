@@ -107,7 +107,7 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     wcex.lpszClassName, rdi;offset ClassName
     mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
-	
+    
     invoke  CreateDialogParam,hInstance,IDD_DIALOG,NULL,addr WndProc,NULL
     mov     hWnd,rax
     
@@ -129,26 +129,26 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
 WinMain endp
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
-	
-	.if uMsg==WM_INITDIALOG
+    
+    .if uMsg==WM_INITDIALOG
 
-	.elseif uMsg==WM_COMMAND
+    .elseif uMsg==WM_COMMAND
         mov rax,wParam
         .if rax==IDM_FILE_EXIT
             invoke  SendMessage,hWnd,WM_CLOSE,0,0
         .elseif rax==IDM_HELP_ABOUT
             invoke  ShellAbout,hWnd,addr AppName,addr AboutMsg,NULL
         .endif
-	.elseif uMsg==WM_CLOSE
-		invoke  DestroyWindow,hWnd
-	.elseif uMsg==WM_DESTROY
-	    invoke  PostQuitMessage,NULL
-	.else
-		invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
-		ret
-	.endif
-	xor		eax,eax
-	ret
+    .elseif uMsg==WM_CLOSE
+        invoke  DestroyWindow,hWnd
+    .elseif uMsg==WM_DESTROY
+        invoke  PostQuitMessage,NULL
+    .else
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        ret
+    .endif
+    xor     eax,eax
+    ret
 
 WndProc endp
 
@@ -156,13 +156,13 @@ end
 [*ENDTXT*]
 [*BEGINTXT*]
 DialogAsMain.Inc
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; MASM64 macros
 
     include \masm64\macros64\vasily.inc     ; main macro file
     include \masm64\macros64\macros64.inc   ; auxillary macro file
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; include files
 
     include \masm64\include64\win64.inc     ; main include file
@@ -172,7 +172,7 @@ DialogAsMain.Inc
     include \masm64\include64\shell32.inc
     include \masm64\include64\gdi32.inc
     STACKFRAME                              ; create a default stack frame
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\user32.lib
@@ -181,36 +181,36 @@ DialogAsMain.Inc
     includelib \masm64\lib64\shell32.lib
     includelib \masm64\lib64\gdi32.lib
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; funtion prototypes
 
-    WndProc			    PROTO	:HWND,:UINT,:WPARAM,:LPARAM
+    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
     
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; constant variables
 
 .const
     ; Main Dialog
-    IDD_DIALOG		    EQU 1000
+    IDD_DIALOG          EQU 1000
 
     IDM_MENU            EQU 10000
-    IDM_FILE_EXIT		equ 10001
-    IDM_HELP_ABOUT		equ 10101
+    IDM_FILE_EXIT       equ 10001
+    IDM_HELP_ABOUT      equ 10101
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName			db 'DLGCLASS',0
-    AppName				db 'Dialog as main',0
-    AboutMsg			db 'MASM64 RadASM Dialog as main',13,10,'BlueDeviL//SCT 2022',0
+    ClassName           db 'DLGCLASS',0
+    AppName             db 'Dialog as main',0
+    AboutMsg            db 'MASM64 RadASM Dialog as main',13,10,'BlueDeviL//SCT 2022',0
 
-; _____________________________________________________________________________
+; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
     CommandLine         LPSTR ?
-    hInstance			HINSTANCE ?
+    hInstance           HINSTANCE ?
     hCursor             HCURSOR ?
     hIcon               HICON ?
     
