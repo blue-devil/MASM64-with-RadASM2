@@ -1,55 +1,56 @@
 [Project]
 Assembler=MASM64
 Type=Win64 App
-Description=Iczelion Tutorials 5: More About Text
+Description=Modal Dialog App Template x64
 Backup=$P\Bak\
 Group=1
 GroupExpand=1
 [Files]
-1=TUTE05.Asm
-2=
+1=DialogApp-Modal-x64.Asm
+2=DialogApp-Modal-x64.Inc
+3=DialogApp-Modal-x64.Rc
+4=DialogApp-Modal-x64.dlg
 [MakeFiles]
-0=TUTE05.rap
-1=TUTE05.rc
-2=TUTE05.asm
-3=TUTE05.obj
-4=TUTE05.res
-5=TUTE05.exe
-6=TUTE05.def
-7=TUTE05.dll
-8=TUTE05.txt
-9=TUTE05.lib
-10=TUTE05.mak
-11=TUTE05.hla
-12=TUTE05.com
-13=TUTE05.ocx
-14=TUTE05.idl
-15=TUTE05.tlb
-16=TUTE05.sys
-17=TUTE05.dp32
-18=TUTE05.pdb
-19=TUTE05.dp64
-20=TUTE05.md
+0=DialogApp-Modal-x64.rap
+1=DialogApp-Modal-x64.rc
+2=DialogApp-Modal-x64.asm
+3=DialogApp-Modal-x64.obj
+4=DialogApp-Modal-x64.res
+5=DialogApp-Modal-x64.exe
+6=DialogApp-Modal-x64.def
+7=DialogApp-Modal-x64.dll
+8=DialogApp-Modal-x64.txt
+9=DialogApp-Modal-x64.lib
+10=DialogApp-Modal-x64.mak
+11=DialogApp-Modal-x64.hla
+12=DialogApp-Modal-x64.com
+13=DialogApp-Modal-x64.ocx
+14=DialogApp-Modal-x64.idl
+15=DialogApp-Modal-x64.tlb
+16=DialogApp-Modal-x64.sys
+17=DialogApp-Modal-x64.dp32
+18=DialogApp-Modal-x64.pdb
+19=DialogApp-Modal-x64.dp64
+20=DialogApp-Modal-x64.md
 [MakeDef]
-Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+Menu=1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
 2=3,O,$B\ML64.exe /c -Zp8 /D_WIN64 /Cp /nologo /W2 /I"$I",2
-3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
 7=0,0,"$E\x64\x64dbg",5
 [Group]
-Group=Assembly
+Group=Assembly,Resources
 1=1
-2=
+2=1
+3=2
+4=2
 [AutoLoad]
-AutoLoad=
+AutoLoad=1
 [RADebugBP]
 1=
-[Find]
-1="wc"
-2="hwnd"
 [VersionControl]
 Settings=1246
 Milestones=129
@@ -62,11 +63,11 @@ MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
 MilestoneOnDateDate=1
 MilestoneOnDateTimeYear=2022
-MilestoneOnDateTimeMonth=8
-MilestoneOnDateTimeDate=29
-MilestoneOnDateTimeHour=13
-MilestoneOnDateTimeMin=37
-MilestoneOnDateTimeSec=37
+MilestoneOnDateTimeMonth=9
+MilestoneOnDateTimeDate=1
+MilestoneOnDateTimeHour=7
+MilestoneOnDateTimeMin=3
+MilestoneOnDateTimeSec=53
 MilestoneOnDateTimeStatus=0
 BackupLocation=C:\Program Files\SCTTools\Editors\RadASM2\MASM64\Projects\VCBackups\
 CompressionLevel=0
@@ -93,14 +94,16 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=2634828
+PTimer=1784125
 [Collapse]
 1=
-[Size]
-1=0,0,0,0,2477
 2=
+[Size]
+1=0,0,0,0,0
+2=0,0,0,0,1453
+4=0,0,0,0
 [GroupExpand]
-GroupExpand=1,0
+GroupExpand=1,1,0
 [BookMark]
 0=
 1=
