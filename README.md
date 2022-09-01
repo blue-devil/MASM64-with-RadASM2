@@ -79,7 +79,7 @@ pgoui.dll
 * [Blue DeviL // SCT][web-github-bluedevil]
 
 ## License
-This project is under MIT license.
+This project is under GPLv3 license.
 
 [web-github-bluedevil]: https://github.com/blue-devil
 [web-win-sdk-archive]: https://developer.microsoft.com/en-us/windows/downloads/sdk-archive
