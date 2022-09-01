@@ -1,6 +1,6 @@
 # Changelog
 
-## [20220901] - 01-09-2022
+## [2022.09.01] - 01-09-2022
 ### Added
 * New data types added to MASM64Type.api
 * Modal and Modeless DialogApp Templates added.
@@ -11,7 +11,7 @@
 * Using [Windows Data Types][web-msdocs-windows-data-types] all data types inside MASM64Type.api checked and fixed
 * Window Class Styles moved from MASM64Message.api to MASM64ApiWord.api
 
-## [202208825] - 25-08-2022
+## [2022.08.25] - 25-08-2022
 ### Added
 * .SKIP .UNTILCXZD .UNTILCXZE .UNTILCXZNE .UNTILCXZED .UNTILCXZNED .ENDF keyword added to MASM64.ini for keyword highlighting
 * Window class styles added to MASM64Message.api. Three of them deprecated and one is new. ([Source][web-msdocs-windows-class-styles])
