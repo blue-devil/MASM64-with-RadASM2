@@ -4,7 +4,8 @@
 ### Added
 * New data types added to MASM64Type.api
 * Modal and Modeless DialogApp Templates added.
-* RGB snippet added
+* RGB macro snippet added
+* Some handle values added to MASM64.ini (HICON, HCURSOR, HMENU)
 
 ### Changes
 * Using [Windows Data Types][web-msdocs-windows-data-types] all data types inside MASM64Type.api checked and fixed

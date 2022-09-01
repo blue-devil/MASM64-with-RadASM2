@@ -89,7 +89,7 @@ pgoui.dll
 * [RadASM2 v2.2.2.4][web-github-radasm2-release]
 
 ## Thanks
-I have inspired from @mrfearless while creating this repo. He has already maintained a repo named [UASM-with-RadASM2][web-github-uasm-with-radasm2]. [UASM][web-uasm] is MASM compatible open source assembler project. Also check that out!
+I have inspired from [mrfearless][web-github-fearless] while creating this repo. He has already maintained a repo named [UASM-with-RadASM2][web-github-uasm-with-radasm2]. [UASM][web-uasm] is MASM compatible open source assembler project. Also check that out!
 
 ## Contributors
 * [Blue DeviL // SCT][web-github-bluedevil]
