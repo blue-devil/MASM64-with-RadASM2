@@ -179,7 +179,7 @@ DialogAsMain.Inc
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\comctl32.lib
     includelib \masm64\lib64\shell32.lib
-    includelib \masm64\lib64\gdý32.lib
+    includelib \masm64\lib64\gdi32.lib
 
 ; _____________________________________________________________________________
 ; funtion prototypes
