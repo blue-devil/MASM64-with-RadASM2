@@ -1,5 +1,11 @@
 # Changelog
 
+## [2022.09.02] - 02-09-2022
+### Added
+
+### Changes
+* Update: version
+
 ## [2022.09.01] - 01-09-2022
 ### Added
 * New data types added to MASM64Type.api
