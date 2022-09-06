@@ -2,6 +2,7 @@
 
 ## [2022.09.02] - 02-09-2022
 ### Added
+* Added Base WndProc Sniplet
 
 ### Changes
 * Update: version
