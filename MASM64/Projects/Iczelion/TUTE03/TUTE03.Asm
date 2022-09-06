@@ -164,7 +164,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     .if uMsg==WM_DESTROY
         invoke  PostQuitMessage,NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
         ret
     .endif
     xor eax,eax

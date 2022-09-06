@@ -152,7 +152,8 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
 
 WndProc endp
 
-end 
+end
+
 [*ENDTXT*]
 [*BEGINTXT*]
 DialogAsMain.Inc

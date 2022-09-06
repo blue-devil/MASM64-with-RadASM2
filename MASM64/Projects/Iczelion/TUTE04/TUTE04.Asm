@@ -180,7 +180,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                         DT_SINGLELINE or DT_CENTER or DT_VCENTER
         invoke  EndPaint, hWnd, addr ps
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
         ret
     .endif
     xor eax,eax

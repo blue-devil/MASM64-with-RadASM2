@@ -187,7 +187,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
             invoke  DestroyWindow,hWnd
         .endif
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
         ret
     .endif
     xor eax,eax

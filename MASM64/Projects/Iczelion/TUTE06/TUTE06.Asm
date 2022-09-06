@@ -166,7 +166,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke  TextOut,hdc,0,0,addr key,1
         invoke  EndPaint,hWnd,addr ps
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
         ret
     .endif
     xor eax,eax

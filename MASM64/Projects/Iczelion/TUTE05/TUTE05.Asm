@@ -203,7 +203,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     .elseif uMsg==WM_CLOSE
         invoke  ExitProcess,NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam       
+        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
         ret
     .endif
     xor eax,eax

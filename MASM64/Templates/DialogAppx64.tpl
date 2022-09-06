@@ -89,7 +89,8 @@ DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
 
 DlgProc endp
 
-end 
+end
+
 [*ENDTXT*]
 [*BEGINTXT*]
 DialogAppx64.Inc
