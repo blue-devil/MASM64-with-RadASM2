@@ -19,6 +19,10 @@
 * OPENFILENAME struc's flags added to `MASM64ApiWord.api`
   * OFN_*
 * WM_SIZE message wParam parameters added to `MASM64ApiWord.api`
+* STARTUPINFOW, STARTUPINFOEX{A/W}, added to `MASM64ApiWord.api`
+  * `STARTF_*` flag parameters added to MASM64ApiWord.api
+* GetStartupInfoA and GetStartupInfoW, CreateProcessA and CreateProcessW added to `MASM64ApiCall.api`
+* **Process Creation Flags** added to `MASM64ApiWord.api`
 
 ### Changes
 * Update: version
