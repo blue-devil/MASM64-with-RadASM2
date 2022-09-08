@@ -3,9 +3,14 @@
 ## [2022.09.02] - 02-09-2022
 ### Added
 * Added Base WndProc Sniplet
+* OPENFILENAMEW added to MASM64ApiStruct.api
+* Some interger types from Windows base types added to MASM64.ini:
+  * INT, INT8, INT16, INT32, INT64, INT_PTR
+  * UINT8, UINT16, UINT32, UINT64, UINT_PTR
 
 ### Changes
 * Update: version
+* In Win64 3 parameters added to OPENFILENAME: pvReserved,dwReserved,FlagsEx. Those parameters added to OPENFILENAME and OPENFILENAMEA
 
 ## [2022.09.01] - 01-09-2022
 ### Added

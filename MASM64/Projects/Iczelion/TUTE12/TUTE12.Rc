@@ -1,0 +1,15 @@
+// Constants for menu
+#define IDM_OPEN 1
+#define IDM_SAVE 2
+#define IDM_EXIT 3
+
+FirstMenu MENU
+{
+ POPUP "&File"
+        {
+         MENUITEM "&Open",IDM_OPEN
+         MENUITEM "&Save As",IDM_SAVE
+         MENUITEM SEPARATOR
+         MENUITEM "E&xit",IDM_EXIT
+        }
+}
