@@ -7,6 +7,18 @@
 * Some interger types from Windows base types added to MASM64.ini:
   * INT, INT8, INT16, INT32, INT64, INT_PTR
   * UINT8, UINT16, UINT32, UINT64, UINT_PTR
+* `MapViewOfFileExNuma` prototype added to MASM64ApiCall.api
+* `MapViewOfFileExNuma`, `MapViewOfFileEx`, `MapViewOfFile` functions' `dwDesiredAccess` parameters added to `MASM64ApiConst.api`
+* New winapi function protoypes added to `MASM64ApiCall.api`
+  * CreateFileMappingNumaW, CreateFileMappingNumaA, CreateFileMappingNuma
+  * CreateFileMappingW, CreateFileMappingA
+* `flProtect` parameters added:
+  * PAGE_EXECUTE_READ, PAGE_EXECUTE_READWRITE, PAGE_EXECUTE_WRITECOPY, PAGE_READONLY, PAGE_READWRITE, PAGE_WRITECOPY
+  * SEC_COMMIT,SEC_IMAGE,SEC_IMAGE_NO_EXECUTE,SEC_LARGE_PAGES,SEC_NOCACHE,SEC_RESERVE,SEC_WRITECOMBINE
+  * NUMA_NO_PREFERRED_NODE
+* OPENFILENAME struc's flags added to `MASM64ApiWord.api`
+  * OFN_*
+* WM_SIZE message wParam parameters added to `MASM64ApiWord.api`
 
 ### Changes
 * Update: version
