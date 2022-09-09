@@ -187,7 +187,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         mov rax, hWnd
         mov ofn.hwndOwner, rax
         mov rax, hInstance
-        mov ofn.lpstrFilter, rax
+        mov ofn.hInstance, rax
         lea rdi, FilterStr
         mov ofn.lpstrFilter, rdi
         lea rdi, buffer
@@ -203,6 +203,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                 .if rax==TRUE
                     invoke  CreateFile,addr buffer, \
                                     GENERIC_READ, \
+                                    NULL, \
                                     NULL, \
                                     OPEN_EXISTING, \
                                     FILE_ATTRIBUTE_ARCHIVE, \
