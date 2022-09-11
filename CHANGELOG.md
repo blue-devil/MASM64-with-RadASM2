@@ -23,6 +23,7 @@
   * `STARTF_*` flag parameters added to MASM64ApiWord.api
 * GetStartupInfoA and GetStartupInfoW, CreateProcessA and CreateProcessW added to `MASM64ApiCall.api`
 * **Process Creation Flags** added to `MASM64ApiWord.api`
+* DialogWithManifest sample project added
 
 ### Changes
 * Update: version

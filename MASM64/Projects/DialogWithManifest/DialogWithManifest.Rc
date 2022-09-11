@@ -1,0 +1,2 @@
+#include "Res/DialogWithManifestRes.rc"
+#include "Res/DialogWithManifestDlg.rc"

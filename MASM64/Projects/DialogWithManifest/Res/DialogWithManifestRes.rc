@@ -1,0 +1,4 @@
+#define MANIFEST 						24
+#define appicon							5001
+1						MANIFEST  DISCARDABLE "Res/manifest.xml"
+appicon					ICON      DISCARDABLE "Res/appicon.ico"
