@@ -1787,6 +1787,7 @@ GetModuleBaseName,hProcess,hModule,lpBaseName,nSize
 GetModuleFileName,hModule,lpFileName,nSize
 GetModuleFileNameEx,hProcess,hModule,lpFilename,nSize
 GetModuleHandle,lpModuleName
+GetModuleHandleExA,dwFlags,lpModuleName,phModule
 GetModuleInformation,hProcess,hModule,lpmodinfo,cb
 GetMonitorInfo,hMonitor,lpmi
 GetMouseMovePointsEx,cbSize,lppt,lpptBuf,nBufPoints,resolution

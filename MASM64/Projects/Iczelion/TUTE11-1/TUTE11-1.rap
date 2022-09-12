@@ -40,11 +40,11 @@ Menu=1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
 7=0,0,"$E\x64\x64dbg",5
 [Group]
-Group=Assembly,Resources,Misc
-1=2
-2=3
+Group=Assembly,Resources
+1=1
+2=2
 [AutoLoad]
-AutoLoad=1
+AutoLoad=
 [RADebugBP]
 1=
 [Collapse]
@@ -63,7 +63,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=7
+MilestoneOnDateDate=12
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
 MilestoneOnDateTimeDate=7
@@ -96,9 +96,9 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=3261688
+PTimer=3443391
 [GroupExpand]
-GroupExpand=0,1,1,0
+GroupExpand=1,1,0
 [BookMark]
 0=
 1=

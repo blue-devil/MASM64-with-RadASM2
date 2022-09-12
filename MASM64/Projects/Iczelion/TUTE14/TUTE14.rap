@@ -53,7 +53,7 @@ AutoLoad=
 1=
 [Size]
 2=0,0,0,0,0
-1=0,0,0,0,4
+1=0,0,0,0,1
 [VersionControl]
 Settings=1246
 Milestones=129
@@ -97,7 +97,7 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=5495500
+PTimer=5630188
 [GroupExpand]
 GroupExpand=1,1,0
 [BookMark]

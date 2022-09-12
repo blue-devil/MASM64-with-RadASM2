@@ -71,36 +71,34 @@
 ; initialized variables
 
 .data
-    ClassName   db "DLGCLASS", 0      ; name of window class
-    AppName     db "Our First Dialog Box",0 ; title of window
-    DlgName     db "MyDialog",0
-    MenuName    db "MyMenu",0
-    TestString  db "Wow! I'm in an edit box now",0
+    ClassName       db "DLGCLASS", 0      ; name of window class
+    AppName         db "Our First Dialog Box",0 ; title of window
+    DlgName         db "MyDialog",0
+    MenuName        db "MyMenu",0
+    TestString      db "Wow! I'm in an edit box now",0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine LPSTR ?
-    hInstance   HINSTANCE ?
-    hIcon       HICON ?
-    hCursor     HCURSOR ?
-    buffer       db  512 dup(?)
+    CommandLine     LPSTR ?
+    hInstance       HINSTANCE ?
+    hIcon           HICON ?
+    hCursor         HCURSOR ?
+    buffer          db  512 dup(?)
 
 .code
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -112,16 +110,16 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL msg:MSG
     LOCAL hDlg:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi
-    mov     wcex.cbClsExtra, 0
+    mov     wcex.cbClsExtra, NULL
     mov     wcex.cbWndExtra, DLGWINDOWEXTRA
     mov     rax, hInst
     mov     wcex.hInstance, rax
@@ -137,25 +135,25 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     mov     wcex.hIconSm, rax
     invoke  RegisterClassEx, addr wcex
     
-    invoke  CreateDialogParam,hInst,addr DlgName,NULL,NULL,NULL
+    invoke  CreateDialogParam, hInst, addr DlgName, NULL, NULL, NULL
     mov     hDlg, rax
     
-    invoke  GetDlgItem,hDlg,IDC_EDIT
-    invoke  SetFocus,hDlg,eax
+    invoke  GetDlgItem, hDlg, IDC_EDIT
+    invoke  SetFocus, hDlg, rax
     
-    invoke  ShowWindow,hDlg, SW_SHOWNORMAL
-    invoke  UpdateWindow,hDlg
+    invoke  ShowWindow, hDlg, SW_SHOWNORMAL
+    invoke  UpdateWindow, hDlg
     
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke IsDialogMessage,hDlg,addr msg
+        invoke IsDialogMessage, hDlg, addr msg
         .if(rax == FALSE)
-            invoke  TranslateMessage,addr msg
-            invoke  DispatchMessage,addr msg
+            invoke  TranslateMessage, addr msg
+            invoke  DispatchMessage, addr msg
         .endif
     .endw
 
@@ -168,36 +166,36 @@ WinMain endp
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
     .if uMsg==WM_CREATE
-        invoke SetDlgItemText,hWnd,IDC_EDIT,addr AppName
+        invoke SetDlgItemText, hWnd, IDC_EDIT, addr AppName
     .elseif uMsg==WM_COMMAND
         mov rax, wParam
         .if lParam==0
             .if ax==IDM_GETTEXT
-                invoke GetDlgItemText,hWnd,IDC_EDIT,addr buffer,512
-                invoke MessageBox,NULL, addr buffer,addr AppName,MB_OK
+                invoke GetDlgItemText, hWnd, IDC_EDIT, addr buffer, 512
+                invoke MessageBox, NULL, addr buffer, addr AppName, MB_OK
             .elseif ax==IDM_CLEAR
-                invoke SetDlgItemText,hWnd,IDC_EDIT,NULL
+                invoke SetDlgItemText, hWnd, IDC_EDIT, NULL
             .else
-                invoke DestroyWindow,hWnd
+                invoke DestroyWindow, hWnd
             .endif
         .else
-            mov rdx,wParam
-            shr edx,16
+            mov rdx, wParam
+            shr edx, 16
             .if dx==BN_CLICKED
                 .if ax==IDC_BUTTON
-                    invoke SetDlgItemText,hWnd,IDC_EDIT,addr TestString
+                    invoke SetDlgItemText, hWnd, IDC_EDIT, addr TestString
                 .elseif ax==IDC_EXIT
-                    invoke SendMessage,hWnd,WM_COMMAND,IDM_EXIT,NULL
+                    invoke SendMessage, hWnd, WM_COMMAND, IDM_EXIT, NULL
                 .endif
             .endif
         .endif
     .elseif uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp

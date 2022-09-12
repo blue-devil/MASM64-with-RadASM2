@@ -64,16 +64,14 @@ DialogAsMain.Asm
 
 WinMainCRTStartup proc 
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -85,9 +83,9 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
@@ -96,7 +94,8 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     wcex.lpfnWndProc, rdi;offset WndProc
     mov     wcex.cbClsExtra, 0
     mov     wcex.cbWndExtra, DLGWINDOWEXTRA
-    mov     wcex.hInstance, 0;hInst
+    öov     rax, hInst
+    mov     wcex.hInstance, rax;hInst
     mov     rax, hIcon
     mov     wcex.hIcon, rax;hIcon
     mov     rbx, hCursor
@@ -108,19 +107,19 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
     
-    invoke  CreateDialogParam,hInstance,IDD_DIALOG,NULL,addr WndProc,NULL
+    invoke  CreateDialogParam, hInstance, IDD_DIALOG, NULL, addr WndProc, NULL
     mov     hWnd,rax
     
-    invoke  ShowWindow,hWnd,SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd,SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -133,21 +132,21 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     .if uMsg==WM_INITDIALOG
 
     .elseif uMsg==WM_COMMAND
-        mov rax,wParam
+        mov rax, wParam
         .if rax==IDM_FILE_EXIT
-            invoke  SendMessage,hWnd,WM_CLOSE,0,0
+            invoke  SendMessage, hWnd, WM_CLOSE, 0, 0
         .elseif rax==IDM_HELP_ABOUT
-            invoke  ShellAbout,hWnd,addr AppName,addr AboutMsg,NULL
+            invoke  ShellAbout, hWnd, addr AppName, addr AboutMsg, NULL
         .endif
     .elseif uMsg==WM_CLOSE
-        invoke  DestroyWindow,hWnd
+        invoke  DestroyWindow, hWnd
     .elseif uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor     eax,eax
+    xor eax, eax
     ret
 
 WndProc endp

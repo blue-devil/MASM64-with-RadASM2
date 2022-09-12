@@ -94,16 +94,14 @@
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -115,17 +113,17 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi;offset WndProc
-    mov     wcex.cbClsExtra, 0
-    mov     wcex.cbWndExtra, 0
+    mov     wcex.cbClsExtra, NULL
+    mov     wcex.cbWndExtra, NULL
     mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
@@ -133,7 +131,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     mov     rbx, hCursor
     mov     wcex.hCursor, rbx;hCursor
     mov     wcex.hbrBackground, COLOR_WINDOW + 1
-    mov     wcex.lpszMenuName, 0
+    mov     wcex.lpszMenuName, NULL
     lea     rdi, ClassName
     mov     wcex.lpszClassName, rdi;offset ClassName
     mov     wcex.hIconSm, rax;hIcon
@@ -150,20 +148,20 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     CW_USEDEFAULT, \
                     NULL, \
                     NULL, \
-                    0, \
+                    hInst, \
                     NULL
     mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd, SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -179,7 +177,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     LOCAL   hFont:HFONT
     
     .if uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .elseif uMsg==WM_PAINT
         invoke  BeginPaint, hWnd, addr ps
         mov     hdc, rax
@@ -193,20 +191,18 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                         addr FontName
         invoke  SelectObject, hdc, rax
         mov     hFont, rax
-        RGB     200,200,50
-        invoke  SetTextColor,hdc,eax
-        RGB     0,0,255
-        invoke  SetBkColor,hdc,eax
-        invoke  TextOut,hdc,0,0,ADDR TestString,SIZEOF TestString
-        invoke  SelectObject,hdc, hFont
-        invoke  EndPaint,hWnd, ADDR ps
-    .elseif uMsg==WM_CLOSE
-        invoke  ExitProcess,NULL
+        RGB     200, 200, 50
+        invoke  SetTextColor, hdc, eax
+        RGB     0, 0, 255
+        invoke  SetBkColor, hdc, eax
+        invoke  TextOut, hdc, 0, 0, addr TestString, sizeof TestString
+        invoke  SelectObject, hdc, hFont
+        invoke  EndPaint, hWnd, ADDR ps
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     
     ret
 

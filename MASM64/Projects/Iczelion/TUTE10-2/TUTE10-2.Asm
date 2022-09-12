@@ -73,38 +73,36 @@
 ; initialized variables
 
 .data
-    DlgName     db "MyDialog",0                     ; name of dialog
-    AppName     db "Our Second Dialog Box",0        ; title of window
-    TestString  db "Wow! I'm in an edit box now",0
+    DlgName         db "MyDialog",0
+    AppName         db "Our Second Dialog Box",0        ; title of window
+    TestString      db "Wow! I'm in an edit box now",0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine LPSTR ?
-    hInstance   HINSTANCE ?
-    iccex       INITCOMMONCONTROLSEX <>
-    buffer      db  512 dup(?)
+    CommandLine     LPSTR ?
+    hInstance       HINSTANCE ?
+    iccex           INITCOMMONCONTROLSEX <>
+    buffer          db  512 dup(?)
 
 .code
 
 WinMainCRTStartup proc 
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
     invoke  InitCommonControls
     mov     iccex.dwSize, sizeof INITCOMMONCONTROLSEX
     mov     iccex.dwICC, ICC_COOL_CLASSES or ICC_STANDARD_CLASSES or ICC_WIN95_CLASSES
     invoke  InitCommonControlsEx, addr iccex
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -112,7 +110,7 @@ WinMainCRTStartup endp
 
 WinMain proc hInst:HINSTANCE, hPrevInstance:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWORD
 
-    invoke DialogBoxParam,hInst, addr DlgName, NULL, addr DlgProc, NULL
+    invoke DialogBoxParam, hInst, addr DlgName, NULL, addr DlgProc, NULL
     invoke ExitProcess, rax
 
 WinMain endp
@@ -123,31 +121,31 @@ DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke GetDlgItem, hWnd, IDC_EDIT
         invoke SetFocus, rax
     .elseif uMsg==WM_CLOSE
-        invoke SendMessage,hWnd,WM_COMMAND,IDM_EXIT,0
+        invoke SendMessage, hWnd, WM_COMMAND, IDM_EXIT, 0
     .elseif uMsg==WM_COMMAND
         mov rax, wParam
         .if lParam==0
             .if ax==IDM_GETTEXT
-                invoke GetDlgItemText,hWnd,IDC_EDIT,addr buffer,512
-                invoke MessageBox,NULL, addr buffer,addr AppName,MB_OK
+                invoke GetDlgItemText, hWnd, IDC_EDIT, addr buffer, 512
+                invoke MessageBox, NULL, addr buffer, addr AppName, MB_OK
             .elseif ax==IDM_CLEAR
-                invoke SetDlgItemText,hWnd,IDC_EDIT,NULL
+                invoke SetDlgItemText, hWnd, IDC_EDIT, NULL
             .elseif ax==IDM_EXIT
-                invoke EndDialog,hWnd,NULL
+                invoke EndDialog, hWnd, NULL
             .endif
         .else
-            mov rdx,wParam
-            shr edx,16
+            mov rdx, wParam
+            shr edx, 16
             .if dx==BN_CLICKED
                 .if ax==IDC_BUTTON
-                    invoke SetDlgItemText,hWnd,IDC_EDIT,addr TestString
+                    invoke SetDlgItemText, hWnd, IDC_EDIT, addr TestString
                 .elseif ax==IDC_EXIT
-                    invoke SendMessage,hWnd,WM_COMMAND,IDM_EXIT,NULL
+                    invoke SendMessage, hWnd, WM_COMMAND, IDM_EXIT, NULL
                 .endif
             .endif
         .endif
     .else
-        mov rax,FALSE
+        mov rax, FALSE
         ret
     .endif
     mov rax, TRUE

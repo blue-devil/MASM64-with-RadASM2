@@ -7,15 +7,13 @@
 
 WinMainCRTStartup proc
 
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
 
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
 
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
     invoke  ExitProcess,eax
 
     ret
@@ -28,16 +26,16 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
 
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NUL,IDC_ARROW
     mov     hCursor, rax
 
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, DlgProc
     mov     wcex.lpfnWndProc, rdi;offset WndProc
-    mov     wcex.cbClsExtra, 0
+    mov     wcex.cbClsExtra, NULL
     mov     wcex.cbWndExtra, DLGWINDOWEXTRA
     mov     rdi, hInst
     mov     wcex.hInstance, rdi;hInst
@@ -46,7 +44,7 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     rbx, hCursor
     mov     wcex.hCursor, rbx;hCursor
     mov     wcex.hbrBackground, COLOR_WINDOW + 1
-    mov     wcex.lpszMenuName, 0
+    mov     wcex.lpszMenuName, NULL
     lea     rdi, ClassName
     mov     wcex.lpszClassName, rdi;offset ClassName
     mov     wcex.hIconSm, rax;hIcon

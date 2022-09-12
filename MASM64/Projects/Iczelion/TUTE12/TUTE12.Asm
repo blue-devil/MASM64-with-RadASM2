@@ -62,55 +62,53 @@
 ; constant variables
 
 .const
-    IDM_OPEN    equ 1
-    IDM_SAVE    equ 2
-    IDM_EXIT    equ 3
-    MAXSIZE     equ 260
-    MEMSIZE     equ 65535
+    IDM_OPEN        equ 1
+    IDM_SAVE        equ 2
+    IDM_EXIT        equ 3
+    MAXSIZE         equ 260
+    MEMSIZE         equ 65535
     
-    EditID      equ 1
+    EditID          equ 1
 
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName   db "BaseWin64Class", 0
-    AppName     db "Win64 ASM Edit",0
-    EditClass   db "edit",0
-    MenuName    db "FirstMenu",0
-    FilterStr   db "All Files",0,"*.*",0
-                db "Text Files",0,"*.txt",0,0
-    buffer      db MAXSIZE dup(0)
-    ofn         OPENFILENAME <>
+    ClassName       db "BaseWin64Class", 0
+    AppName         db "Win64 ASM Edit",0
+    EditClass       db "edit",0
+    MenuName        db "FirstMenu",0
+    FilterStr       db "All Files",0,"*.*",0
+                    db "Text Files",0,"*.txt",0,0
+    buffer          db MAXSIZE dup(0)
+    ofn             OPENFILENAME <>
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine LPSTR ?
-    hInstance   HINSTANCE ?
-    hIcon       HICON ?
-    hCursor     HCURSOR ?
-    hEdit       HWND ?
-    hFile       HANDLE ?
-    hMemory     HANDLE ?
-    pMemory     QWORD ?
-    SizeReadWrite QWORD ?
+    CommandLine     LPSTR ?
+    hInstance       HINSTANCE ?
+    hIcon           HICON ?
+    hCursor         HCURSOR ?
+    hEdit           HWND ?
+    hFile           HANDLE ?
+    hMemory         HANDLE ?
+    pMemory         QWORD ?
+    SizeReadWrite   QWORD ?
 
 .code
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -122,17 +120,17 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL msg:MSG
     LOCAL hWnd:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi
-    mov     wcex.cbClsExtra, 0
-    mov     wcex.cbWndExtra, 0
+    mov     wcex.cbClsExtra, NULL
+    mov     wcex.cbWndExtra, NULL
     mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
@@ -162,16 +160,16 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     NULL
     mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd, SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -199,8 +197,8 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                         EditID, \
                         hInstance, \
                         NULL
-        mov hEdit,rax
-        invoke SetFocus,hEdit
+        mov hEdit, rax
+        invoke SetFocus, hEdit
         
         mov ofn.lStructSize, sizeof ofn
         mov rax, hWnd
@@ -220,7 +218,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         shr rdx, 16
         and rdx, 0FFFFh
         mov nHeight, edx
-        invoke MoveWindow,hEdit,0,0,nWidth,nHeight,TRUE
+        invoke MoveWindow, hEdit, 0, 0, nWidth, nHeight, TRUE
     .elseif uMsg==WM_COMMAND
         mov rax, wParam
         .if lParam==0
@@ -237,7 +235,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                                     NULL
                     mov hFile, rax
                     
-                    invoke GlobalAlloc,GMEM_MOVEABLE or GMEM_ZEROINIT, MEMSIZE
+                    invoke GlobalAlloc, GMEM_MOVEABLE or GMEM_ZEROINIT, MEMSIZE
                     mov hMemory, rax
                     invoke GlobalLock, hMemory
                     mov pMemory, rax
@@ -248,7 +246,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                     invoke GlobalUnlock, pMemory
                     invoke GlobalFree, hMemory
                 .endif
-                invoke SetFocus,hEdit
+                invoke SetFocus, hEdit
             .elseif ax==IDM_SAVE
                 mov ofn.Flags, OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
                 invoke GetSaveFileName,addr ofn
@@ -262,12 +260,12 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                                     NULL
                     mov hFile, rax
                     
-                    invoke  GlobalAlloc,GMEM_MOVEABLE or GMEM_ZEROINIT,MEMSIZE
+                    invoke  GlobalAlloc, GMEM_MOVEABLE or GMEM_ZEROINIT, MEMSIZE
                     mov hMemory, rax
                     invoke  GlobalLock, hMemory
                     mov pMemory, rax
                     
-                    invoke SendMessage,hEdit, WM_GETTEXT, MEMSIZE-1, pMemory
+                    invoke SendMessage, hEdit, WM_GETTEXT, MEMSIZE-1, pMemory
                     invoke WriteFile, hFile, pMemory, rax, addr SizeReadWrite, NULL
                     invoke CloseHandle, hFile
                     invoke GlobalUnlock, pMemory
@@ -275,16 +273,16 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                 .endif
                 invoke SetFocus, hEdit
             .else
-                invoke DestroyWindow,hWnd
+                invoke DestroyWindow, hWnd
             .endif
         .endif
     .elseif uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp

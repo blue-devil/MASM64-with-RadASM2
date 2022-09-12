@@ -96,16 +96,14 @@
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -117,17 +115,17 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
     
-    invoke  LoadIcon,hInstance,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInstance,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi;offset WndProc
-    mov     wcex.cbClsExtra, 0
-    mov     wcex.cbWndExtra, 0
+    mov     wcex.cbClsExtra, NULL
+    mov     wcex.cbWndExtra, NULL
     mov     rax,hInst
     mov     wcex.hInstance, rax;0;hInst
     mov     rax, hIcon
@@ -143,7 +141,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     invoke  RegisterClassEx, addr wcex
     
     invoke  CreateWindowEx, \
-                    NULL, \
+                    WS_EX_CLIENTEDGE, \
                     addr ClassName, \
                     addr AppName, \
                     WS_OVERLAPPEDWINDOW, \
@@ -153,20 +151,20 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     200, \
                     NULL, \
                     NULL, \
-                    hInstance, \
+                    hInst, \
                     NULL
     mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd, SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke GetMessage,addr msg, NULL,0,0
+        invoke GetMessage, addr msg, NULL,0,0
         .if (rax == 0)
             .break
         .endif
-        invoke TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -177,7 +175,7 @@ WinMain endp
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
     .if uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .elseif uMsg==WM_CREATE
         invoke  CreateWindowEx, \
                         WS_EX_CLIENTEDGE, \
@@ -193,7 +191,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                         hInstance, \
                         NULL
         mov hEdit, rax
-        invoke SetFocus,hEdit
+        invoke SetFocus, hEdit
         
         invoke  CreateWindowEx, \
                         NULL, \
@@ -210,32 +208,32 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                         NULL
         mov hButton, rax
     .elseif uMsg==WM_COMMAND
-        mov rax,wParam
+        mov rax, wParam
         .if lParam==0
             .if ax==IDM_HELLO
-                invoke  SetWindowText,hEdit,addr TestString
-                invoke  SendMessage,hEdit,WM_KEYDOWN,VK_END,NULL
+                invoke  SetWindowText, hEdit, addr TestString
+                invoke  SendMessage, hEdit, WM_KEYDOWN, VK_END, NULL
             .elseif ax==IDM_CLEAR
-                invoke  SetWindowText,hEdit, NULL
+                invoke  SetWindowText, hEdit, NULL
             .elseif ax==IDM_GETTEXT
-                invoke  GetWindowText,hEdit, addr buffer, 512
-                invoke  MessageBox,NULL, addr buffer, addr AppName,MB_OK
+                invoke  GetWindowText, hEdit, addr buffer, 512
+                invoke  MessageBox, NULL, addr buffer, addr AppName, MB_OK
             .else
-                invoke  DestroyWindow,hWnd
+                invoke  DestroyWindow, hWnd
             .endif
         .else
             .if ax==ButtonID
-                shr eax,16
+                shr eax, 16
                 .if ax==BN_CLICKED
-                    invoke  SendMessage,hWnd,WM_COMMAND,IDM_GETTEXT,0
+                    invoke  SendMessage, hWnd, WM_COMMAND, IDM_GETTEXT, 0
                 .endif
             .endif
         .endif
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp

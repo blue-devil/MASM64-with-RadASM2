@@ -73,8 +73,8 @@
 
 WinMainCRTStartup proc
 
-    invoke  MessageBoxA,0,Addr MsgBoxText,Addr MsgCaption,0
-    invoke  ExitProcess,0
+    invoke  MessageBox, NULL, addr MsgBoxText, addr MsgCaption, MB_OK
+    invoke  ExitProcess, NULL
 
 WinMainCRTStartup endp
 

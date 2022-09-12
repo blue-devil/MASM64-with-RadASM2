@@ -48,7 +48,7 @@ Group=Assembly,Resources
 3=2
 4=2
 [AutoLoad]
-AutoLoad=1
+AutoLoad=1,2
 [RADebugBP]
 1=
 [VersionControl]
@@ -61,7 +61,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=1
+MilestoneOnDateDate=9
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
 MilestoneOnDateTimeDate=1
@@ -94,13 +94,13 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=1784125
+PTimer=4319875
 [Collapse]
 1=
 2=
 [Size]
 1=0,0,0,0,0
-2=0,0,0,0,1453
+2=0,0,0,0,0
 4=0,0,0,0
 [GroupExpand]
 GroupExpand=1,1,0

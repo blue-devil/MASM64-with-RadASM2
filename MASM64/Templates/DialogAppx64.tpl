@@ -64,7 +64,7 @@ DialogAppx64.Asm
 WinMainCRTStartup proc hInstance:HINSTANCE, hPrevInstance:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWORD
 
     invoke InitCommonControls
-    invoke DialogBoxParam,hInstance, IDD_DIALOG, 0, addr DlgProc, NULL
+    invoke DialogBoxParam, hInstance, IDD_DIALOG, NULL, addr DlgProc, NULL
 
     invoke ExitProcess,NULL
 
@@ -78,13 +78,13 @@ DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     .elseif uMsg==WM_COMMAND
         
     .elseif uMsg==WM_CLOSE
-        invoke EndDialog,hWnd,0
+        invoke EndDialog, hWnd, 0
         ret
     .else
-        mov     eax,FALSE
+        mov eax, FALSE
         ret
     .endif
-    mov     eax,TRUE
+    mov eax, TRUE
     ret
 
 DlgProc endp

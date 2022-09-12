@@ -7,13 +7,11 @@
 
 WinMainCRTStartup proc 
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
     invoke  InitCommonControls
     mov     icc.dwSize, sizeof INITCOMMONCONTROLSEX
@@ -21,7 +19,7 @@ WinMainCRTStartup proc
     invoke  InitCommonControlsEx, addr icc
     
     invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  ExitProcess, eax
     
     ret
 
@@ -29,8 +27,8 @@ WinMainCRTStartup endp
 
 WinMain proc hInst:HINSTANCE, hPrevInstance:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWORD
 
-    invoke DialogBoxParam,hInst, IDD_DIALOG, 0, addr DlgProc, NULL
-    invoke ExitProcess,NULL
+    invoke DialogBoxParam, hInst, IDD_DIALOG, NULL, addr DlgProc, NULL
+    invoke ExitProcess, rax
 
 WinMain endp
 
@@ -45,10 +43,10 @@ DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke EndDialog,hWnd,0
         ret
     .else
-        mov     eax,FALSE
+        mov eax,FALSE
         ret
     .endif
-    mov     eax,TRUE
+    mov eax,TRUE
     ret
 
 DlgProc endp

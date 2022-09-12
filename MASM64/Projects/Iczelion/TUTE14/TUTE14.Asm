@@ -67,40 +67,37 @@
 ; initialized variables
 
 .data
-    ClassName   db "Win64ASMProcessClass", 0        ; name of window class
-    AppName     db "Win64 ASM Process Example", 0   ; title of window
-    MenuName    db "FirstMenu",0
-    ProcessInfo PROCESS_INFORMATION <>
-    ProgramName db "msgbox64.exe",0
-    msgTitle    db "MASM64 Examples",0
-    msgError    db "[ERROR] Process cannot created!",0
+    ClassName       db "Win64ASMProcessClass", 0        ; name of window class
+    AppName         db "Win64 ASM Process Example", 0   ; title of window
+    MenuName        db "FirstMenu",0
+    ProcessInfo     PROCESS_INFORMATION <>
+    ProgramName     db "msgbox64.exe",0
+    msgTitle        db "MASM64 Examples",0
+    msgError        db "[ERROR] Process cannot created!",0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine LPSTR ?
-    hInstance   HINSTANCE ?
-    hIcon       HICON ?
-    hCursor     HCURSOR ?
-    hMenu       HMENU ?
-    ExitCode    DWORD ?
+    CommandLine     LPSTR ?
+    hInstance       HINSTANCE ?
+    hIcon           HICON ?
+    hCursor         HCURSOR ?
+    hMenu           HMENU ?
+    ExitCode        DWORD ?
 
 .code
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandle,0
+    invoke  GetModuleHandle, NULL
     mov hInstance, rax
-    .if(rax == 0)
-        invoke  ExitProcess,NULL
-    .endif
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -112,17 +109,17 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL msg:MSG
     LOCAL hWnd:HWND
     
-    invoke  LoadIcon,NULL,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,NULL,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi
-    mov     wcex.cbClsExtra, 0
-    mov     wcex.cbWndExtra, 0
+    mov     wcex.cbClsExtra, NULL
+    mov     wcex.cbWndExtra, NULL
     mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
@@ -152,19 +149,19 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     NULL
     mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd, SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     invoke  GetMenu, hWnd
     mov hMenu, rax
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -178,7 +175,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     LOCAL startInfo:STARTUPINFO
     
     .if uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .elseif uMsg==WM_INITMENUPOPUP
         invoke GetExitCodeProcess, ProcessInfo.hProcess, addr ExitCode
         .if rax==TRUE
@@ -199,7 +196,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
             .if ax==IDM_CREATE_PROCESS
                 .if ProcessInfo.hProcess{}0
                     invoke CloseHandle, ProcessInfo.hProcess
-                    mov ProcessInfo.hProcess,0
+                    mov ProcessInfo.hProcess, 0
                 .endif
                 invoke GetStartupInfo, addr startInfo
                 invoke CreateProcess, addr ProgramName, \
@@ -213,7 +210,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                                 addr startInfo, \
                                 addr ProcessInfo
                 .if rax==0
-                    invoke MessageBox,hWnd,addr msgError, addr msgTitle, MB_OK
+                    invoke MessageBox, hWnd, addr msgError, addr msgTitle, MB_OK
                     invoke ExitProcess, 0
                 .endif
                 invoke  CloseHandle, ProcessInfo.hThread
@@ -229,10 +226,10 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
             .endif
         .endif
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp

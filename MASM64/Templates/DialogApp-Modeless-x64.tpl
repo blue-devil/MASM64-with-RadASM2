@@ -56,16 +56,14 @@ DialogApp-Modeless-x64.Asm
 
 WinMainCRTStartup proc 
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -77,9 +75,9 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, hInst, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, hInst, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
@@ -101,19 +99,19 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
     
-    invoke  CreateDialogParam,hInst,IDD_DIALOG,NULL,addr DlgProc,NULL
-    mov     hWnd,rax
+    invoke  CreateDialogParam, hInst, IDD_DIALOG, NULL, addr DlgProc, NULL
+    mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd,SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -128,14 +126,14 @@ DlgProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     .elseif uMsg==WM_COMMAND
         
     .elseif uMsg==WM_CLOSE
-        invoke  DestroyWindow,hWnd
+        invoke  DestroyWindow, hWnd
     .elseif uMsg==WM_DESTROY
         invoke  PostQuitMessage,NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor     eax,eax
+    xor     eax, eax
     ret
 
 DlgProc endp
@@ -168,7 +166,7 @@ DialogApp-Modeless-x64.Inc
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\comctl32.lib
     includelib \masm64\lib64\shell32.lib
-    includelib \masm64\lib64\gdý32.lib
+    includelib \masm64\lib64\gdi32.lib
 
 ; _________________________________________________________________________
 ; funtion prototypes

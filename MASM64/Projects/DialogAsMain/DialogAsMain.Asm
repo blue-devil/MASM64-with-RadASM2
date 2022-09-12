@@ -7,10 +7,8 @@
 
 WinMainCRTStartup proc
 
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
 
     invoke  GetCommandLine
     mov     CommandLine,rax
@@ -28,18 +26,18 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
 
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
 
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi;offset WndProc
-    mov     wcex.cbClsExtra, 0
+    mov     wcex.cbClsExtra, NULL
     mov     wcex.cbWndExtra, DLGWINDOWEXTRA
-    mov     wcex.hInstance, 0;hInst
+    mov     wcex.hInstance, hInst
     mov     rax, hIcon
     mov     wcex.hIcon, rax;hIcon
     mov     rbx, hCursor
@@ -51,7 +49,7 @@ WinMain proc hInst:HINSTANCE, hPrevInst:HINSTANCE, lpCmdLine:LPSTR, nCmdShow:DWO
     mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
 
-    invoke  CreateDialogParam,hInstance,IDD_DIALOG,NULL,addr WndProc,NULL
+    invoke  CreateDialogParam, hInst, IDD_DIALOG, NULL, addr WndProc, NULL
     mov     hWnd,rax
 
     invoke  ShowWindow,hWnd,SW_SHOWNORMAL

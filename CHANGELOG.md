@@ -25,6 +25,11 @@
 * **Process Creation Flags** added to `MASM64ApiWord.api`
 * DialogWithManifest sample project added
 * ADDED: TUTE14 - Process
+* ADDED: LoadImage, CreateThread and CreateFont Constants
+* FIX: LoadCursor and LoadIcon apis shouldn't get hInst as parameter. They should get null.
+* FIX: Some apis mistakenly get 0 instead of null
+* FIX: Some cosmetic changes has been made
+* ADDED: two new code sniplet added: DialogBoxParam and CreateDialogParam
 
 ### Changes
 * Update: version

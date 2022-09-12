@@ -58,7 +58,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=8
+MilestoneOnDateDate=12
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
 MilestoneOnDateTimeDate=7
@@ -91,12 +91,12 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=11462374
+PTimer=11670249
 [Collapse]
 1=
 2=
 [Size]
-1=0,0,0,0,2
+1=0,0,0,0,1
 2=0,0,0,0,270
 [GroupExpand]
 GroupExpand=1,1,0

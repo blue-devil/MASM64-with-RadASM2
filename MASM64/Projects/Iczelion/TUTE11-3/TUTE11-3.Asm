@@ -62,55 +62,53 @@
 ; constant variables
 
 .const
-    IDM_OPEN    equ 1
-    IDM_EXIT    equ 2
-    MAXSIZE     equ 260
-    OUTPUTSIZE  equ 512
+    IDM_OPEN        equ 1
+    IDM_EXIT        equ 2
+    MAXSIZE         equ 260
+    OUTPUTSIZE      equ 512
 
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName   db "SimpleWin64Class", 0
-    AppName     db "Our First Window", 0
-    MenuName    db "FirstMenu",0
-    Test_str    db "You selected Test menu item",0
-    Hello_str   db "Hello, my friend",0
-    Goodbye_str db "See you again, bye",0
-    OurTitle    db "-=Our First Open File Dialog Box=-: Choose the file to open",0
-    FllPthName  db "The Full Filename with Path is: ",0
-    FullName    db "The Filename is: ",0
-    ExtName     db "The Extension is: ",0
-    OutputStr   db OUTPUTSIZE dup(0)
-    FilterStr   db "All Files",0,"*.*",0
-                db "Text Files",0,"*.txt",0,0
-    buffer      db MAXSIZE dup(0)
-    CrLf        db 0Dh,0Ah,0
-    ofn         OPENFILENAME <>
+    ClassName       db "SimpleWin64Class", 0
+    AppName         db "Our First Window", 0
+    MenuName        db "FirstMenu",0
+    Test_str        db "You selected Test menu item",0
+    Hello_str       db "Hello, my friend",0
+    Goodbye_str     db "See you again, bye",0
+    OurTitle        db "-=Our First Open File Dialog Box=-: Choose the file to open",0
+    FllPthName      db "The Full Filename with Path is: ",0
+    FullName        db "The Filename is: ",0
+    ExtName         db "The Extension is: ",0
+    OutputStr       db OUTPUTSIZE dup(0)
+    FilterStr       db "All Files",0,"*.*",0
+                    db "Text Files",0,"*.txt",0,0
+    buffer          db MAXSIZE dup(0)
+    CrLf            db 0Dh,0Ah,0
+    ofn             OPENFILENAME <>
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine LPSTR ?
-    hInstance   HINSTANCE ?
-    hIcon       HICON ?
-    hCursor     HCURSOR ?
+    CommandLine     LPSTR ?
+    hInstance       HINSTANCE ?
+    hIcon           HICON ?
+    hCursor         HCURSOR ?
 
 .code
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -122,17 +120,17 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL   msg:MSG
     LOCAL   hWnd:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi;offset WndProc
-    mov     wcex.cbClsExtra, 0
-    mov     wcex.cbWndExtra, 0
+    mov     wcex.cbClsExtra, NULL
+    mov     wcex.cbWndExtra, NULL
     mov     rax,hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
@@ -162,16 +160,16 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     NULL
     mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd, SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL,0,0
         .if (rax == 0)
             .break
         .endif
-        invoke TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -183,58 +181,58 @@ WinMain endp
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
     .if uMsg==WM_DESTROY
-        invoke PostQuitMessage,NULL
+        invoke PostQuitMessage, NULL
     .elseif uMsg==WM_COMMAND
-        mov rax,wParam
+        mov rax, wParam
         .if eax==IDM_OPEN
-            mov ofn.lStructSize,sizeof ofn
+            mov ofn.lStructSize, sizeof ofn
             mov rdi, hWnd
             mov ofn.hwndOwner, rdi
             push hInstance
             pop ofn.hInstance
             lea rdi,FilterStr
             mov ofn.lpstrFilter, rdi
-            lea rdi,buffer
+            lea rdi, buffer
             mov ofn.lpstrFile, rdi 
             mov ofn.nMaxFile, MAXSIZE
             mov ofn.Flags,  OFN_FILEMUSTEXIST or \
                             OFN_PATHMUSTEXIST or OFN_LONGNAMES or\
                             OFN_EXPLORER or OFN_HIDEREADONLY
             lea rdi,OurTitle
-            mov ofn.lpstrTitle,rdi 
+            mov ofn.lpstrTitle, rdi 
             invoke GetOpenFileName, addr ofn
             .if eax==TRUE
-                invoke lstrcat,addr OutputStr,addr FllPthName
-                invoke lstrcat,addr OutputStr,ofn.lpstrFile
-                invoke lstrcat,addr OutputStr,addr CrLf
-                invoke lstrcat,addr OutputStr,addr FullName
-                mov  rax,ofn.lpstrFile
+                invoke lstrcat, addr OutputStr, addr FllPthName
+                invoke lstrcat, addr OutputStr, ofn.lpstrFile
+                invoke lstrcat, addr OutputStr, addr CrLf
+                invoke lstrcat, addr OutputStr, addr FullName
+                mov  rax, ofn.lpstrFile
                 push rbx
                 xor  rbx,rbx
-                mov  bx,ofn.nFileOffset
-                add  rax,rbx
+                mov  bx, ofn.nFileOffset
+                add  rax, rbx
                 pop  rbx
-                invoke lstrcat,addr OutputStr,rax
-                invoke lstrcat,addr OutputStr,addr CrLf
-                invoke lstrcat,addr OutputStr,addr ExtName
-                mov rax,ofn.lpstrFile
+                invoke lstrcat, addr OutputStr, rax
+                invoke lstrcat, addr OutputStr, addr CrLf
+                invoke lstrcat, addr OutputStr, addr ExtName
+                mov rax, ofn.lpstrFile
                 push rbx
-                xor rbx,rbx
-                mov bx,ofn.nFileExtension
-                add rax,rbx
+                xor rbx, rbx
+                mov bx, ofn.nFileExtension
+                add rax, rbx
                 pop rbx
-                invoke lstrcat,addr OutputStr,rax
-                invoke MessageBox,hWnd,addr OutputStr,ADDR AppName,MB_OK
-                invoke RtlZeroMemory,addr OutputStr,OUTPUTSIZE
+                invoke lstrcat, addr OutputStr, rax
+                invoke MessageBox, hWnd, addr OutputStr, ADDR AppName, MB_OK
+                invoke RtlZeroMemory, addr OutputStr, OUTPUTSIZE
             .endif
         .else
-            invoke  DestroyWindow,hWnd
+            invoke  DestroyWindow, hWnd
         .endif
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp

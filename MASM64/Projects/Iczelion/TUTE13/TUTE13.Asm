@@ -63,51 +63,49 @@
 ; constant variables
 
 .const
-    IDM_OPEN    equ 1
-    IDM_SAVE    equ 2
-    IDM_EXIT    equ 3
-    MAXSIZE     equ 260
+    IDM_OPEN        equ 1
+    IDM_SAVE        equ 2
+    IDM_EXIT        equ 3
+    MAXSIZE         equ 260
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName   db "Win64ASMFileMappingClass",0
-    AppName     db "Win64 ASM File Mapping Example",0
-    MenuName    db "FirstMenu",0
-    ofn         OPENFILENAME <>
-    FilterStr   db "All Files",0,"*.*",0
-                db "Text Files",0,"*.txt",0,0
-    buffer      db MAXSIZE dup(0)
-    hMapFile    HANDLE 0
+    ClassName       db "Win64ASMFileMappingClass",0
+    AppName         db "Win64 ASM File Mapping Example",0
+    MenuName        db "FirstMenu",0
+    ofn             OPENFILENAME <>
+    FilterStr       db "All Files",0,"*.*",0
+                    db "Text Files",0,"*.txt",0,0
+    buffer          db MAXSIZE dup(0)
+    hMapFile        HANDLE 0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine LPSTR ?
-    hInstance   HINSTANCE ?
-    hIcon       HICON ?
-    hCursor     HCURSOR ?
-    hFileRead   HANDLE ?
-    hFileWrite  HANDLE ?
-    hMenu       HANDLE ?
-    pMemory     QWORD ?
-    SizeWritten QWORD ?
+    CommandLine     LPSTR ?
+    hInstance       HINSTANCE ?
+    hIcon           HICON ?
+    hCursor         HCURSOR ?
+    hFileRead       HANDLE ?
+    hFileWrite      HANDLE ?
+    hMenu           HANDLE ?
+    pMemory         QWORD ?
+    SizeWritten     QWORD ?
 
 .code
 
 WinMainCRTStartup proc
     
-    invoke  GetModuleHandleEx,0,0,hInstance
-    .if(rax {} 0)
-        invoke  ExitProcess,NULL
-    .endif
+    invoke  GetModuleHandle, NULL
+    mov hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
-    invoke  WinMain,hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  ExitProcess, eax
     
     ret
 
@@ -119,17 +117,17 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     LOCAL msg:MSG
     LOCAL hWnd:HWND
     
-    invoke  LoadIcon,hInst,IDI_APPLICATION
+    invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    invoke  LoadCursor,hInst,IDC_ARROW
+    invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
     mov     wcex.lpfnWndProc, rdi
-    mov     wcex.cbClsExtra, 0
-    mov     wcex.cbWndExtra, 0
+    mov     wcex.cbClsExtra, NULL
+    mov     wcex.cbWndExtra, NULL
     mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
@@ -145,7 +143,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     invoke  RegisterClassEx, addr wcex
     
     invoke  CreateWindowEx, \
-                    NULL, \
+                    WS_EX_CLIENTEDGE, \
                     addr ClassName, \
                     addr AppName, \
                     WS_OVERLAPPEDWINDOW, \
@@ -155,20 +153,20 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     200, \
                     NULL, \
                     NULL, \
-                    0, \
+                    hInst, \
                     NULL
     mov     hWnd, rax
     
-    invoke  ShowWindow,hWnd, SW_SHOWNORMAL
-    invoke  UpdateWindow,hWnd
+    invoke  ShowWindow, hWnd, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage,addr msg
-        invoke  DispatchMessage,addr msg
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
     
     mov     rax, msg.wParam
@@ -209,21 +207,21 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                                     FILE_ATTRIBUTE_ARCHIVE, \
                                     NULL
                     mov hFileRead, rax
-                    invoke  CreateFileMapping,hFileRead,NULL,PAGE_READONLY,NULL,NULL,NULL
+                    invoke  CreateFileMapping, hFileRead, NULL, PAGE_READONLY, NULL, NULL, NULL
                     mov hMapFile, rax
                     lea rax, buffer
                     movzx edx, ofn.nFileOffset
                     add rax, rdx
                     
-                    invoke SetWindowText,hWnd,rax
-                    invoke EnableMenuItem,hMenu,IDM_OPEN,MF_GRAYED
-                    invoke EnableMenuItem,hMenu,IDM_SAVE,MF_ENABLED
+                    invoke SetWindowText, hWnd, rax
+                    invoke EnableMenuItem, hMenu, IDM_OPEN, MF_GRAYED
+                    invoke EnableMenuItem, hMenu, IDM_SAVE, MF_ENABLED
                 .endif
             .elseif ax==IDM_SAVE
                 mov ofn.Flags, OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
                 invoke GetSaveFileName, addr ofn
                 .if rax==TRUE
-                    invoke  CreateFile,addr buffer, \
+                    invoke  CreateFile, addr buffer, \
                                     GENERIC_READ or GENERIC_WRITE, \
                                     FILE_SHARE_READ or FILE_SHARE_WRITE, \
                                     NULL, \
@@ -249,12 +247,12 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         .if hMapFile {} 0
             invoke CloseMapFile
         .endif
-        invoke  PostQuitMessage,NULL
+        invoke  PostQuitMessage, NULL
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp
