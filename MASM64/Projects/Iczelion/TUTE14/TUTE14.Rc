@@ -1,0 +1,15 @@
+// Constants for menu
+#define IDM_CREATE_PROCESS 1
+#define IDM_TERMINATE 2
+#define IDM_EXIT 3
+
+FirstMenu MENU
+{
+ POPUP "&Process"
+        {
+         MENUITEM "&Create Process",IDM_CREATE_PROCESS
+         MENUITEM "&Terminate Process",IDM_TERMINATE
+         MENUITEM SEPARATOR
+         MENUITEM "E&xit",IDM_EXIT
+        }
+}
