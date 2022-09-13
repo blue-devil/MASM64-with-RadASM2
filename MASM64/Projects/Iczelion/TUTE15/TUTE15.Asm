@@ -18,12 +18,12 @@
 ;  | @tester   : ErrorInside <errorinside@sctzine.com>                    |
 ;  | @IDE      : RadASM v2.2.2.4                                          |
 ;  | @template : Blue DeviL                                               |
-;  | @date     : 12/09/2022                                               |
-;  | @license  : GPLv3                                                    |
+;  | @date     : 14/09/2022                                               |
+;  | @license  : n/a                                                      |
 ;  |______________________________________________________________________|
 ;  |                                                                      |
-;  |               MASM64 Programming Helpful Code Sniplets               |
-;  |                 Basic CreateDialogParam Code Sniplet                 |
+;  |           Iczelion's Win32 Assembly Tutorials with MASM64            |
+;  |               Tutorial 15 - Multithreading Programming               |
 ;  \______________________________________________________________________/
 
 
@@ -60,37 +60,43 @@
 ; constant variables
 
 .const
-
+    IDM_CREATE_THREAD   equ 1
+    IDM_EXIT            equ 2
+    WM_FINISH           equ WM_USER+100h
 
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName       db "DLGCLASS", 0      ; name of window class
-    DlgName         db "MyDialog",0
+    ClassName           db "Win64ASMThreadClass", 0    ; the name of our window class
+    AppName             db "Win64 ASM MultiThreading Example", 0    ; the name of our window
+    MenuName            db "FirstMenu",0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine     LPSTR ?
-    hInstance       HINSTANCE ?
-    hIcon           HICON ?
-    hCursor         HCURSOR ?
-    buffer          db  512 dup(?)
+    CommandLine         LPSTR ?
+    hInstance           HINSTANCE ?
+    hIcon               HICON ?
+    hCursor             HCURSOR ?
+    hMenu               HMENU ?
+    ExitCode            DWORD ?
+    ThreadID            DWORD ?
+    hWindow             HWND ?
 
 .code
 
 WinMainCRTStartup proc
     
     invoke  GetModuleHandle, NULL
-    mov hInstance, rax
+    mov     hInstance, rax
     
     invoke  GetCommandLine
-    mov     CommandLine,rax
+    mov     CommandLine, rax
     
     invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
-    invoke  ExitProcess,eax
+    invoke  ExitProcess, eax
     
     ret
 
@@ -100,7 +106,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     
     LOCAL wcex:WNDCLASSEX
     LOCAL msg:MSG
-    LOCAL hDlg:HWND
+    ;LOCAL hWnd:HWND
     
     invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
@@ -110,41 +116,53 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     mov     wcex.cbSize, sizeof WNDCLASSEX
     mov     wcex.style, CS_HREDRAW or CS_VREDRAW
     lea     rdi, WndProc
-    mov     wcex.lpfnWndProc, rdi
+    mov     wcex.lpfnWndProc, rdi;offset WndProc
     mov     wcex.cbClsExtra, NULL
-    mov     wcex.cbWndExtra, DLGWINDOWEXTRA
+    mov     wcex.cbWndExtra, NULL
     mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
-    mov     wcex.hIcon, rax
+    mov     wcex.hIcon, rax;hIcon
     mov     rbx, hCursor
-    mov     wcex.hCursor, rbx
+    mov     wcex.hCursor, rbx;hCursor
     mov     wcex.hbrBackground, COLOR_WINDOW + 1
-    mov     wcex.lpszMenuName, NULL
+    lea     rdi, MenuName
+    mov     wcex.lpszMenuName, rdi
     lea     rdi, ClassName
-    mov     wcex.lpszClassName, rdi
-    mov     wcex.hIconSm, rax
+    mov     wcex.lpszClassName, rdi;offset ClassName
+    mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
     
-    invoke  CreateDialogParam,hInst, addr DlgName, NULL, NULL, NULL
-    mov     hDlg, rax
+    invoke  CreateWindowEx, \
+                    WS_EX_CLIENTEDGE, \
+                    addr ClassName, \
+                    addr AppName, \
+                    WS_OVERLAPPEDWINDOW, \
+                    CW_USEDEFAULT, \
+                    CW_USEDEFAULT, \
+                    300, \
+                    200, \
+                    NULL, \
+                    NULL, \
+                    hInst, \
+                    NULL
+    mov     hWindow, rax
     
-    invoke  ShowWindow,hDlg, SW_SHOWNORMAL
-    invoke  UpdateWindow,hDlg
+    invoke  ShowWindow, hWindow, SW_SHOWNORMAL
+    invoke  UpdateWindow, hWindow
     
+    invoke  GetMenu, hWindow
+    mov     hMenu, rax
     
     .while TRUE
-        invoke  GetMessage,addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke IsDialogMessage,hDlg,addr msg
-        .if(rax == FALSE)
-            invoke  TranslateMessage,addr msg
-            invoke  DispatchMessage,addr msg
-        .endif
+        invoke  TranslateMessage, addr msg
+        invoke  DispatchMessage, addr msg
     .endw
-
+    
     mov     rax, msg.wParam
     
     ret
@@ -153,34 +171,49 @@ WinMain endp
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
-    .if uMsg==WM_CREATE
-        ; Process WM_CREATE messages here
+    .if uMsg==WM_DESTROY
+        invoke  PostQuitMessage, NULL
     .elseif uMsg==WM_COMMAND
-        ; Process WM_COMMAND messages here
-    .elseif uMsg==WM_DESTROY
-        invoke  PostQuitMessage,NULL
+        mov rax, wParam
+        .if lParam==0
+            .if ax==IDM_CREATE_THREAD
+                mov rax, offset ThreadProc
+                invoke  CreateThread, \
+                                NULL, \
+                                NULL, \
+                                rax, \
+                                NULL, \
+                                NORMAL_PRIORITY_CLASS, \
+                                addr ThreadID
+                invoke CloseHandle, rax
+            .else
+                invoke DestroyWindow, hWnd
+            .endif
+        .endif
+    .elseif uMsg==WM_FINISH
+        invoke MessageBox, NULL, addr AppName, addr AppName, MB_OK
     .else
-        invoke  DefWindowProc,hWnd,uMsg,wParam,lParam
+        invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
     .endif
-    xor eax,eax
+    xor eax, eax
     ret
 
 WndProc endp
 
+ThreadProc proc uses rcx Param:DWORD
+    
+    mov rcx, 300000000
+    
+    Loop1:
+        add eax, eax
+        dec rcx
+        jz Get_Out
+        jmp Loop1
+    Get_Out:
+        invoke SendMessage, hWindow, WM_FINISH, NULL, NULL
+    ret
+
+ThreadProc endp
+
 end
-
-comment *
-
-#include "\masm64\include64\Resource.h"
-
-MyDialog DIALOG 10, 10, 205, 60
-STYLE 0x0004 | DS_CENTER | WS_CAPTION | WS_MINIMIZEBOX |
-WS_SYSMENU | WS_VISIBLE | WS_OVERLAPPED | DS_MODALFRAME | DS_3DLOOK
-CAPTION "[SCT] CreateDialogParam Example"
-CLASS "DLGCLASS"
-BEGIN
-END
-
-
-*

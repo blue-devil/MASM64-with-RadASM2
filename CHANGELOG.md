@@ -30,6 +30,7 @@
 * FIX: Some apis mistakenly get 0 instead of null
 * FIX: Some cosmetic changes has been made
 * ADDED: two new code sniplet added: DialogBoxParam and CreateDialogParam
+* ADDED: TUTE15
 
 ### Changes
 * Update: version
