@@ -1,0 +1,15 @@
+// Constants for menu
+#define IDM_START_THREAD 1
+#define IDM_STOP_THREAD 2
+#define IDM_EXIT 3
+
+FirstMenu MENU
+{
+ POPUP "&Thread"
+        {
+         MENUITEM "&Run Thread",IDM_START_THREAD
+         MENUITEM "&Stop Thread",IDM_STOP_THREAD,GRAYED
+         MENUITEM SEPARATOR
+         MENUITEM "E&xit",IDM_EXIT
+        }
+}
