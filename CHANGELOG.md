@@ -35,6 +35,9 @@
 * ADDED: `BOOL`, `BOOLEAN` to MASM64.ini
 * ADDED: DLL reason flags to api files
 * ADDED: TUTE17
+* ADDED: Common Control style constants to api files
+* ADDED: TUTE 18
+
 
 ### Changes
 * Update: version
