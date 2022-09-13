@@ -1,0 +1,2 @@
+LIBRARY 0_dll_skeleton
+EXPORTS TestHello

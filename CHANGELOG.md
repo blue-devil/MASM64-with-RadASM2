@@ -32,6 +32,9 @@
 * ADDED: two new code sniplet added: DialogBoxParam and CreateDialogParam
 * ADDED: TUTE15
 * ADDED: TUTE16
+* ADDED: `BOOL`, `BOOLEAN` to MASM64.ini
+* ADDED: DLL reason flags to api files
+* ADDED: TUTE17
 
 ### Changes
 * Update: version
