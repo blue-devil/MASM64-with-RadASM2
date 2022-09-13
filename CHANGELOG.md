@@ -31,6 +31,7 @@
 * FIX: Some cosmetic changes has been made
 * ADDED: two new code sniplet added: DialogBoxParam and CreateDialogParam
 * ADDED: TUTE15
+* ADDED: TUTE16
 
 ### Changes
 * Update: version
