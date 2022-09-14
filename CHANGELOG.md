@@ -42,6 +42,7 @@
 ### Changes
 * Update: version
 * In Win64 3 parameters added to OPENFILENAME: pvReserved,dwReserved,FlagsEx. Those parameters added to OPENFILENAME and OPENFILENAMEA
+* FIX: Taskbar constants edited
 
 ## [2022.09.01] - 01-09-2022
 ### Added
