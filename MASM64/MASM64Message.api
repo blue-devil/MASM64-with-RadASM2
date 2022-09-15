@@ -1,3 +1,7 @@
+;
+; Window Messages
+; WinUser.h
+;
 WM_USER,equ 0400h
 WM_NULL,equ 0000h
 WM_CREATE,equ 0001h
