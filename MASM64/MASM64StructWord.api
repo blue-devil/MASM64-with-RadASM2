@@ -1,0 +1,81 @@
+;  _______________________________________________________________________
+; |  ______ __           ,.'   __.'.__  .   ______               ___      |
+; | |      |  |          /b`  '-.   .-'  d\|      ;             |   |     |
+; | |   __ |  |         .5h     /.'.\    =5|   _   \            |   |     |
+; | |.  1 \|  |         (0=h    '   '    =C)   1\   \        .--:.  |     |
+; | |   1_/|  |         ?3==,          .==7|   | \   \       |__|   |     |
+; | |.     |  .-- -.-----{=`==oo____oo==`=}|   |  |.----.-- -.--:.  |     |
+; | |.  __ |  |  V |  ^__|'"o58888888888,; |.  |  ||  ^_|  V |  |.  |     |
+; | |:  1 \|__|____|_____| `?88P^\,?88^\P  |.  | / |____|\___|__|:  |___  |
+; | |:  1_/   /             C8?\__d88\_/'  |:  1/   / .         |:  1   | |
+; | |::.. .  /              `8o8888/\88P   |::.. . /            |::.. . | |
+; | `-------'                '7oo88oo8P    `------'             `-------' |
+; |                      Cooo##~\/\/\/~====>        github.com/blue-devil |
+; |                                                  gitlab.com/bluedevil |
+; | Freedom doesn't come from second-hand thoughts.       www.sctzine.com |
+; |_______________________________________________________________________|
+; | @author   : Blue DeviL <bluedevil@sctzine.com>                        |
+; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
+; | @IDE      : RadASM v2.2.2.4                                           |
+; | @template : Blue DeviL                                                |
+; | @date     : 15/09/2022                                                |
+; | @license  : GPLv3                                                     |
+; |_______________________________________________________________________|
+; |                                                                       |
+; |                      MASM64 Structure Constants                       |
+; |                                                                       |
+; | This file contains the constants of frequently used structures.       |
+; \_______________________________________________________________________/
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What :  OpenFileName Structure Flag Constants
+;   Where: commdlg.h
+;   Web  : https://tinyurl.com/ns-commdlg-openfilenamea
+; \_______________________________________________________________________/
+OFN_READONLY,equ 1h
+OFN_EX_NOPLACESBAR,equ 1h
+OFN_OVERWRITEPROMPT,equ 2h
+OFN_HIDEREADONLY,equ 4h
+OFN_NOCHANGEDIR,equ 8h
+OFN_SHOWHELP,equ 10h
+OFN_ENABLEHOOK,equ 20h
+OFN_ENABLETEMPLATE,equ 40h
+OFN_ENABLETEMPLATEHANDLE,equ 80h
+OFN_NOVALIDATE,equ 100h
+OFN_ALLOWMULTISELECT,equ 200h
+OFN_EXTENSIONDIFFERENT,equ 400h
+OFN_PATHMUSTEXIST,equ 800h
+OFN_FILEMUSTEXIST,equ 1000h
+OFN_CREATEPROMPT,equ 2000h
+OFN_SHAREAWARE,equ 4000h
+OFN_NOREADONLYRETURN,equ 8000h
+OFN_NOTESTFILECREATE,equ 10000h
+OFN_NONETWORKBUTTON,equ 20000h
+OFN_NOLONGNAMES,equ 40000h
+OFN_EXPLORER,equ 80000h
+OFN_NODEREFERENCELINKS,equ 100000h
+OFN_LONGNAMES,equ 200000h
+OFN_ENABLEINCLUDENOTIFY,equ 400000h
+OFN_ENABLESIZING,equ 800000h
+OFN_DONTADDTORECENT,equ 2000000h
+OFN_FORCESHOWHIDDEN,equ 10000000h
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : STARTUPINFO Flag Parameter Constants
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/startupinfoa
+; \_______________________________________________________________________/
+STARTF_FORCEONFEEDBACK,equ 40h
+STARTF_FORCEOFFFEEDBACK,equ 80h
+STARTF_PREVENTPINNING,equ 2000h
+STARTF_RUNFULLSCREEN,equ 20h
+STARTF_TITLEISAPPID,equ 1000h
+STARTF_TITLEISLINKNAME,equ 800h
+STARTF_UNTRUSTEDSOURCE,equ 8000h
+STARTF_USECOUNTCHARS,equ 8h
+STARTF_USEFILLATTRIBUTE,equ 10h
+STARTF_USEHOTKEY,equ 200h
+STARTF_USEPOSITION,equ 4h
+STARTF_USESHOWWINDOW,equ 1h
+STARTF_USESIZE,equ 2h
+STARTF_USESTDHANDLES,equ 100h

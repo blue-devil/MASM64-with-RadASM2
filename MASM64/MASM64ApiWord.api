@@ -1,57 +1,48 @@
-;
-; This file contains control constants from "MS Control Library"
-; * Control Messages
-; * Control Notifications
-; * Control Constants
-;   - Control Styles
-;   - Extended Control Styles
-;
-; This file also contains common constants an statements from C runtime
-;
-NULL,equ 0
-TRUE,equ 1
-FALSE,equ 0
-MAX_PATH,equ 260
-; Combobox return values
-CB_OK,equ 0
-CB_ERR,equ -1
-CB_ERRSPACE,equ -2
-; Listbox return values
-LB_OK,equ 0
-LB_ERR,equ -1
-LB_ERR,equ -2
-; handleapi.h
-INVALID_HANDLE_VALUE,equ -1
-LOCAL
-@CatStr
-@code
-@CodeSize
-@Cpu
-@CurSeg
-@data
-@DataSize
-@Date
-@Environ
-@fardata
-@fardata?
-@FileCur
-@FileName
-@InStr
-@Interface
-@Line
-@Model
-@SizeStr
-@stack
-@SubStr
-@Time
-@Version
-@WordSize
-;
-; WINDOW CONTROLS
-;
-; Control Message ID Ranges
-; CommCtrl.h
-;
+;  _______________________________________________________________________
+; |  ______ __           ,.'   __.'.__  .   ______               ___      |
+; | |      |  |          /b`  '-.   .-'  d\|      ;             |   |     |
+; | |   __ |  |         .5h     /.'.\    =5|   _   \            |   |     |
+; | |.  1 \|  |         (0=h    '   '    =C)   1\   \        .--:.  |     |
+; | |   1_/|  |         ?3==,          .==7|   | \   \       |__|   |     |
+; | |.     |  .-- -.-----{=`==oo____oo==`=}|   |  |.----.-- -.--:.  |     |
+; | |.  __ |  |  V |  ^__|'"o58888888888,; |.  |  ||  ^_|  V |  |.  |     |
+; | |:  1 \|__|____|_____| `?88P^\,?88^\P  |.  | / |____|\___|__|:  |___  |
+; | |:  1_/   /             C8?\__d88\_/'  |:  1/   / .         |:  1   | |
+; | |::.. .  /              `8o8888/\88P   |::.. . /            |::.. . | |
+; | `-------'                '7oo88oo8P    `------'             `-------' |
+; |                      Cooo##~\/\/\/~====>        github.com/blue-devil |
+; |                                                  gitlab.com/bluedevil |
+; | Freedom doesn't come from second-hand thoughts.       www.sctzine.com |
+; |_______________________________________________________________________|
+; | @author   : Blue DeviL <bluedevil@sctzine.com>                        |
+; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
+; | @IDE      : RadASM v2.2.2.4                                           |
+; | @template : Blue DeviL                                                |
+; | @date     : 15/09/2022                                                |
+; | @license  : GPLv3                                                     |
+; |_______________________________________________________________________|
+; |                                                                       |
+; |                        MASM64 WinAPI Constants                        |
+; |                                                                       |
+; | This file mostly contains control constants from "MS Control Library" |
+; | * Control Messages                                                    |
+; | * Control Notifications                                               |
+; | * Control Constants                                                   |
+; |   - Control Styles                                                    |
+; |   - Extended Control Styles                                           |
+; |                                                                       |
+; | This file also contains common constants an statements from C runtime |
+; \_______________________________________________________________________/
+;  _______________________________________________________________________ 
+; |                                                                       |
+; |                            WINDOW CONTROLS                            |
+; |_______________________________________________________________________|
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   Control Message ID Ranges
+;   Header      : CommCtrl.h
+;   MS Docs     : n/a
+; \_______________________________________________________________________/
 LVM_FIRST,equ 1000h,ListView messages
 TV_FIRST,equ 1100h,TreeView messages
 HDM_FIRST,equ 1200h,Header messages
@@ -64,23 +55,25 @@ CCM_FIRST,equ 2000h,Common control shared messages
 CCM_LAST,equ CCM_FIRST + 0x200
 CCM_SETBKCOLOR,equ CCM_FIRST + 1,lParam is bkColor
 MCM_FIRST,equ 1000h,Month Calendar control messages
-;
-; Animation Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-animation-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Animation Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/animation-control-messages
+; \_______________________________________________________________________/
 ACM_OPENA,equ WM_USER+100h
 ACM_OPENW,equ WM_USER+103h
 ACM_OPEN,equ ACM_OPENW/ACM_OPENA
 ACM_PLAY,equ WM_USER+101h
 ACM_STOP,equ WM_USER+102h
 ACM_ISPLAYING,equ WM_USER+104h
-;
-; Button Control Messages
-; CommCtrl.h = BCM_*
-; WinUser.h = BM_*
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-button-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Button Control Messages
+;   Where: CommCtrl.h = BCM_*
+;   Where: WinUser.h = BM_*
+;   Web  : https://tiny.one/button-control-messages
+; \_______________________________________________________________________/
 BCM_GETIDEALSIZE,equ BCM_FIRST + 0x0001h
 BCM_SETIMAGELIST,equ BCM_FIRST + 0x0002h
 BCM_GETIMAGELIST,equ BCM_FIRST + 0x0003h
@@ -102,11 +95,12 @@ BM_CLICK,equ 0F5h
 BM_GETIMAGE,equ 0F6h
 BM_SETIMAGE,equ 0F7h
 BM_SETDONTCLICK,equ 0F8h
-;
-; ComboBox Control Messages
-; WinUser.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-combobox-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : ComboBox Control Messages
+;   Where: WinUser.h
+;   Web  : https://tiny.one/combobox-control-messages
+; \_______________________________________________________________________/
 CB_GETEDITSEL,equ 140h
 CB_LIMITTEXT,equ 141h
 CB_SETEDITSEL,equ 142h
@@ -144,11 +138,12 @@ CB_INITSTORAGE,equ 161h
 CB_MULTIPLEADDSTRING,equ 163h
 CB_GETCOMBOBOXINFO,equ 164h
 CB_MSGMAX,if WINVER >= 0x400 ? equ 162h : equ 15Bh
-;
-; ComboBoxEx Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-comboboxex-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : ComboBoxEx Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/comboboxex-control-messages
+; \_______________________________________________________________________/
 CBEM_INSERTITEMA,equ WM_USER+1
 CBEM_SETIMAGELIST,equ WM_USER+2
 CBEM_GETIMAGELIST,equ WM_USER+3
@@ -170,11 +165,12 @@ CBEM_GETITEMW,equ WM_USER+13
 CBEM_INSERTITEM,equ CBEM_INSERTITEMW/CBEM_INSERTITEMA
 CBEM_SETITEM,equ CBEM_SETITEMW/CBEM_SETITEMA
 CBEM_GETITEM,equ CBEM_GETITEMW/CBEM_GETITEMA
-;
-; Date and Time Picker Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-date-and-time-picker-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Date and Time Picker Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/datetimepicker-ctrl-msg
+; \_______________________________________________________________________/
 DTM_GETSYSTEMTIME,equ DTM_FIRST + 1
 DTM_SETSYSTEMTIME,equ DTM_FIRST + 2
 DTM_GETRANGE,equ DTM_FIRST + 3
@@ -192,11 +188,12 @@ DTM_GETMCSTYLE,equ DTM_FIRST + 12
 DTM_CLOSEMONTHCAL,equ DTM_FIRST + 13
 DTM_GETDATETIMEPICKERINFO,equ DTM_FIRST + 14
 DTM_GETIDEALSIZE,equ DTM_FIRST + 15
-;
-; Edit Control Messages
-; WinUser.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-edit-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Edit Control Messages
+;   Where: WinUser.h
+;   Web  : https://tiny.one/edit-control-messages
+; \_______________________________________________________________________/
 EM_GETSEL,equ 0B0h
 EM_SETSEL,equ 0B1h
 EM_GETRECT,equ 0B2h
@@ -230,7 +227,7 @@ EM_GETWORDBREAKPROC,equ 0D1h
 EM_GETPASSWORDCHAR,equ 0D2h
 EM_SETMARGINS,equ 0D3h
 EM_GETMARGINS,equ 0D4h
-EM_SETLIMITTEXT,equ EM_LIMITTEXT   /* ;win40 Name change */
+EM_SETLIMITTEXT,equ EM_LIMITTEXT,;win40 Name change
 EM_GETLIMITTEXT,equ 0D5h
 EM_POSFROMCHAR,equ 0D6h
 EM_CHARFROMPOS,equ 0D7h
@@ -246,11 +243,12 @@ EM_SETHILITE,equ ECM_FIRST + 5
 EM_GETHILITE,equ ECM_FIRST + 6
 EM_NOSETFOCUS,equ ECM_FIRST + 7
 EM_TAKEFOCUS,equ ECM_FIRST + 8
-;
-; Header Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-header-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Header Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/header-control-messages
+; \_______________________________________________________________________/
 HDM_GETITEMCOUNT,equ HDM_FIRST + 0
 HDM_INSERTITEMA,equ HDM_FIRST + 1
 HDM_INSERTITEMW,equ HDM_FIRST + 10
@@ -284,30 +282,33 @@ HDM_GETITEMDROPDOWNRECT,equ HDM_FIRST+25,rect of item's drop down button
 HDM_GETOVERFLOWRECT,equ HDM_FIRST+26,rect of overflow button
 HDM_GETFOCUSEDITEM,equ HDM_FIRST+27
 HDM_SETFOCUSEDITEM,equ HDM_FIRST+28
-;
-; Hot Key Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-hot-key-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Hot Key Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/hot-key-control-messages
+; \_______________________________________________________________________/
 HKM_SETHOTKEY,equ WM_USER+1
 HKM_GETHOTKEY,equ WM_USER+2
 HKM_SETRULES,equ WM_USER+3
-;
-; IP Address Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-ip-address-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : IP Address Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/ip-address-control-messages
+; \_______________________________________________________________________/
 IPM_CLEARADDRESS,equ WM_USER+100,no parameters
 IPM_SETADDRESS,equ WM_USER+101,lparam = TCP/IP address
 IPM_GETADDRESS,equ WM_USER+102,lresult = # of non black fields.  lparam = LPDWORD for TCP/IP address
 IPM_SETRANGE,equ WM_USER+103,wparam = field, lparam = range
 IPM_SETFOCUS,equ WM_USER+104,wparam = field
 IPM_ISBLANK,equ WM_USER+105,no parameters
-;
-; List Box Messages
-; WinUser.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-list-box-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : List Box Messages
+;   Where: WinUser.h
+;   Web  : https://tiny.one/list-box-control-messages
+; \_______________________________________________________________________/
 LB_ADDSTRING,equ 0180h
 LB_INSERTSTRING,equ 0181h
 LB_DELETESTRING,equ 0182h
@@ -354,11 +355,12 @@ LB_MSGMAX,equ 01B3h
 LB_MSGMAX,equ 01B1h
 LB_MSGMAX,equ 01B0h
 LB_MSGMAX,equ 01A8h
-;
-; List View Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-list-view-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : List View Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/list-view-control-messages
+; \_______________________________________________________________________/
 LVM_GETBKCOLOR,equ LVM_FIRST + 0
 LVM_SETBKCOLOR,equ LVM_FIRST + 1
 LVM_GETIMAGELIST,equ LVM_FIRST + 2
@@ -497,11 +499,12 @@ LVM_GETFOOTERITEM,equ LVM_FIRST + 208
 LVM_GETITEMINDEXRECT,equ LVM_FIRST + 209
 LVM_SETITEMINDEXSTATE,equ LVM_FIRST + 210
 LVM_GETNEXTITEMINDEX,equ LVM_FIRST + 211
-;
-; Month Calendar Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-month-calendar-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Month Calendar Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/month-calendar-controlmessages
+; \_______________________________________________________________________/
 MCM_GETCURSEL,equ MCM_FIRST + 1
 MCM_SETCURSEL,equ MCM_FIRST + 2
 MCM_GETMAXSELCOUNT,equ MCM_FIRST + 3
@@ -534,10 +537,12 @@ MCM_SIZERECTTOMIN,equ MCM_FIRST + 29
 MCM_SETCALENDARBORDER,equ MCM_FIRST + 30
 MCM_GETCALENDARBORDER,equ MCM_FIRST + 31
 MCM_SETCURRENTVIEW,equ MCM_FIRST + 32
-;
-; Pager Control  Messages
-; CommCtrl.h
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Pager Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/pager-control-messages
+; \_______________________________________________________________________/
 PGM_SETCHILD,equ PGM_FIRST + 1,lParam == hWnd
 PGM_RECALCSIZE,equ PGM_FIRST + 2
 PGM_FORWARDMOUSE,equ PGM_FIRST + 3
@@ -552,11 +557,12 @@ PGM_GETBUTTONSIZE,equ PGM_FIRST + 11
 PGM_GETBUTTONSTATE,equ PGM_FIRST + 12
 PGM_GETDROPTARGETCCM_GETDROPTARGET
 PGM_SETSCROLLINFO,equ PGM_FIRST + 13
-;
-; Progress Bar Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-progress-bar-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Progress Bar Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/progress-bar-control-messages
+; \_______________________________________________________________________/
 PBM_SETRANGE,equ WM_USER+1
 PBM_SETPOS,equ WM_USER+2
 PBM_DELTAPOS,equ WM_USER+3
@@ -573,11 +579,12 @@ PBM_GETBKCOLOR,equ WM_USER+14
 PBM_GETBARCOLOR,equ WM_USER+15
 PBM_SETSTATE,equ WM_USER+16
 PBM_GETSTATE,equ WM_USER+17
-;
-; Property Sheet Messages
-; prsht.h - Interface for the Windows Property Sheet Pages
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-property-sheets-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Property Sheet Messages
+;   Where: prsht.h - Interface for the Windows Property Sheet Pages
+;   Web  : https://tiny.one/property-sheets-messages
+; \_______________________________________________________________________/
 PSM_SETCURSEL,equ WM_USER + 101
 PSM_REMOVEPAGE,equ WM_USER + 102
 PSM_ADDPAGE,equ WM_USER + 103
@@ -621,11 +628,12 @@ PSM_SHOWWIZBUTTONS,equ WM_USER + 138
 PSM_ENABLEWIZBUTTONS,equ WM_USER + 139
 PSM_SETBUTTONTEXTW,equ WM_USER + 140
 PSM_SETBUTTONTEXT,equ PSM_SETBUTTONTEXTW
-;
-; Rebar Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-rebar-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Rebar Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/rebar-control-messages
+; \_______________________________________________________________________/
 RB_INSERTBANDA,equ WM_USER +  1
 RB_DELETEBAND,equ WM_USER +  2
 RB_GETBARINFO,equ WM_USER +  3
@@ -674,11 +682,12 @@ RB_SETEXTENDEDSTYLE,equ WM_USER + 41
 RB_GETEXTENDEDSTYLE,equ WM_USER + 42
 RB_PUSHCHEVRON,equ WM_USER + 43
 RB_SETBANDWIDTH,equ WM_USER + 44,set width for docked band
-;
-; Rich Edit Messages
-; RICHEDIT.H
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-rich-edit-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Rich Edit Messages
+;   Where: RICHEDIT.H
+;   Web  : https://tiny.one/rich-edit-messages
+; \_______________________________________________________________________/
 EM_GETLIMITTEXT,equ WM_USER + 37
 EM_POSFROMCHAR,equ WM_USER + 38
 EM_CHARFROMPOS,equ WM_USER + 39
@@ -793,11 +802,12 @@ EM_SETTOUCHOPTIONS,equ WM_USER + 311
 EM_INSERTIMAGE,equ WM_USER + 314
 EM_SETUIANAME,equ WM_USER + 320
 EM_GETELLIPSISSTATE,equ WM_USER + 322
-;
-; Scroll Bar Messages
-; WinUser.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-scroll-bars-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Scroll Bar Messages
+;   Where: WinUser.h
+;   Web  : https://tiny.one/scroll-bars-messages
+; \_______________________________________________________________________/
 SBM_SETPOS,equ 0E0h,not in win3.1
 SBM_GETPOS,equ 0E1h,not in win3.1
 SBM_SETRANGE,equ 0E2h,not in win3.1
@@ -807,21 +817,23 @@ SBM_ENABLE_ARROWS,equ 0E4h,not in win3.1
 SBM_SETSCROLLINFO,equ 0E9h
 SBM_GETSCROLLINFO,equ 0EAh
 SBM_GETSCROLLBARINFO,equ 0EBh
-;
-; Static Control Messages
-; winuser.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-static-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Static Control Messages
+;   Where: winuser.h
+;   Web  : https://tiny.one/static-control-messages
+; \_______________________________________________________________________/
 STM_SETICON,equ 0170h
 STM_GETICON,equ 0171h
 STM_SETIMAGE,equ 0172h
 STM_GETIMAGE,equ 0173h
 STM_MSGMAX,equ 0174h
-;
-; Status Bar Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-status-bars-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Status Bar Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/status-bars-messages
+; \_______________________________________________________________________/
 SB_SETTEXTA,equ WM_USER+1
 SB_SETTEXTW,equ WM_USER+11
 SB_GETTEXTA,equ WM_USER+2
@@ -854,21 +866,23 @@ SB_SIMPLEID,equ 0FFh
 SBARS_SIZEGRIP
 SBT_TOOLTIPS
 SBARS_TOOLTIPS
-;
-; SysLink Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-syslink-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : SysLink Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/syslink-control-messages
+; \_______________________________________________________________________/
 LM_HITTEST,equ WM_USER+0x300,wParam: n/a, lparam: PLHITTESTINFO, ret: BOOL
 LM_GETIDEALHEIGHT,equ WM_USER+0x301,wParam: cxMaxWidth, lparam: n/a, ret: cy
 LM_SETITEM,equ WM_USER+0x302,wParam: n/a, lparam: LITEM*, ret: BOOL
 LM_GETITEM,equ WM_USER+0x303,wParam: n/a, lparam: LITEM*, ret: BOOL
 LM_GETIDEALSIZE,equ LM_GETIDEALHEIGHT,wParam: cxMaxWidth, lparam: SIZE*, ret: cy
-;
-; Tab Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-tab-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Tab Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/tab-control-messages
+; \_______________________________________________________________________/
 TCM_GETIMAGELIST,equ TCM_FIRST + 2
 TCM_SETIMAGELIST,equ TCM_FIRST + 3
 TCM_GETITEMCOUNT,equ TCM_FIRST + 4
@@ -904,11 +918,12 @@ TCM_SETEXTENDEDSTYLE,equ TCM_FIRST + 52,optional wParam == mask
 TCM_GETEXTENDEDSTYLE,equ TCM_FIRST + 53
 TCM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 TCM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
-;
-; Toolbar Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-toolbar-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Toolbar Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/toolbar-control-messages
+; \_______________________________________________________________________/
 TB_ENABLEBUTTON,equ WM_USER + 1
 TB_CHECKBUTTON,equ WM_USER + 2
 TB_PRESSBUTTON,equ WM_USER + 3
@@ -1021,11 +1036,12 @@ TB_GETITEMDROPDOWNRECT,equ WM_USER + 103,Rect of item's drop down button
 TB_SETPRESSEDIMAGELIST,equ WM_USER + 104
 TB_GETPRESSEDIMAGELIST,equ WM_USER + 105
 TB_SETWINDOWTHEME,equ CCM_SETWINDOWTHEME
-;
-; ToolTip Icons (Set with TTM_SETTITLE)
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/ttm-settitle
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : ToolTip Icons (Set with TTM_SETTITLE)
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/ttm-settitle
+; \_______________________________________________________________________/
 TTI_NONE,equ 0
 TTI_INFO,equ 1
 TTI_WARNING,equ 2
@@ -1033,11 +1049,12 @@ TTI_ERROR,equ 3
 TTI_INFO_LARGE,equ 4
 TTI_WARNING_LARGE,equ 5
 TTI_ERROR_LARGE,equ 6
-;
-; Tooltip Control Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-tooltip-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Tooltip Control Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/tooltip-control-messages
+; \_______________________________________________________________________/
 TTM_ACTIVATE,equ WM_USER + 1
 TTM_SETDELAYTIME,equ WM_USER + 3
 TTM_ADDTOOLA,equ WM_USER + 4
@@ -1082,11 +1099,12 @@ TTM_SETTITLEA,equ WM_USER + 32,wParam = TTI_*, lParam = char* szTitle
 TTM_SETTITLEW,equ WM_USER + 33,wParam = TTI_*, lParam = wchar* szTitle
 TTM_POPUP,equ WM_USER + 34
 TTM_GETTITLE,equ WM_USER + 35wParam = 0, lParam = TTGETTITLE*
-;
-; Trackbar Contol Messages
-; Commctrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-trackbar-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Trackbar Contol Messages
+;   Where: Commctrl.h
+;   Web  : https://tiny.one/trackbar-control-messages
+; \_______________________________________________________________________/
 TBM_GETPOS,equ WM_USER
 TBM_GETRANGEMIN,equ WM_USER+1
 TBM_GETRANGEMAX,equ WM_USER+2
@@ -1129,11 +1147,12 @@ TBM_GETBUDDY,equ  WM_USER+33
 TBM_SETPOSNOTIFY,equ WM_USER+34
 TBM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 TBM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
-;
-; Treeview Messages
-; Commctrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-tree-view-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Treeview Messages
+;   Where: Commctrl.h
+;   Web  : https://tiny.one/tree-view-control-messages
+; \_______________________________________________________________________/
 TVM_INSERTITEMA,equ TV_FIRST + 0
 TVM_INSERTITEMW,equ TV_FIRST + 50
 TVM_DELETEITEM,equ TV_FIRST + 1
@@ -1192,11 +1211,12 @@ TVM_SETHOT,equ TV_FIRST + 58
 TVM_GETSELECTEDCOUNT,equ TV_FIRST + 70
 TVM_SHOWINFOTIP,equ TV_FIRST + 71
 TVM_GETITEMPARTRECT,equ TV_FIRST + 72
-;
-; Up-Down Messages
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-up-down-control-reference-messages
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Up-Down Messages
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/up-down-control-messages
+; \_______________________________________________________________________/
 UDM_SETRANGE,equ WM_USER+101
 UDM_GETRANGE,equ WM_USER+102
 UDM_SETPOS,equ WM_USER+103
@@ -1213,11 +1233,16 @@ UDM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 UDM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
 UDM_SETPOS32,equ WM_USER+113
 UDM_GETPOS32,equ WM_USER+114
-;
-; WINDOW NOTIFICATIONS
-;
-;
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+; |                         WINDOW NOTIFICATIONS                          |
+; |_______________________________________________________________________|
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : 
+;   Where: 
+;   Web  : 
+; \_______________________________________________________________________/
 BN_CLICKED
 BN_PAINT
 BN_HILITE
@@ -1405,11 +1430,12 @@ TVN_ENDLABELEDITW
 TVN_GETINFOTIP
 TVN_GETINFOTIPW
 TVN_SINGLEEXPAND
-;
-; Control Notifications
-; CommCtrl.h
-; https://docs.microsoft.com/en-us/windows/win32/controls/bumper-general-control-reference-notifications
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Control Notifications
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/general-control-notifications
+; \_______________________________________________________________________/
 NM_OUTOFMEMORY,equ NM_FIRST-1,
 NM_CLICK,equ NM_FIRST-2,uses NMCLICK struct
 NM_DBLCLK,equ NM_FIRST-3,
@@ -1492,24 +1518,6 @@ SIZE_MAXIMIZED,equ 2h
 SIZE_MAXSHOW,equ 3h
 SIZE_MINIMIZED,equ 1h
 SIZE_RESTORED,equ 0
-;
-; STARTUPINFO Flag Parameter Constants
-; WinBase.h
-;
-STARTF_FORCEONFEEDBACK,equ 40h
-STARTF_FORCEOFFFEEDBACK,equ 80h
-STARTF_PREVENTPINNING,equ 2000h
-STARTF_RUNFULLSCREEN,equ 20h
-STARTF_TITLEISAPPID,equ 1000h
-STARTF_TITLEISLINKNAME,equ 800h
-STARTF_UNTRUSTEDSOURCE,equ 8000h
-STARTF_USECOUNTCHARS,equ 8h
-STARTF_USEFILLATTRIBUTE,equ 10h
-STARTF_USEHOTKEY,equ 200h
-STARTF_USEPOSITION,equ 4h
-STARTF_USESHOWWINDOW,equ 1h
-STARTF_USESIZE,equ 2h
-STARTF_USESTDHANDLES,equ 100h
 ;
 ; Process dwCreationFlag values
 ; WinBase.h
@@ -1686,10 +1694,12 @@ FF_SWISS
 IMAGE_BITMAP equ 0
 IMAGE_CURSOR equ 2h
 IMAGE_ICON, equ 1h
-;
-; fuLoad
-; WinUser.h
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : fuLoad
+;   Where: WinUser.h
+;   Web  : https://tiny.one/loadimagea
+; \_______________________________________________________________________/
 LR_CREATEDIBSECTION, equ 2000h
 LR_DEFAULTCOLOR, equ 0
 LR_DEFAULTSIZE, equ 40h
@@ -1699,18 +1709,22 @@ LR_LOADTRANSPARENT, equ 20h
 LR_MONOCHROME, equ 1h
 LR_SHARED, equ 8000h
 LR_VGACOLOR, equ 80h
-;
-; DLL calling reason flags
-; winnt.h
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : DLL calling reason flags
+;   Where: winnt.h
+;   Web  : 
+; \_______________________________________________________________________/
 DLL_PROCESS_ATTACH,equ 1
 DLL_PROCESS_DETACH,equ 0
 DLL_THREAD_ATTACH,equ 2
 DLL_THREAD_DETACH,equ 3
-;
-; Common Control Styles
-; CommCtrl.h
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Common Control Styles
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/common-control-styles
+; \_______________________________________________________________________/
 CCS_TOP,equ 1h
 CCS_NOMOVEY,equ 2h
 CCS_BOTTOM,equ 3h
@@ -1722,11 +1736,12 @@ CCS_VERT,equ 80h
 CCS_LEFT,equ CCS_VERT OR CCS_TOP
 CCS_RIGHT,equ CCS_VERT OR CCS_BOTTOM
 CCS_NOMOVEX,equ CCS_VERT OR CCS_NOMOVEY
-;
-; Common Controls Shared Messages
-; CommCtrl.h
-;
-CCM_FIRST,equ 2000h
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Common Controls Shared Messages
+;   Where: CommCtrl.h
+;   Web  : 
+; \_______________________________________________________________________/
 CCM_SETCOLORSCHEME,equ CCM_FIRST+2
 CCM_GETCOLORSCHEME,equ CCM_FIRST+3
 CCM_GETDROPTARGET,equ CCM_FIRST+4
@@ -1737,11 +1752,12 @@ CCM_GETVERSION,equ CCM_FIRST+8
 CCM_SETNOTIFYWINDOW,equ CCM_FIRST+9
 CCM_SETWINDOWTHEME,equ CCM_FIRST+0Bh
 CCM_DPISCALE,equ CCM_FIRST+0Ch
-;
-; Memory Protection Constants
-; winnt.h
-; https://docs.microsoft.com/en-us/windows/win32/memory/memory-protection-constants
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Memory Protection Constants
+;   Where: winnt.h
+;   Web  : https://tiny.one/memory-protection-constants
+; \_______________________________________________________________________/
 PAGE_NOACCESS,equ 1h
 PAGE_READONLY,equ 2h
 PAGE_READWRITE,equ 4h
@@ -1780,11 +1796,12 @@ MEM_PRESERVE_PLACEHOLDER,equ 00000002h
 MEM_DECOMMIT,equ 00004000h
 MEM_RELEASE,equ 00008000h
 MEM_FREE,equ 00010000h
-;
-; Window Class Styles
-; WinUser.h
-; https://docs.microsoft.com/en-us/windows/win32/winmsg/window-class-styles
-;
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Window Class Styles
+;   Where: WinUser.h
+;   Web  : https://tiny.one/window-class-styles
+; \_______________________________________________________________________/
 CS_VREDRAW,equ 1h
 CS_HREDRAW,equ 2h
 CS_KEYCVTWINDOW,equ 4h
@@ -1802,3 +1819,42 @@ CS_GLOBALCLASS,equ CS_PUBLICCLASS
 CS_IME,equ 10000h
 CS_DROPSHADOW,equ 20000h
 CW_USEDEFAULT,equ 80000000h
+;
+NULL,equ 0
+TRUE,equ 1
+FALSE,equ 0
+MAX_PATH,equ 260
+; Combobox return values
+CB_OK,equ 0
+CB_ERR,equ -1
+CB_ERRSPACE,equ -2
+; Listbox return values
+LB_OK,equ 0
+LB_ERR,equ -1
+LB_ERR,equ -2
+; handleapi.h
+INVALID_HANDLE_VALUE,equ -1
+LOCAL
+@CatStr
+@code
+@CodeSize
+@Cpu
+@CurSeg
+@data
+@DataSize
+@Date
+@Environ
+@fardata
+@fardata?
+@FileCur
+@FileName
+@InStr
+@Interface
+@Line
+@Model
+@SizeStr
+@stack
+@SubStr
+@Time
+@Version
+@WordSize
