@@ -1,2 +1,2 @@
 #define IDB_TREE 4006
-IDB_TREE BITMAP list.bmp
+IDB_TREE BITMAP "Res\\list.bmp"

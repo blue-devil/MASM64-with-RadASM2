@@ -1,42 +1,54 @@
-ABORTPROC,4,Pointer to an application-defined callback function that the operating system calls when a print job is to be cancelled during spooling. See AbortProc for information on functions of this type.
-ACMDRIVERENUMCB,4,Pointer to an application-defined callback function that is used with the acmDriverEnum function. See acmDriverEnumCallback for information on functions of this type.
-ACMDRIVERPROC,4,Pointer to an application-defined callback function that is used with an installable audio compression manager (ACM) driver. See acmDriverProc for information on functions of this type.
-ACMFILTERCHOOSEHOOKPROC,4,Pointer to an application-defined function that hooks the acmFilterChoose dialog box. See acmFilterChooseHookProc for information on functions of this type.
-ACMFILTERENUMCB,4,Pointer to an application-defined callback function that is used with the acmFilterEnum function. See acmFilterEnumCallback for information on functions of this type.
-ACMFILTERTAGENUMCB,Pointer to an application-defined callback function that is used with the acmFilterTagEnum function. See acmFilterTagEnumCallback for information on functions of this type.
-ACMFORMATCHOOSEHOOKPROC,4,Pointer to an application-defined function that hooks the acmFormatChoose dialog box. See acmFormatChooseHookProc for information on functions of this type.
-ACMFORMATENUMCB,4,Pointer to an application-defined callback function that is used with the acmFormatEnum function. See acmFormatEnumCallback for information on functions of this type.
-ACMFORMATTAGENUMCB,4,Pointer to an application-defined callback function that is used with the acmFormatTagEnum function. See acmFormatTagEnumCallback for information on functions of this type.
-APPLET_PROC,4,Pointer to a library-defined callback function that is the entry point for a Control Panel application. See CplApplet for information on functions of this type.
+;  _______________________________________________________________________
+; |  ______ __           ,.'   __.'.__  .   ______               ___      |
+; | |      |  |          /b`  '-.   .-'  d\|      ;             |   |     |
+; | |   __ |  |         .5h     /.'.\    =5|   _   \            |   |     |
+; | |.  1 \|  |         (0=h    '   '    =C)   1\   \        .--:.  |     |
+; | |   1_/|  |         ?3==,          .==7|   | \   \       |__|   |     |
+; | |.     |  .-- -.-----{=`==oo____oo==`=}|   |  |.----.-- -.--:.  |     |
+; | |.  __ |  |  V |  ^__|'"o58888888888,; |.  |  ||  ^_|  V |  |.  |     |
+; | |:  1 \|__|____|_____| `?88P^\,?88^\P  |.  | / |____|\___|__|:  |___  |
+; | |:  1_/   /             C8?\__d88\_/'  |:  1/   / .         |:  1   | |
+; | |::.. .  /              `8o8888/\88P   |::.. . /            |::.. . | |
+; | `-------'                '7oo88oo8P    `------'             `-------' |
+; |                      Cooo##~\/\/\/~====>        github.com/blue-devil |
+; |                                                  gitlab.com/bluedevil |
+; | Freedom doesn't come from second-hand thoughts.       www.sctzine.com |
+; |_______________________________________________________________________|
+; | @author   : Blue DeviL <bluedevil@sctzine.com>                        |
+; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
+; | @IDE      : RadASM v2.2.2.4                                           |
+; | @template : Blue DeviL                                                |
+; | @date     : 16/09/2022                                                |
+; | @license  : GPLv3                                                     |
+; |_______________________________________________________________________|
+; |                                                                       |
+; |                  Data Types for RadASM2 with MASM64                   |
+; |                                                                       |
+; | This file contains Windows Data Types from M$ Docs                    |
+; | and some common data types.                                           |
+; \_______________________________________________________________________/
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Windows Data Types
+;   Where: WinDef.h,WinNT.h,BaseTsd.h
+;   Web  : https://tiny.one/windows-data-types
+; \_______________________________________________________________________/
+APIENTRY,,The calling convention for system functions.WinDef.h
 ATOM,2,Atom (a reference to a character string in an atom table).
 BOOL,4,Boolean variable (should be TRUE or FALSE).
-BOOLEAN,1,Boolean variable (should be TRUE or FALSE).
+BOOLEAN,1,Boolean variable (should be TRUE or FALSE).WinNT.h
 BYTE,1,Unsigned byte (8 bits).
+CALLBACK,,The calling convention for callback functions.
 CCHAR,1,Windows character.
 CHAR,1,Windows character.
 COLORREF,4,Red, green, blue (RGB) color value (32 bits).
 CONST,0,Variable whose value is to remain constant during execution.
-CRITICAL_SECTION,24,Critical-section object.
-CTRYID,4,Country identifier.
-DLGPROC,8,Pointer to an application-defined dialog box callback procedure.
-DB,1,Unsigned byte (8 bits).
-DD,4,Unsigned doubleword (32 bits).
 DWORD,4,Unsigned doubleword (32 bits).
 DWORDLONG,8,Unsigned 64-bit integer.
 DWORD_PTR,8,Unsigned 64-bit integer.
 DWORD32,4,Unsigned doubleword (32 bits).
 DWORD64,8,Unsigned 64-bit integer.
-EDITWORDBREAKPROC,8,Pointer to an application-defined callback function that the operating system calls when a multiline edit control needs to break a line of text. See EditWordBreakProc for information on functions of this type.
-ENHMFENUMPROC,8,Pointer to an application-defined callback function that enumerates enhanced-metafile records.
-ENUMRESLANGPROC,8,Pointer to an application-defined callback function that enumerates resource languages.
-ENUMRESNAMEPROC,8,Pointer to an application-defined callback function that enumerates resource names.
-ENUMRESTYPEPROC,8,Pointer to an application-defined callback function that enumerates resource types.
-FARPROC,8,Pointer to a callback function.
 FLOAT,4,Floating-point variable.
-FONTENUMPROC,8,Pointer to an application-defined callback function that enumerates fonts.
-GLOBALHANDLE,8,Handle of a global memory block.
-GOBJENUMPROC,8,Pointer to an application-defined callback function that enumerates graphics device interface (GDI) objects.
-GRAYSTRINGPROC,4,Pointer to an application-defined callback function that draws gray text.
 HACCEL,8,Handle of an accelerator table.
 HALF_PTR,4,Pointer of an half size.
 HANDLE,8,Handle of an object.
@@ -58,7 +70,6 @@ HGDIOBJ,8,Handle of a GDI object.
 HGLOBAL,8,Handle of a global memory block.
 HHOOK,8,Handle of a hook.
 HICON,8,Handle of an icon.
-HIMAGELIST,4,Handle to an image list.
 HINSTANCE,8,Handle of an instance.
 HKEY,8,Handle of a registry key.
 HKL,8,Handle of an input locale identifier.
@@ -67,14 +78,12 @@ HMENU,8,Handle of a menu.
 HMETAFILE,8,Handle of a metafile.
 HMODULE,8,Handle of a module.
 HMONITOR,8,Handle of a monitor.
-HOOKPROC,4,Pointer to an application-defined hook function.
 HPALETTE,8,Handle of a palette.
 HPEN,8,Handle of a pen.
 HRESULT,4,A 32-bit value that is used to describe an error or warning.
 HRGN,8,Handle of a region.
 HRSRC,8,Handle of a resource.
 HSZ,8,Handle of a DDE string.
-HTREEITEM,8,Handle of an item in a tree-view control.
 HWINSTA,8,Handle of a workstation.
 HWND,8,Handle of a window.
 INT,4,A 32-bit signed integer. The range is between -2147483648 and 2147483647.
@@ -83,66 +92,39 @@ INT8,1,An 8-bit signed integer.
 INT16,2,A 16-bit signed integer.
 INT32,4,A 32-bit signed integer.
 INT64,8,A 64-bit signed integer. The range is between -9223372036854775808 and 9223372036854775807.
-IPADDR,4,A 32-bit value that contains an IP address. To convert this value to the "a.b.c.d" string form of an IP address, map the high-order byte to a, the low-order byte to d, and so on.
 LANGID,2,Language identifier.
 LCID,4,Locale identifier.
-LCSCSTYPE,4,Color space type.
-LCSGAMUTMATCH,4,Gamut-matching method.
 LCTYPE,4,Locale type.
 LGRPID,4,Language group identifier.
-LINEDDAPROC,4,Pointer to a callback function that processes line coordinates.
-LOCALHANDLE,8,Handle of a local memory block.
 LONG,4,32-bit signed value.
 LONGLONG,8,Double (64 bits).
 LONG_PTR,8,A signed long type for pointer precision. Use when casting a pointer to a long to perform pointer arithmetic.
 LONG32,4,A 32-bit signed integer. The range is between -2147483648 and 2147483647.
 LONG64,8,A 64-bit signed integer. The range is between -9223372036854775808 and 9223372036854775807.
-LP,0,Pointer to a null-terminated Unicode� string.
 LPARAM,8,32-bit message parameter.
 LPBOOL,8,Pointer to a Boolean variable.
 LPBYTE,8,Pointer to a byte.
-LPCCH,8,Pointer to a constant Windows character.
-LPCCHOOKPROC,8,Pointer to an application-defined hook function.
-LPCFHOOKPROC,8,Pointer to an application-defined hook function.
-LPCH,8,Pointer to a Windows character.
 LPCOLORREF,8,Pointer to a COLORREF value.
-LPCRITICAL_SECTION,8,Pointer to a critical-section object.
 LPCSTR,8,Pointer to a constant null-terminated Windows character string.
 LPCTSTR,8,Pointer to a constant null-terminated Unicode or Windows character string.
 LPCVOID,8,A pointer to a constant of any type.
-LPCWCH,8,Pointer to a constant null-terminated Unicode character.
 LPCWSTR,8,Pointer to a constant null-terminated Unicode character string.
-LPDWORD,8,Pointer to an unsigned doubleword (32 bits).
-LPFRHOOKPROC,8,Pointer to an application-defined hook function.
+LPDWORD,8,Pointer to an unsigned doubleword.
 LPHANDLE,8,Pointer to a handle.
-LPHANDLER_FUNCTION,8,Pointer to a handler function.
 LPINT,8,Pointer to a signed integer.
-LPLONG,8,Pointer to a signed long (32 bits).
-LPOFNHOOKPROC,8,Pointer to an application-defined hook function.
-LPPRINTHOOKPROC,8,Pointer to an application-defined hook function.
-LPSETUPHOOKPROC,8,Pointer to an application-defined hook function.
+LPLONG,8,Pointer to a signed long.
 LPSTR,8,Pointer to a null-terminated Windows character string.
-LPTCH,8,Pointer to a Unicode character or a Windows character.
 LPTSTR,8,Pointer to a null-terminated Windows or Unicode character string.
 LPVOID,8,Pointer to any type.
-LPWCH,8,Pointer to a Unicode character.
 LPWORD,8,Pointer to an unsigned word (16 bits).
 LPWSTR,8,Pointer to a null-terminated Unicode character string.
 LRESULT,8,Signed result of message processing.
-LUID,8,Locally unique identifier.
-MFENUMPROC,0,Pointer to an application-defined callback function that enumerates metafile records.
-NPSTR,8,Pointer to a null-terminated Windows character string.
-NWPSTR,8,Pointer to a null-terminated Unicode string.
 PBOOL,8,Pointer to a Boolean variable.
 PBOOLEAN,8,Pointer to a Boolean variable.
 PBYTE,8,Pointer to a byte.
-PCCH,8,Pointer to a constant Windows character.
-PCH,8,Pointer to a Windows character.
 PCHAR,8,Pointer to a Windows character.
-PCRITICAL_SECTION,8,Pointer to a critical-section object.
 PCSTR,8,Pointer to a constant null-terminated Windows character string.
 PCTSTR,8,A PCWSTR if UNICODE is defined, a PCSTR otherwise.
-PCWCH,8,Pointer to a constant Unicode character.
 PCWSTR,8,Pointer to a constant null-terminated Unicode character string.
 PDWORD,8,Pointer to an unsigned doubleword (32 bits).
 PDWORDLONG,8,A pointer to a DWORDLONG.
@@ -150,10 +132,8 @@ PDWORD_PTR,8,A pointer to a DWORD_PTR.
 PDWORD32,8,A pointer to a DWORD32(32-bit unsigned integer.).
 PDWORD64,8,A pointer to a DWORD64(64-bit unsigned integer.).
 PFLOAT,8,Pointer to a floating-point variable.
-PFNCALLBACK,4,Pointer to a callback function.
 PHALF_PTR,8,A pointer to a HALF_PTR.
 PHANDLE,8,Pointer to a handle.
-PHANDLER_ROUTINE,4,Pointer to a handler routine.
 PHKEY,8,Pointer to a registry key.
 PINT,8,Pointer to a signed integer.
 PINT_PTR,8,A pointer to an INT_PTR.
@@ -167,22 +147,15 @@ PLONGLONG,8,A pointer to a LONGLONG.
 PLONG_PTR,8,A pointer to a LONG_PTR.
 PLONG32,8,A pointer to a LONG32.
 PLONG64,8,A pointer to a LONG64.
-PLUID,8,Pointer to a locally unique identifier (LUID).
 POINTER_32,4,A 32-bit pointer. On a 32-bit system, this is a native pointer. On a 64-bit system, this is a truncated 64-bit pointer.
 POINTER_64,8,A 64-bit pointer. On a 64-bit system, this is a native pointer. On a 32-bit system, this is a sign-extended 32-bit pointer.
 POINTER_SIGNED,8,A signed pointer.
 POINTER_UNSIGNED,8,An unsigned pointer.
-PROC,0,Pointer to a callback function.
-PROPENUMPROC,4,Pointer to an application-defined callback function that enumerates window properties. See PropEnumProc for information on functions of this type.
-PROPENUMPROCEX,4,Pointer to an application-defined callback function that enumerates window properties. See PropEnumProcEx for information on functions of this type.
 PSHORT,4,Pointer to a signed short (16 bits).
-PSID,8,Pointer to a security identifier (SID).
 PSIZE_T,8,A pointer to a SIZE_T.
 PSSIZE_T,8,A pointer to a SSIZE_T.
 PSTR,8,Pointer to a null-terminated Windows character string.
-PSZ,8,Pointer to a null-terminated Windows character string.
 PTBYTE,8,Pointer to a Windows or Unicode character.
-PTCH,8,Pointer to a Windows or Unicode character.
 PTCHAR,8,Pointer to a Windows or Unicode character.
 PTSTR,8,Pointer to a null-terminated Windows or Unicode character string.
 PUCHAR,8,Pointer to an unsigned Windows character.
@@ -200,26 +173,18 @@ PULONG32,8,A pointer to a ULONG32.
 PULONG64,8,A pointer to a ULONG64.
 PUSHORT,8,Pointer to an unsigned short (16 bits).
 PVOID,8,Pointer to any type.
-PWCH,8,Pointer to a Unicode character.
 PWCHAR,8,Pointer to a Unicode character.
 PWORD,8,Pointer to an unsigned word (16 bits).
 PWSTR,8,Pointer to a null-terminated Unicode character string.
-REGSAM,4,Security access mask for registry key.
 QWORD,8,A 64-bit unsigned integer.
-SBYTE,1,Signed byte (8 bits). Defined in oledb.h.
 SC_HANDLE,8,Handle of a service.
-SENDASYNCPROC,4,Pointer to an application-defined callback function that the operating system calls when the SendMessageCallback function is called. The system passes the message to the callback function after passing the message to the destination window procedure. See SendAsyncProc for information on functions of this type.
 SC_LOCK,8,A lock to a service control manager database.
-SDWORD,4,Signed doubleword (32 bits). Defined in sqltypes.h.
 SERVICE_STATUS_HANDLE,8,Handle of a service status value.
 SHORT,2,Short integer.
 SIZE_T,8,The maximum number of bytes to which a pointer can point. Use for a count that must span the full range of a pointer.
 SSIZE_T,8,A signed version of SIZE_T.
-SPHANDLE,0,Pointer to a handle.
-DT,10,Ten bytes float.
 TBYTE,10,Ten bytes float.
 TCHAR,1,Unicode character or Windows character.
-TIMERPROC,4,Pointer to an application-defined timer callback function.
 UCHAR,1,Unsigned Windows character.
 UHALF_PTR,4,An unsigned HALF_PTR.
 UINT,4,Unsigned integer.
@@ -233,16 +198,103 @@ ULONGLONG,8,A 64-bit unsigned integer. The range is 0 through 184467440737095516
 ULONG_PTR,8,An unsigned LONG_PTR.
 ULONG32,4,An unsigned LONG32.
 ULONG64,64,An unsigned LONG64.
+UNICODE_STRING,,A Unicode string.
 USHORT,2,Unsigned short integer (16 bits).
 USN,8,An update sequence number (USN).
 VOID,0,Any type.
 WCHAR,2,Unicode character.
+WINAPI,,The calling convention for system functions.
+WORD,2,Unsigned word (16 bits).
+WPARAM,8,32-bit message parameter.
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : MASM64 Data Types
+;   Where: 
+;   Web  : 
+; \_______________________________________________________________________/
+DB,1,Unsigned byte (8 bits).
+DW,2,Unsigned word (16 bits).
+DD,4,Unsigned doubleword (32 bits).
+DQ,8,Unsigned (64 bits.)
+DT,10,Ten bytes float.
+SWORD,2,Signed word (16 bits).
+REAL4,4,floating point 4 bytes
+REAL8,8,floating point double 8 bytes
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Other Data Types
+;   Where: 
+;   Web  : 
+; \_______________________________________________________________________/
+ABORTPROC,4,Pointer to an application-defined callback function that the operating system calls when a print job is to be cancelled during spooling. See AbortProc for information on functions of this type.
+ACMDRIVERENUMCB,4,Pointer to an application-defined callback function that is used with the acmDriverEnum function. See acmDriverEnumCallback for information on functions of this type.
+ACMDRIVERPROC,4,Pointer to an application-defined callback function that is used with an installable audio compression manager (ACM) driver. See acmDriverProc for information on functions of this type.
+ACMFILTERCHOOSEHOOKPROC,4,Pointer to an application-defined function that hooks the acmFilterChoose dialog box. See acmFilterChooseHookProc for information on functions of this type.
+ACMFILTERENUMCB,4,Pointer to an application-defined callback function that is used with the acmFilterEnum function. See acmFilterEnumCallback for information on functions of this type.
+ACMFILTERTAGENUMCB,Pointer to an application-defined callback function that is used with the acmFilterTagEnum function. See acmFilterTagEnumCallback for information on functions of this type.
+ACMFORMATCHOOSEHOOKPROC,4,Pointer to an application-defined function that hooks the acmFormatChoose dialog box. See acmFormatChooseHookProc for information on functions of this type.
+ACMFORMATENUMCB,4,Pointer to an application-defined callback function that is used with the acmFormatEnum function. See acmFormatEnumCallback for information on functions of this type.
+ACMFORMATTAGENUMCB,4,Pointer to an application-defined callback function that is used with the acmFormatTagEnum function. See acmFormatTagEnumCallback for information on functions of this type.
+APPLET_PROC,4,Pointer to a library-defined callback function that is the entry point for a Control Panel application. See CplApplet for information on functions of this type.
+CRITICAL_SECTION,24,Critical-section object.
+CTRYID,4,Country identifier.
+DLGPROC,8,Pointer to an application-defined dialog box callback procedure.
+EDITWORDBREAKPROC,8,Pointer to an application-defined callback function that the operating system calls when a multiline edit control needs to break a line of text. See EditWordBreakProc for information on functions of this type.
+ENHMFENUMPROC,8,Pointer to an application-defined callback function that enumerates enhanced-metafile records.
+ENUMRESLANGPROC,8,Pointer to an application-defined callback function that enumerates resource languages.
+ENUMRESNAMEPROC,8,Pointer to an application-defined callback function that enumerates resource names.
+ENUMRESTYPEPROC,8,Pointer to an application-defined callback function that enumerates resource types.
+FARPROC,8,Pointer to a callback function.
+FONTENUMPROC,8,Pointer to an application-defined callback function that enumerates fonts.
+GLOBALHANDLE,8,Handle of a global memory block.
+GOBJENUMPROC,8,Pointer to an application-defined callback function that enumerates graphics device interface (GDI) objects.
+GRAYSTRINGPROC,4,Pointer to an application-defined callback function that draws gray text.
+HIMAGELIST,4,Handle to an image list.
+HOOKPROC,4,Pointer to an application-defined hook function.
+HTREEITEM,8,Handle of an item in a tree-view control.
+IPADDR,4,A 32-bit value that contains an IP address. To convert this value to the "a.b.c.d" string form of an IP address, map the high-order byte to a, the low-order byte to d, and so on.
+LCSCSTYPE,4,Color space type.
+LCSGAMUTMATCH,4,Gamut-matching method.
+LINEDDAPROC,4,Pointer to a callback function that processes line coordinates.
+LOCALHANDLE,8,Handle of a local memory block.
+LP,0,Pointer to a null-terminated Unicode� string.
+LPCCH,8,Pointer to a constant Windows character.
+LPCCHOOKPROC,8,Pointer to an application-defined hook function.
+LPCFHOOKPROC,8,Pointer to an application-defined hook function.
+LPCH,8,Pointer to a Windows character.
+LPCRITICAL_SECTION,8,Pointer to a critical-section object.
+LPCWCH,8,Pointer to a constant null-terminated Unicode character.
+LPFRHOOKPROC,8,Pointer to an application-defined hook function.
+LPHANDLER_FUNCTION,8,Pointer to a handler function.
+LPOFNHOOKPROC,8,Pointer to an application-defined hook function.
+LPPRINTHOOKPROC,8,Pointer to an application-defined hook function.
+LPSETUPHOOKPROC,8,Pointer to an application-defined hook function.
+LPTCH,8,Pointer to a Unicode character or a Windows character.
+LPWCH,8,Pointer to a Unicode character.
+LUID,8,Locally unique identifier.
+MFENUMPROC,0,Pointer to an application-defined callback function that enumerates metafile records.
+NPSTR,8,Pointer to a null-terminated Windows character string.
+NWPSTR,8,Pointer to a null-terminated Unicode string.
+PCCH,8,Pointer to a constant Windows character.
+PCH,8,Pointer to a Windows character.
+PCRITICAL_SECTION,8,Pointer to a critical-section object.
+PCWCH,8,Pointer to a constant Unicode character.
+PFNCALLBACK,4,Pointer to a callback function.
+PHANDLER_ROUTINE,4,Pointer to a handler routine.
+PLUID,8,Pointer to a locally unique identifier (LUID).
+PROC,0,Pointer to a callback function.
+PROPENUMPROC,4,Pointer to an application-defined callback function that enumerates window properties. See PropEnumProc for information on functions of this type.
+PROPENUMPROCEX,4,Pointer to an application-defined callback function that enumerates window properties. See PropEnumProcEx for information on functions of this type.
+PSID,8,Pointer to a security identifier (SID).
+PSZ,8,Pointer to a null-terminated Windows character string.
+PTCH,8,Pointer to a Windows or Unicode character.
+PWCH,8,Pointer to a Unicode character.
+REGSAM,4,Security access mask for registry key.
+SBYTE,1,Signed byte (8 bits). Defined in oledb.h.
+SENDASYNCPROC,4,Pointer to an application-defined callback function that the operating system calls when the SendMessageCallback function is called. The system passes the message to the callback function after passing the message to the destination window procedure. See SendAsyncProc for information on functions of this type.
+SDWORD,4,Signed doubleword (32 bits). Defined in sqltypes.h.
+SPHANDLE,0,Pointer to a handle.
+TIMERPROC,4,Pointer to an application-defined timer callback function.
 WNDENUMPROC,8,Pointer to an application-defined callback function that enumerates windows.
 WNDPROC,8,Pointer to an application-defined window procedure.
-DW,2,Unsigned word (16 bits).
-WORD,2,Unsigned word (16 bits).
-SWORD,2,Signed word (16 bits).
-WPARAM,8,32-bit message parameter.
 YIELDPROC,4,Pointer to a yield callback function.
-DQ,8,Unsigned (64 bits.)
-

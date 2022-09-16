@@ -30,67 +30,7 @@
     OPTION DOTNAME                          ; required for macro files
     option casemap:none                     ; case sensitive
 
-; _________________________________________________________________________
-; MASM64 macros
-
-    include \masm64\include64\win64.inc     ; main include file
-    include \masm64\macros64\vasily.inc     ; main macro file
-    include \masm64\macros64\macros64.inc   ; auxillary macro file
-
-    STACKFRAME                              ; create a default stack frame
-
-; _________________________________________________________________________
-; include files
-
-    include \masm64\include64\kernel32.inc
-    include \masm64\include64\user32.inc
-    include \masm64\include64\gdi32.inc
-    include \masm64\include64\comctl32.inc
     include TUTE19.inc
-
-; _________________________________________________________________________
-; libraries
-
-    includelib \masm64\lib64\kernel32.lib
-    includelib \masm64\lib64\user32.lib
-    includelib \masm64\lib64\gdi32.lib
-    includelib \masm64\lib64\comctl32.lib
-
-; _________________________________________________________________________
-; funtion prototypes
-
-    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
-
-; _________________________________________________________________________
-; constant variables
-
-.const
-    IDB_TREE	        equ 4006
-
-; _________________________________________________________________________
-; initialized variables
-
-.data
-    ClassName           db "TreeViewWin64Class", 0    ; the name of our window class
-    AppName             db "Tree View Demo x64", 0    ; the name of our window
-    TreeViewClass 	    db "SysTreeView32",0
-    Parent		        db "Parent Item",0
-    Child1		        db "child1",0
-    Child2		        db "child2",0
-    DragMode            dd FALSE
-
-; _________________________________________________________________________
-; uninitialized variables
-
-.data?
-    CommandLine         LPSTR ?
-    hInstance           HINSTANCE ?
-    hIcon               HICON ?
-    hCursor             HCURSOR ?
-    hTreeView	        HANDLE ?
-    hParent		        HANDLE ?
-    hImageList	        HANDLE ?
-    hDragImageList		HANDLE ?
 
 .code
 
@@ -202,18 +142,22 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke SendMessage, hTreeView, TVM_INSERTITEM, 0, addr tvinsert
         mov tvinsert.hParent, NULL
         mov tvinsert.hInsertAfter, TVI_ROOT
-        mov tvinsert.item._mask, TVIF_TEXT or TVIF_IMAGE or TVIF_SELECTEDIMAGE
-        mov tvinsert.item.pszText, offset Parent
+        mov tvinsert.item.imask, TVIF_TEXT or TVIF_IMAGE or TVIF_SELECTEDIMAGE
+        mov rdi, offset Parent
+        mov tvinsert.item.pszText, rdi
         mov tvinsert.item.iImage, 0
         mov tvinsert.item.iSelectedImage, 1
         invoke SendMessage, hTreeView, TVM_INSERTITEM, 0, addr tvinsert
         mov hParent, rax
         mov tvinsert.hParent, rax
-        mov tvinsert.hInsertAfter, TVI_LAST
-        mov tvinsert.item.pszText, offset Child1
+        mov rax, TVI_LAST
+        mov tvinsert.hInsertAfter, rax
+        mov rdi, offset Child1
+        mov tvinsert.item.pszText, rdi
         
         invoke SendMessage, hTreeView, TVM_INSERTITEM, 0, addr tvinsert
-        mov tvinsert.item.pszText, offset Child2
+        mov rdi, offset Child2
+        mov tvinsert.item.pszText, rdi
         
         invoke SendMessage, hTreeView, TVM_INSERTITEM, 0, addr tvinsert
     .elseif uMsg==WM_MOUSEMOVE
@@ -237,7 +181,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         .if DragMode==TRUE
             invoke ImageList_DragLeave, hTreeView
             invoke ImageList_EndDrag
-            invoke ImageList_Destroy, hDragImaheList
+            invoke ImageList_Destroy, hDragImageList
             
             ; Get the currently hilited item
             invoke SendMessage, hTreeView, TVM_GETNEXTITEM, TVGN_DROPHILITE, 0
@@ -247,6 +191,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         .endif
     .elseif uMsg==WM_NOTIFY
         mov rdi, lParam
+        comment *
         assume rdi:ptr NM_TREEVIEW
         .if [rdi].hdr.code==TVN_BEGINDRAG
             invoke SendMessage, hTreeView, TVM_CREATEDRAGIMAGE, 0, [rdi].itemNew.hItem
@@ -257,6 +202,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
             mov DragMode, TRUE
         .endif
         assume rdi:nothing
+        *
     .elseif uMsg==WM_DESTROY
         invoke  PostQuitMessage, NULL
     .else

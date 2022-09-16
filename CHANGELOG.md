@@ -38,6 +38,7 @@
 * ADDED: Common Control style constants to api files
 * ADDED: TUTE 18
 * ADDED: MASM64StructConst.api (not working rn)
+* ADDED: MASM64ApiMacroCall.api
 
 
 ### Changes
@@ -46,6 +47,7 @@
 * FIX: Taskbar constants edited
 * UPDATE: MASM64ApiWord.api common controls updated
 * UPDATE: Cosmetic
+* FIX: Wrong LIB64 parameters fixed in MASM64.ini, 
 
 ## [2022.09.01] - 01-09-2022
 ### Added

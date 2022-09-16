@@ -22,13 +22,57 @@
 ; | @license  : GPLv3                                                     |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |                      MASM64 Structure Constants                       |
+; |              Structure Constants for RadASM2 with MASM64              |
 ; |                                                                       |
 ; | This file contains the constants of frequently used structures.       |
 ; \_______________________________________________________________________/
 ;  _______________________________________________________________________ 
 ; |                                                                       |
-;   What :  OpenFileName Structure Flag Constants
+;   What : BUTTON_IMAGELIST Type Constants
+;   Where: CommCtrl.h,
+;   Web  : https://tiny.one/controls-buttons
+; \_______________________________________________________________________/
+BUTTON_IMAGELIST_ALIGN_LEFT,equ 0
+BUTTON_IMAGELIST_ALIGN_RIGHT,equ 1
+BUTTON_IMAGELIST_ALIGN_TOP,equ 2
+BUTTON_IMAGELIST_ALIGN_BOTTOM,equ 3
+BUTTON_IMAGELIST_ALIGN_CENTER,equ 4,Doesn't draw text
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : BUTTON_SPLITINFO Mask Flags
+;   Where: CommCtrl.h,
+;   Web  : https://tiny.one/controls-buttons
+; \_______________________________________________________________________/
+BCSIF_GLYPH,equ 1
+BCSIF_IMAGE,equ 2
+BCSIF_STYLE,equ 4
+BCSIF_SIZE,equ 8
+; STYLE Flags
+BCSS_NOSPLIT,equ 1
+BCSS_STRETCH,equ 2
+BCSS_ALIGNLEFT,equ 4
+BCSS_IMAGE,equ 8
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : Hot item change flags
+;   Where: CommCtrl.h,
+;   Web  : https://tiny.one/controls-buttons
+;   Note : NMBCHOTITEM Mask Flags uses.
+; \_______________________________________________________________________/
+// 
+HICF_OTHER,equ 0h
+HICF_MOUSE,equ 1h,Triggered by mouse
+HICF_ARROWKEYS,equ 2h,Triggered by arrow keys
+HICF_ACCELERATOR,equ 4h,Triggered by accelerator
+HICF_DUPACCEL,equ 8h,This accelerator is not unique
+HICF_ENTERING,equ 10h,idOld is invalid
+HICF_LEAVING,equ 20h,idNew is invalid
+HICF_RESELECT,equ 40h,hot item reselected
+HICF_LMOUSE,equ 80h,left mouse button selected
+HICF_TOGGLEDROPDOWN,equ 100h,Toggle button's dropdown state
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : OpenFileName Structure Flag Constants
 ;   Where: commdlg.h
 ;   Web  : https://tinyurl.com/ns-commdlg-openfilenamea
 ; \_______________________________________________________________________/

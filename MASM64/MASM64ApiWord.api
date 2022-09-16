@@ -22,7 +22,7 @@
 ; | @license  : GPLv3                                                     |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |                        MASM64 WinAPI Constants                        |
+; |         WinAPI and Function Constants for RadASM2 with MASM64         |
 ; |                                                                       |
 ; | This file mostly contains control constants from "MS Control Library" |
 ; | * Control Messages                                                    |
@@ -31,7 +31,7 @@
 ; |   - Control Styles                                                    |
 ; |   - Extended Control Styles                                           |
 ; |                                                                       |
-; | This file also contains common constants an statements from C runtime |
+; | This file also contains common constants & statements from C runtime  |
 ; \_______________________________________________________________________/
 ;  _______________________________________________________________________ 
 ; |                                                                       |
@@ -59,7 +59,7 @@ MCM_FIRST,equ 1000h,Month Calendar control messages
 ; |                                                                       |
 ;   What : Animation Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/animation-control-messages
+;   Web  : https://tiny.one/animation-control-reference
 ; \_______________________________________________________________________/
 ACM_OPENA,equ WM_USER+100h
 ACM_OPENW,equ WM_USER+103h
@@ -67,12 +67,20 @@ ACM_OPEN,equ ACM_OPENW/ACM_OPENA
 ACM_PLAY,equ WM_USER+101h
 ACM_STOP,equ WM_USER+102h
 ACM_ISPLAYING,equ WM_USER+104h
+;   What: Animation Control Notifications
+ACN_START,equ 1
+ACN_STOP,equ 2
+;   What: Animation Control Styles
+ACS_CENTER,equ 1h
+ACS_TRANSPARENT,equ 2h
+ACS_AUTOPLAY,equ 4h
+ACS_TIMER,equ 8h,don't use threads... use timers
 ;  _______________________________________________________________________ 
 ; |                                                                       |
-;   What : Button Control Messages
+;   What : Button Control Messages, Notifications, Styles
 ;   Where: CommCtrl.h = BCM_*
 ;   Where: WinUser.h = BM_*
-;   Web  : https://tiny.one/button-control-messages
+;   Web  : https://tiny.one/controls-buttons
 ; \_______________________________________________________________________/
 BCM_GETIDEALSIZE,equ BCM_FIRST + 0x0001h
 BCM_SETIMAGELIST,equ BCM_FIRST + 0x0002h
@@ -95,6 +103,49 @@ BM_CLICK,equ 0F5h
 BM_GETIMAGE,equ 0F6h
 BM_SETIMAGE,equ 0F7h
 BM_SETDONTCLICK,equ 0F8h
+;   Button Control Notifications
+BCN_HOTITEMCHANGE,equ BCN_FIRST + 0x0001
+BCN_DROPDOWN,equ BCN_FIRST + 0x0002
+BN_CLICKED,equ 0
+BN_PAINT,equ 1
+BN_HILITE,equ 2
+BN_UNHILITE,equ 3
+BN_DISABLE,equ 4
+BN_DOUBLECLICKED,equ 5
+BN_PUSHED,equ BN_HILITE
+BN_UNPUSHED,equ BN_UNHILITE
+BN_DBLCLK,equ BN_DOUBLECLICKED
+BN_SETFOCUS,equ 6
+BN_KILLFOCUS,equ 7
+;   What: Button Control Styles
+BS_PUSHBUTTON,equ 0h
+BS_DEFPUSHBUTTON,equ 01h
+BS_CHECKBOX,equ 02h
+BS_AUTOCHECKBOX,equ 03h
+BS_RADIOBUTTON,equ 04h
+BS_3STATE,equ 05h
+BS_AUTO3STATE,equ 06h
+BS_GROUPBOX,equ 07h
+BS_USERBUTTON,equ 08h
+BS_AUTORADIOBUTTON,equ 09h
+BS_PUSHBOX,equ 0Ah
+BS_OWNERDRAW,equ 0Bh
+BS_TYPEMASK,equ 0Fh
+BS_LEFTTEXT,equ 020h
+BS_TEXT,equ 0h
+BS_ICON,equ 040h
+BS_BITMAP,equ 080h
+BS_LEFT,equ 0100h
+BS_RIGHT,equ 0200h
+BS_CENTER,equ 0300h
+BS_TOP,equ 0400h
+BS_BOTTOM,equ 0800h
+BS_VCENTER,equ 0C00h
+BS_PUSHLIKE,equ 01000h
+BS_MULTILINE,equ 02000h
+BS_NOTIFY,equ 04000h
+BS_FLAT,equ 08000h
+BS_RIGHTBUTTON,equ BS_LEFTTEXT
 ;  _______________________________________________________________________ 
 ; |                                                                       |
 ;   What : ComboBox Control Messages
@@ -1243,17 +1294,7 @@ UDM_GETPOS32,equ WM_USER+114
 ;   Where: 
 ;   Web  : 
 ; \_______________________________________________________________________/
-BN_CLICKED
-BN_PAINT
-BN_HILITE
-BN_UNHILITE
-BN_DISABLE
-BN_DOUBLECLICKED
-BN_SETFOCUS
-BN_KILLFOCUS
-BN_PUSHED
-BN_UNPUSHED
-BN_DBLCLK
+;
 CBN_ERRSPACE
 CBN_SELCHANGE
 CBN_DBLCLK
@@ -1265,8 +1306,8 @@ CBN_DROPDOWN
 CBN_CLOSEUP
 CBN_SELENDOK
 CBN_SELENDCANCEL
-ACN_START
-ACN_STOP
+;
+;
 CBEN_GETDISPINFO
 CBEN_INSERTITEM
 CBEN_DELETEITEM
