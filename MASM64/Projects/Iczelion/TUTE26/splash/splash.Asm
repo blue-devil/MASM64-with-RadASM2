@@ -68,7 +68,7 @@
 ; initialized variables
 
 .data
-    BitmapName          db "x64 MySplashBMP", 0
+    BitmapName          db "MySplashBMP", 0
     ClassName           db "SplashWndx64Class", 0
     TimerID             dq 0
     hBitmap             HBITMAP 0
@@ -116,14 +116,14 @@ ShowBitmap proc
     mov     rax, hInstance
     mov     wcex.hInstance, rax
     mov     rax, hIcon
-    mov     wcex.hIcon, rax;hIcon
+    mov     wcex.hIcon, rax
     mov     rbx, hCursor
-    mov     wcex.hCursor, rbx;hCursor
+    mov     wcex.hCursor, rbx
     mov     wcex.hbrBackground, COLOR_WINDOW + 1
     mov     wcex.lpszMenuName, NULL
     lea     rdi, ClassName
-    mov     wcex.lpszClassName, rdi;offset ClassName
-    mov     wcex.hIconSm, rax;hIcon
+    mov     wcex.lpszClassName, rdi
+    mov     wcex.hIconSm, 0
     invoke  RegisterClassEx, addr wcex
     
     invoke  CreateWindowEx, \
@@ -133,8 +133,8 @@ ShowBitmap proc
                     WS_POPUP, \
                     CW_USEDEFAULT, \
                     CW_USEDEFAULT, \
-                    250, \
-                    250, \
+                    320, \
+                    400, \
                     NULL, \
                     NULL, \
                     hInstance, \
@@ -142,7 +142,6 @@ ShowBitmap proc
     mov     hWnd, rax
     
     invoke  ShowWindow, hWnd, SW_SHOWNORMAL
-    ;invoke  UpdateWindow, hWnd
     
     .while TRUE
         invoke  GetMessage, addr msg, NULL, 0, 0
@@ -179,18 +178,16 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         mov rcx, rax
         invoke GetWindowRect, rcx, addr DesktopRect
         
-        ;MoveWindow
-        ;push 0
+        ;______________________________________________
+        ; Make our window at the center of the screen
         mov eax, DlgRect.bottom
         sub eax, DlgRect.top
         mov DlgHeight, eax
         
-        ;push rax 
         mov eax, DlgRect.right
         sub eax, DlgRect.left
         mov DlgWidth, eax
         
-        ;mov DlgWidth, rax
         mov eax, DesktopRect.bottom
         sub eax, DlgHeight
         shr eax, 1
@@ -201,9 +198,8 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         shr eax, 1
         
         mov posX, eax
-        ;mov rcx, hWnd
         invoke MoveWindow, hWnd, posX, posY, DlgWidth, DlgHeight, FALSE
-        ;MoveWindow
+        ;______________________________________________
         
         invoke LoadBitmap, hInstance, addr BitmapName
         mov hBitmap, rax
@@ -226,7 +222,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         mov hOldBmp, rax
         
         invoke GetObject, hBitmap, sizeof BITMAP, addr bitmap
-        invoke StretchBlt, hdc, 0, 0, 250, 250, hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY
+        invoke StretchBlt, hdc, 0, 0, 320, 400, hMemDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY
         invoke SelectObject, hMemDC, hOldBmp
         
         invoke DeleteDC, hMemDC

@@ -49,12 +49,12 @@ Menu=1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0
 16=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
 17=0,0,"$E\x64\x64dbg",$.exe
 [Group]
-Group=Assembly,Resources,Misc
+Group=Assembly,Resources
 1=1
 2=2
 3=1
 [AutoLoad]
-AutoLoad=3,1,2
+AutoLoad=
 [RADebugBP]
 1=
 [VersionControl]
@@ -100,17 +100,17 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=3807735
+PTimer=5665922
 [Collapse]
 1=
 3=
 2=
 [Size]
-1=0,0,0,0,7488
+1=0,0,0,0,1
 3=0,0,0,0,18
-2=0,0,0,0,38
+2=0,0,0,0,0
 [GroupExpand]
-GroupExpand=1,0,1,0
+GroupExpand=1,1,0
 [BookMark]
 0=
 1=
