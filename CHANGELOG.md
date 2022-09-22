@@ -39,6 +39,8 @@
 * ADDED: TUTE 18
 * ADDED: MASM64StructConst.api (not working rn)
 * ADDED: MASM64ApiMacroCall.api
+* ADDED: HDC and HBITMAP to MASM64.ini for color hiliting
+* ADDED: TUTE20, TUTE21, TUTE22
 
 
 ### Changes

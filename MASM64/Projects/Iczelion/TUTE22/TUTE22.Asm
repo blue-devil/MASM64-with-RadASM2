@@ -18,12 +18,12 @@
 ; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
 ; | @IDE      : RadASM v2.2.2.4                                           |
 ; | @template : Blue DeviL                                                |
-; | @date     : 07/09/2022                                                |
+; | @date     : 22/09/2022                                                |
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
 ; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
-; |                Tutorial 11-3 - More about Dialog Box                  |
+; |                      Tutorial 22 - Superclassing                      |
 ; \_______________________________________________________________________/
 
 
@@ -44,58 +44,44 @@
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
-    include \masm64\include64\comdlg32.inc
 
 ; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
-    includelib \masm64\lib64\comdlg32.lib
 
 ; _________________________________________________________________________
 ; funtion prototypes
 
     WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
+    EdtWndProc          PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 
 ; _________________________________________________________________________
 ; constant variables
 
 .const
-    IDM_OPEN        equ 1
-    IDM_EXIT        equ 2
-    MAXSIZE         equ 260
-    OUTPUTSIZE      equ 512
 
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName       db "SimpleWin64Class", 0
-    AppName         db "Our First Window", 0
-    MenuName        db "FirstMenu",0
-    Test_str        db "You selected Test menu item",0
-    Hello_str       db "Hello, my friend",0
-    Goodbye_str     db "See you again, bye",0
-    OurTitle        db "-=Our First Open File Dialog Box=-: Choose the file to open",0
-    FllPthName      db "The Full Filename with Path is: ",0
-    FullName        db "The Filename is: ",0
-    ExtName         db "The Extension is: ",0
-    OutputStr       db OUTPUTSIZE dup(0)
-    FilterStr       db "All Files",0,"*.*",0
-                    db "Text Files",0,"*.txt",0,0
-    buffer          db MAXSIZE dup(0)
-    CrLf            db 0Dh,0Ah,0
-    ofn             OPENFILENAME <>
+    ClassName   db "SimpleWin64Class", 0        ; the name of our window class
+    AppName     db "x64 Our First Window", 0    ; the name of our window
+    EditClass   db "EDIT", 0
+    OurClass    db "SUPEREDITCLASS", 0
+    Message     db "You pressed the Enter key in the text box!", 0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine     LPSTR ?
-    hInstance       HINSTANCE ?
-    hIcon           HICON ?
-    hCursor         HCURSOR ?
+    CommandLine LPSTR ?
+    hInstance   HINSTANCE ?
+    hIcon       HICON ?
+    hCursor     HCURSOR ?
+    OldWndProc  HANDLE ?
+    hwndEdit    HANDLE 6 dup(?)
 
 .code
 
@@ -131,29 +117,27 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     mov     wcex.lpfnWndProc, rdi;offset WndProc
     mov     wcex.cbClsExtra, NULL
     mov     wcex.cbWndExtra, NULL
-    mov     rax,hInst
+    mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
     mov     wcex.hIcon, rax;hIcon
     mov     rbx, hCursor
     mov     wcex.hCursor, rbx;hCursor
-    mov     wcex.hbrBackground, COLOR_WINDOW + 1
-    lea     rdi, MenuName
-    mov     wcex.lpszMenuName, rdi;offset MenuName
+    mov     wcex.hbrBackground, COLOR_APPWORKSPACE
+    mov     wcex.lpszMenuName, NULL
     lea     rdi, ClassName
     mov     wcex.lpszClassName, rdi;offset ClassName
     mov     wcex.hIconSm, rax;hIcon
     invoke  RegisterClassEx, addr wcex
     
-    invoke  CreateWindowEx, \
-                    WS_EX_CLIENTEDGE, \
+    invoke  CreateWindowEx, WS_EX_CLIENTEDGE or WS_EX_CONTROLPARENT, \
                     addr ClassName, \
                     addr AppName, \
-                    WS_OVERLAPPEDWINDOW, \
+                    WS_OVERLAPPED or WS_CAPTION or WS_SYSMENU or WS_MINIMIZEBOX or WS_MAXIMIZEBOX or WS_VISIBLE, \
                     CW_USEDEFAULT, \
                     CW_USEDEFAULT, \
-                    300, \
-                    200, \
+                    360, \
+                    230, \
                     NULL, \
                     NULL, \
                     hInst, \
@@ -164,7 +148,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage, addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
@@ -180,54 +164,49 @@ WinMain endp
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
-    .if uMsg==WM_DESTROY
-        invoke PostQuitMessage, NULL
-    .elseif uMsg==WM_COMMAND
-        mov rax, wParam
-        .if eax==IDM_OPEN
-            mov ofn.lStructSize, sizeof ofn
-            mov rdi, hWnd
-            mov ofn.hwndOwner, rdi
-            push hInstance
-            pop ofn.hInstance
-            lea rdi,FilterStr
-            mov ofn.lpstrFilter, rdi
-            lea rdi, buffer
-            mov ofn.lpstrFile, rdi 
-            mov ofn.nMaxFile, MAXSIZE
-            mov ofn.Flags,  OFN_FILEMUSTEXIST or \
-                            OFN_PATHMUSTEXIST or OFN_LONGNAMES or\
-                            OFN_EXPLORER or OFN_HIDEREADONLY
-            lea rdi,OurTitle
-            mov ofn.lpstrTitle, rdi 
-            invoke GetOpenFileName, addr ofn
-            .if eax==TRUE
-                invoke lstrcat, addr OutputStr, addr FllPthName
-                invoke lstrcat, addr OutputStr, ofn.lpstrFile
-                invoke lstrcat, addr OutputStr, addr CrLf
-                invoke lstrcat, addr OutputStr, addr FullName
-                mov  rax, ofn.lpstrFile
-                push rbx
-                xor  rbx,rbx
-                mov  bx, ofn.nFileOffset
-                add  rax, rbx
-                pop  rbx
-                invoke lstrcat, addr OutputStr, rax
-                invoke lstrcat, addr OutputStr, addr CrLf
-                invoke lstrcat, addr OutputStr, addr ExtName
-                mov rax, ofn.lpstrFile
-                push rbx
-                xor rbx, rbx
-                mov bx, ofn.nFileExtension
-                add rax, rbx
-                pop rbx
-                invoke lstrcat, addr OutputStr, rax
-                invoke MessageBox, hWnd, addr OutputStr, ADDR AppName, MB_OK
-                invoke RtlZeroMemory, addr OutputStr, OUTPUTSIZE
-            .endif
-        .else
-            invoke  DestroyWindow, hWnd
-        .endif
+    LOCAL   wcex:WNDCLASSEX
+    
+    .if uMsg==WM_CREATE
+        mov     wcex.cbSize, sizeof WNDCLASSEX
+        invoke  GetClassInfoEx, NULL, addr EditClass, addr wcex
+        push    wcex.lpfnWndProc
+        pop     OldWndProc
+        lea     rdi, EdtWndProc
+        mov     wcex.lpfnWndProc, rdi
+        mov     rax, hInstance
+        mov     wcex.hInstance, rax
+        lea     rdi, OurClass
+        mov     wcex.lpszClassName, rdi
+        invoke  RegisterClassEx, addr wcex
+        
+        xor     rbx, rbx
+        mov     rdi, 20
+        .while rbx { 6
+            invoke  CreateWindowEx, WS_EX_CLIENTEDGE, \
+                            addr OurClass, \
+                            NULL, \
+                            WS_CHILD or WS_VISIBLE or WS_BORDER, \
+                            20, \
+                            rdi, \
+                            300, \
+                            25, \
+                            hWnd, \
+                            rbx, \
+                            hInstance, \
+                            NULL
+            ; 'ADDR32' relocation to 'hwndEdit' invalid without /LARGEADDRESSAWARE:NO
+            ; for the following line to work we nee to add /LARGEADDRESSAWARE:NO to liner
+            ; mov qword ptr [hwnEdit+ 8*rbx], rax
+            ;
+            ; But we can use lea for RIP relative addresing already:
+            lea r15, hwndEdit
+            mov qword ptr [r15+ 8*rbx], rax
+            add rdi, 25
+            inc rbx
+        .endw
+        invoke SetFocus, qword ptr [hwndEdit+8*0]
+    .elseif uMsg==WM_DESTROY
+        invoke  PostQuitMessage, NULL
     .else
         invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret
@@ -236,5 +215,51 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     ret
 
 WndProc endp
+
+EdtWndProc proc hEdit:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
+    
+    .if uMsg==WM_CHAR
+        mov rax, wParam
+        .if (al }= "0" && al {= "9") || (al }= "A" && al {= "F") || (al }= "a" && al {= "f") || al==VK_BACK
+            .if (al }= "a" && al {= "f")
+                sub al, 20h
+            .endif
+            invoke CallWindowProc, OldWndProc, hEdit, uMsg, rax, lParam
+            ret
+        .endif
+    .elseif uMsg==WM_KEYDOWN
+        mov rax, wParam
+        .if al==VK_RETURN
+            invoke MessageBox, hEdit, addr Message, addr AppName, MB_OK or MB_ICONINFORMATION
+            invoke SetFocus, hEdit
+        .elseif al==VK_TAB
+            invoke GetKeyState, VK_SHIFT
+            test eax, 80000000
+            .if ZERO?
+                invoke GetWindow, hEdit, GW_HWNDNEXT
+                .if rax==NULL
+                    invoke GetWindow, hEdit, GW_HWNDFIRST
+                .endif
+            .else
+                invoke GetWindow, hEdit, GW_HWNDPREV
+                .if rax==NULL
+                    invoke GetWindow, hEdit, GW_HWNDLAST
+                .endif
+            .endif
+            invoke SetFocus, rax
+            xor eax, eax
+            ret
+        .else
+            invoke CallWindowProc, OldWndProc, hEdit, uMsg, wParam, lParam
+            ret
+        .endif
+    .else
+        invoke CallWindowProc, OldWndProc, hEdit, uMsg, wParam, lParam
+        ret
+    .endif
+    xor eax, eax
+    ret
+
+EdtWndProc endp
 
 end

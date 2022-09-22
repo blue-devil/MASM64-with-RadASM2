@@ -1,0 +1,2 @@
+#define IDB_MAIN 1
+IDB_MAIN BITMAP "tweety78.bmp"

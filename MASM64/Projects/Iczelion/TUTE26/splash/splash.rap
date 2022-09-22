@@ -1,41 +1,42 @@
 [Project]
 Assembler=MASM64
 Type=Dll64 Project
-Description=Iczelion Tuturial 17: Dynamic Link Libraries
+Description=Iczelion Tutorial 26: Splash Screen
 Backup=$P\Bak\
 Group=1
 GroupExpand=1
 Debug=0
 [Files]
-1=0_Dll_Skeleton.Asm
-2=0_Dll_Skeleton.Def
+1=splash.Asm
+2=splash.Rc
+3=splash.Def
 [MakeFiles]
-0=0_Dll_Skeleton.rap
-1=0_Dll_Skeleton.rc
-2=0_Dll_Skeleton.asm
-3=0_Dll_Skeleton.obj
-4=0_Dll_Skeleton.res
-5=0_Dll_Skeleton.exe
-6=0_Dll_Skeleton.def
-7=0_Dll_Skeleton.dll
-8=0_Dll_Skeleton.txt
-9=0_Dll_Skeleton.lib
-10=0_Dll_Skeleton.mak
-11=0_Dll_Skeleton.hla
-12=0_Dll_Skeleton.com
-13=0_Dll_Skeleton.ocx
-14=0_Dll_Skeleton.idl
-15=0_Dll_Skeleton.tlb
-16=0_Dll_Skeleton.sys
-17=0_Dll_Skeleton.dp32
-18=0_Dll_Skeleton.pdb
-19=0_Dll_Skeleton.dp64
-20=0_Dll_Skeleton.md
+0=splash.rap
+1=splash.rc
+2=splash.asm
+3=splash.obj
+4=splash.res
+5=splash.exe
+6=splash.def
+7=splash.dll
+8=splash.txt
+9=splash.lib
+10=splash.mak
+11=splash.hla
+12=splash.com
+13=splash.ocx
+14=splash.idl
+15=splash.tlb
+16=splash.sys
+17=splash.dp32
+18=splash.pdb
+19=splash.dp64
+20=splash.md
 [MakeDef]
-Menu=0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0
+Menu=1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
 2=3,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",2
-3=7,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /DLL /ENTRY:DllMain /DEF:$6 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$7",3
+3=7,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /DLL /ENTRY:DllMain /DEF:$6 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$7",3,4
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
@@ -48,13 +49,13 @@ Menu=0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0
 16=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
 17=0,0,"$E\x64\x64dbg",$.exe
 [Group]
-Group=Assembly,Resources
+Group=Assembly,Resources,Misc
 1=1
 2=2
+3=1
 [AutoLoad]
-AutoLoad=
+AutoLoad=3,1,2
 [RADebugBP]
-2=
 1=
 [VersionControl]
 Settings=1246
@@ -69,10 +70,10 @@ MilestoneOnDateStatus=0
 MilestoneOnDateDate=22
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
-MilestoneOnDateTimeDate=13
+MilestoneOnDateTimeDate=22
 MilestoneOnDateTimeHour=6
-MilestoneOnDateTimeMin=35
-MilestoneOnDateTimeSec=56
+MilestoneOnDateTimeMin=48
+MilestoneOnDateTimeSec=59
 MilestoneOnDateTimeStatus=0
 BackupLocation=C:\Program Files\SCTTools\Editors\RadASM2\MASM64\Projects\VCBackups\
 CompressionLevel=0
@@ -99,15 +100,17 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=3062422
+PTimer=3807735
 [Collapse]
 1=
+3=
 2=
 [Size]
-1=0,0,0,0,1
-2=0,0,0,0,32
+1=0,0,0,0,7488
+3=0,0,0,0,18
+2=0,0,0,0,38
 [GroupExpand]
-GroupExpand=1,1,0
+GroupExpand=1,0,1,0
 [BookMark]
 0=
 1=

@@ -18,12 +18,12 @@
 ; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
 ; | @IDE      : RadASM v2.2.2.4                                           |
 ; | @template : Blue DeviL                                                |
-; | @date     : 07/09/2022                                                |
+; | @date     : 22/09/2022                                                |
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
 ; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
-; |                Tutorial 11-3 - More about Dialog Box                  |
+; |                          Tutorial 21 - Pipe                           |
 ; \_______________________________________________________________________/
 
 
@@ -44,14 +44,14 @@
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
-    include \masm64\include64\comdlg32.inc
+    include \masm64\include64\gdi32.inc
 
 ; _________________________________________________________________________
 ; libraries
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
-    includelib \masm64\lib64\comdlg32.lib
+    includelib \masm64\lib64\gdi32.lib
 
 ; _________________________________________________________________________
 ; funtion prototypes
@@ -62,40 +62,33 @@
 ; constant variables
 
 .const
-    IDM_OPEN        equ 1
-    IDM_EXIT        equ 2
-    MAXSIZE         equ 260
-    OUTPUTSIZE      equ 512
+    IDR_MAINMENU        equ 101
+    IDM_ASSEMBLE        equ 40001
+    Black               equ 00000000h
+    Yellow              equ 0000FFFFh
 
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName       db "SimpleWin64Class", 0
-    AppName         db "Our First Window", 0
-    MenuName        db "FirstMenu",0
-    Test_str        db "You selected Test menu item",0
-    Hello_str       db "Hello, my friend",0
-    Goodbye_str     db "See you again, bye",0
-    OurTitle        db "-=Our First Open File Dialog Box=-: Choose the file to open",0
-    FllPthName      db "The Full Filename with Path is: ",0
-    FullName        db "The Filename is: ",0
-    ExtName         db "The Extension is: ",0
-    OutputStr       db OUTPUTSIZE dup(0)
-    FilterStr       db "All Files",0,"*.*",0
-                    db "Text Files",0,"*.txt",0,0
-    buffer          db MAXSIZE dup(0)
-    CrLf            db 0Dh,0Ah,0
-    ofn             OPENFILENAME <>
+    ClassName           db "PipeWin64Class", 0              ; the name of our window class
+    AppName             db "x64 One-way Pipe Example", 0    ; the name of our window
+    EditClass           db "EDIT", 0
+    CreatePipeError     db "Error during pipe creation", 0
+    CreateProcessError  db "Error during process creation", 0
+    ; MASM64 SDK must be installed under C:\masm64
+    ; Also if ml64 is in PATH the string below can be shortened
+    CmdLine64           db "\masm64\bin64\ml64 /Cp test.asm /link /subsystem:windows", 0
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine     LPSTR ?
-    hInstance       HINSTANCE ?
-    hIcon           HICON ?
-    hCursor         HCURSOR ?
+    CommandLine LPSTR ?
+    hInstance   HINSTANCE ?
+    hIcon       HICON ?
+    hCursor     HCURSOR ?
+    hwndEdit    HANDLE ?
 
 .code
 
@@ -131,15 +124,14 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     mov     wcex.lpfnWndProc, rdi;offset WndProc
     mov     wcex.cbClsExtra, NULL
     mov     wcex.cbWndExtra, NULL
-    mov     rax,hInst
+    mov     rax, hInst
     mov     wcex.hInstance, rax
     mov     rax, hIcon
     mov     wcex.hIcon, rax;hIcon
     mov     rbx, hCursor
     mov     wcex.hCursor, rbx;hCursor
     mov     wcex.hbrBackground, COLOR_WINDOW + 1
-    lea     rdi, MenuName
-    mov     wcex.lpszMenuName, rdi;offset MenuName
+    mov     wcex.lpszMenuName, IDR_MAINMENU
     lea     rdi, ClassName
     mov     wcex.lpszClassName, rdi;offset ClassName
     mov     wcex.hIconSm, rax;hIcon
@@ -149,10 +141,10 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
                     WS_EX_CLIENTEDGE, \
                     addr ClassName, \
                     addr AppName, \
-                    WS_OVERLAPPEDWINDOW, \
+                    WS_OVERLAPPEDWINDOW or WS_VISIBLE, \
                     CW_USEDEFAULT, \
                     CW_USEDEFAULT, \
-                    300, \
+                    400, \
                     200, \
                     NULL, \
                     NULL, \
@@ -164,7 +156,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     invoke  UpdateWindow, hWnd
     
     .while TRUE
-        invoke  GetMessage, addr msg, NULL,0,0
+        invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
@@ -179,55 +171,95 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
 WinMain endp
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
+
+    LOCAL   rect:RECT
+    LOCAL   hRead:QWORD
+    LOCAL   hWrite:QWORD
+    LOCAL   startupInfo:STARTUPINFO
+    LOCAL   pInfo:PROCESS_INFORMATION
+    LOCAL   buffer[1024]:BYTE
+    LOCAL   bytesRead:QWORD
+    LOCAL   hdc:HDC
+    LOCAL   sat:SECURITY_ATTRIBUTES
+    LOCAL   nWidth:INT32
+    LOCAL   nHeight:INT32
     
-    .if uMsg==WM_DESTROY
-        invoke PostQuitMessage, NULL
+    .if uMsg==WM_CREATE
+        invoke  CreateWindowEx, \
+                        NULL, \
+                        addr EditClass, \
+                        NULL, \
+                        WS_CHILD or WS_VISIBLE or ES_MULTILINE or \
+                        ES_AUTOHSCROLL or ES_AUTOVSCROLL, \
+                        0, 0, 0, 0, \
+                        hWnd, \
+                        NULL, \
+                        hInstance, \
+                        NULL
+        mov hwndEdit, rax
+    .elseif uMsg==WM_CTLCOLOREDIT
+        invoke SetTextColor, wParam, Yellow
+        invoke SetBkColor, wParam, Black
+        invoke GetStockObject,BLACK_BRUSH
+        ret
+    .elseif uMsg==WM_SIZE
+        mov rax, lParam
+        mov rdx, rax
+        and rax, 0FFFFh
+        mov nWidth, eax
+        shr rdx, 16
+        and rdx, 0FFFFh
+        mov nHeight, edx
+        invoke MoveWindow, hwndEdit, 0, 0, nWidth, nHeight, TRUE
     .elseif uMsg==WM_COMMAND
-        mov rax, wParam
-        .if eax==IDM_OPEN
-            mov ofn.lStructSize, sizeof ofn
-            mov rdi, hWnd
-            mov ofn.hwndOwner, rdi
-            push hInstance
-            pop ofn.hInstance
-            lea rdi,FilterStr
-            mov ofn.lpstrFilter, rdi
-            lea rdi, buffer
-            mov ofn.lpstrFile, rdi 
-            mov ofn.nMaxFile, MAXSIZE
-            mov ofn.Flags,  OFN_FILEMUSTEXIST or \
-                            OFN_PATHMUSTEXIST or OFN_LONGNAMES or\
-                            OFN_EXPLORER or OFN_HIDEREADONLY
-            lea rdi,OurTitle
-            mov ofn.lpstrTitle, rdi 
-            invoke GetOpenFileName, addr ofn
-            .if eax==TRUE
-                invoke lstrcat, addr OutputStr, addr FllPthName
-                invoke lstrcat, addr OutputStr, ofn.lpstrFile
-                invoke lstrcat, addr OutputStr, addr CrLf
-                invoke lstrcat, addr OutputStr, addr FullName
-                mov  rax, ofn.lpstrFile
-                push rbx
-                xor  rbx,rbx
-                mov  bx, ofn.nFileOffset
-                add  rax, rbx
-                pop  rbx
-                invoke lstrcat, addr OutputStr, rax
-                invoke lstrcat, addr OutputStr, addr CrLf
-                invoke lstrcat, addr OutputStr, addr ExtName
-                mov rax, ofn.lpstrFile
-                push rbx
-                xor rbx, rbx
-                mov bx, ofn.nFileExtension
-                add rax, rbx
-                pop rbx
-                invoke lstrcat, addr OutputStr, rax
-                invoke MessageBox, hWnd, addr OutputStr, ADDR AppName, MB_OK
-                invoke RtlZeroMemory, addr OutputStr, OUTPUTSIZE
+        .if lParam==0
+            mov rax, wParam
+            .if ax==IDM_ASSEMBLE
+                mov sat.nLength, sizeof SECURITY_ATTRIBUTES
+                mov sat.lpSecurityDescriptor, NULL
+                mov sat.bInheritHandle, TRUE
+                
+                invoke CreatePipe, addr hRead, addr hWrite, addr sat, NULL
+                .if rax==NULL
+                    invoke MessageBox, hWnd, addr CreatePipeError, addr AppName, MB_OK or MB_ICONERROR
+                .else
+                    mov startupInfo.cb, sizeof STARTUPINFO
+                    invoke GetStartupInfo, addr startupInfo
+                    mov rax, hWrite
+                    mov startupInfo.hStdOutput, rax
+                    mov startupInfo.hStdError, rax
+                    mov startupInfo.dwFlags, STARTF_USESHOWWINDOW or STARTF_USESTDHANDLES
+                    mov startupInfo.wShowWindow, SW_HIDE
+                    ;__________________________________
+                    ; Create Process
+                    ;__________________________________
+                    invoke CreateProcess, \
+                                    NULL, \
+                                    addr CmdLine64, \
+                                    NULL, NULL, TRUE, NULL, NULL, NULL, \
+                                    addr startupInfo, \
+                                    addr pInfo
+                    .if rax==NULL
+                        invoke MessageBox, hWnd, addr CreateProcessError, addr AppName, MB_OK or MB_ICONERROR
+                    .else
+                        invoke CloseHandle, hWrite
+                        .while TRUE
+                            invoke RtlZeroMemory, addr buffer, 1024
+                            invoke ReadFile, hRead, addr buffer, 1023, addr bytesRead, NULL
+                            .if rax==NULL
+                                .break
+                            .else
+                                invoke SendMessage, hwndEdit, EM_SETSEL, -1, 0
+                                invoke SendMessage, hwndEdit, EM_REPLACESEL, FALSE, addr buffer
+                            .endif
+                        .endw
+                    .endif
+                    invoke CloseHandle, hRead
+                .endif
             .endif
-        .else
-            invoke  DestroyWindow, hWnd
         .endif
+    .elseif uMsg==WM_DESTROY
+        invoke  PostQuitMessage, NULL
     .else
         invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
         ret

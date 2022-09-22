@@ -110,8 +110,8 @@ WinMainCRTStartup endp
 
 WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     
-    LOCAL wcex:WNDCLASSEX
-    LOCAL msg:MSG
+    LOCAL   wcex:WNDCLASSEX
+    LOCAL   msg:MSG
     
     invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax

@@ -1,61 +1,62 @@
 [Project]
 Assembler=MASM64
-Type=Dll64 Project
-Description=Iczelion Tuturial 17: Dynamic Link Libraries
+Type=Win64 App
+Description=Iczelion Tutorial 22: Superclassing
 Backup=$P\Bak\
 Group=1
 GroupExpand=1
 Debug=0
 [Files]
-1=0_Dll_Skeleton.Asm
-2=0_Dll_Skeleton.Def
+1=TUTE22.Asm
 [MakeFiles]
-0=0_Dll_Skeleton.rap
-1=0_Dll_Skeleton.rc
-2=0_Dll_Skeleton.asm
-3=0_Dll_Skeleton.obj
-4=0_Dll_Skeleton.res
-5=0_Dll_Skeleton.exe
-6=0_Dll_Skeleton.def
-7=0_Dll_Skeleton.dll
-8=0_Dll_Skeleton.txt
-9=0_Dll_Skeleton.lib
-10=0_Dll_Skeleton.mak
-11=0_Dll_Skeleton.hla
-12=0_Dll_Skeleton.com
-13=0_Dll_Skeleton.ocx
-14=0_Dll_Skeleton.idl
-15=0_Dll_Skeleton.tlb
-16=0_Dll_Skeleton.sys
-17=0_Dll_Skeleton.dp32
-18=0_Dll_Skeleton.pdb
-19=0_Dll_Skeleton.dp64
-20=0_Dll_Skeleton.md
+0=TUTE22.rap
+1=TUTE22.rc
+2=TUTE22.asm
+3=TUTE22.obj
+4=TUTE22.res
+5=TUTE22.exe
+6=TUTE22.def
+7=TUTE22.dll
+8=TUTE22.txt
+9=TUTE22.lib
+10=TUTE22.mak
+11=TUTE22.hla
+12=TUTE22.com
+13=TUTE22.ocx
+14=TUTE22.idl
+15=TUTE22.tlb
+16=TUTE22.sys
+17=TUTE22.dp32
+18=TUTE22.pdb
+19=TUTE22.dp64
+20=TUTE22.md
 [MakeDef]
-Menu=0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0
+Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
-2=3,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",2
-3=7,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /DLL /ENTRY:DllMain /DEF:$6 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$7",3
+2=3,O,$B\ML64.exe /c -Zp8 /D_WIN64 /Cp /nologo /W2 /I"$I",2
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
 7=0,0,"$E\x64\x64dbg",5
 11=4,O,$B\RC.EXE /v,1
 12=3,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /Zi /Zd /nologo /I"$I",2
-13=7,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:$.pdb /DLL /DEF:$6 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$7",3
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:$.pdb /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
 14=0,0,,5
 15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
-16=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
+16=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2  /I"$I",*.asm
 17=0,0,"$E\x64\x64dbg",$.exe
 [Group]
-Group=Assembly,Resources
+Group=Assembly
 1=1
-2=2
 [AutoLoad]
 AutoLoad=
 [RADebugBP]
-2=
 1=
+[Collapse]
+1=
+[Size]
+1=0,0,0,0,0
 [VersionControl]
 Settings=1246
 Milestones=129
@@ -69,10 +70,10 @@ MilestoneOnDateStatus=0
 MilestoneOnDateDate=22
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
-MilestoneOnDateTimeDate=13
-MilestoneOnDateTimeHour=6
-MilestoneOnDateTimeMin=35
-MilestoneOnDateTimeSec=56
+MilestoneOnDateTimeDate=22
+MilestoneOnDateTimeHour=0
+MilestoneOnDateTimeMin=38
+MilestoneOnDateTimeSec=51
 MilestoneOnDateTimeStatus=0
 BackupLocation=C:\Program Files\SCTTools\Editors\RadASM2\MASM64\Projects\VCBackups\
 CompressionLevel=0
@@ -99,15 +100,9 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=3062422
-[Collapse]
-1=
-2=
-[Size]
-1=0,0,0,0,1
-2=0,0,0,0,32
+PTimer=9647796
 [GroupExpand]
-GroupExpand=1,1,0
+GroupExpand=1,0
 [BookMark]
 0=
 1=

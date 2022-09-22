@@ -91,7 +91,7 @@
 WinMainCRTStartup proc 
     
     invoke  GetModuleHandle, NULL
-    mov hInstance, rax
+    mov     hInstance, rax
     
     invoke  GetCommandLine
     mov     CommandLine, rax
