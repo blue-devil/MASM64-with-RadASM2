@@ -1860,6 +1860,123 @@ CS_GLOBALCLASS,equ CS_PUBLICCLASS
 CS_IME,equ 10000h
 CS_DROPSHADOW,equ 20000h
 CW_USEDEFAULT,equ 80000000h
+;  _______________________________________________________________________ 
+; |                                                                       |
+; |                             HOOKING CODES                             |
+; |_______________________________________________________________________|
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   SetWindowsHook() codes
+;   Header      : WinUser.h
+;   MS Docs     : n/a
+; \_______________________________________________________________________/
+WH_MIN,equ -1
+WH_MSGFILTER,equ -1
+WH_JOURNALRECORD,equ 0
+WH_JOURNALPLAYBACK,equ 1
+WH_KEYBOARD,equ 2
+WH_GETMESSAGE,equ 3
+WH_CALLWNDPROC,equ 4
+WH_CBT,equ 5
+WH_SYSMSGFILTER,equ 6
+WH_MOUSE,equ 7
+WH_HARDWARE,equ 8
+WH_DEBUG,equ 9
+WH_SHELL,equ 10
+WH_FOREGROUNDIDLE,equ 11
+WH_CALLWNDPROCRET,equ 12
+WH_KEYBOARD_LL,equ 13
+WH_MOUSE_LL,equ 14
+WH_MAX,equ 14
+WH_MAX,equ 12
+WH_MAX,equ 11
+WH_MINHOOK,equ WH_MIN
+WH_MAXHOOK,equ WH_MAX
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   Hook Codes
+;   Header      : WinUser.h
+;   MS Docs     : n/a
+; \_______________________________________________________________________/
+HC_ACTION,equ 0
+HC_GETNEXT,equ 1
+HC_SKIP,equ 2
+HC_NOREMOVE,equ 3
+HC_NOREM,equ HC_NOREMOVE
+HC_SYSMODALON,equ 4
+HC_SYSMODALOFF,equ 5
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   CBT Hook Codes
+;   Header      : WinUser.h
+;   MS Docs     : n/a
+; \_______________________________________________________________________/
+HCBT_MOVESIZE,equ 0
+HCBT_MINMAX,equ 1
+HCBT_QS,equ 2
+HCBT_CREATEWND,equ 3
+HCBT_DESTROYWND,equ 4
+HCBT_ACTIVATE,equ 5
+HCBT_CLICKSKIPPED,equ 6
+HCBT_KEYSKIPPED,equ 7
+HCBT_SYSCOMMAND,equ 8
+HCBT_SETFOCUS,equ 9
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   Class field offsets
+;   Header      : WinUser.h
+;   MS Docs     : n/a
+; \_______________________________________________________________________/
+GCL_MENUNAME,equ -8
+GCL_HBRBACKGROUND,equ -10
+GCL_HCURSOR,equ -12
+GCL_HICON,equ -14
+GCL_HMODULE,equ -16
+GCL_CBWNDEXTRA,equ -18
+GCL_CBCLSEXTRA,equ -20
+GCL_WNDPROC,equ -24
+GCL_STYLE,equ -26
+GCW_ATOM,equ -32
+GCL_HICONSM,equ -34
+GCLP_MENUNAME,equ -8
+GCLP_HBRBACKGROUND,equ -10
+GCLP_HCURSOR,equ -12
+GCLP_HICON,equ -14
+GCLP_HMODULE,equ -16
+GCLP_WNDPROC,equ -24
+GCLP_HICONSM,equ -34
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   Window field offsets
+;   Header      : WinUser.h
+;   MS Docs     : n/a
+;   Added Date  : 24/09/2022
+; \_______________________________________________________________________/
+GWL_WNDPROC,equ -4
+GWL_HINSTANCE,equ -6
+GWL_HWNDPARENT,equ -8
+GWL_STYLE,equ -16
+GWL_EXSTYLE,equ -20
+GWL_USERDATA,equ -21
+GWL_ID,equ -12
+GWLP_WNDPROC,equ -4
+GWLP_HINSTANCE,equ -6
+GWLP_HWNDPARENT,equ -8
+GWLP_USERDATA,equ -21
+GWLP_ID,equ -12
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   Get/SetWindowWord/Long offsets for use with WC_DIALOG windows
+;   Header      : WinUser.h
+;   MS Docs     : n/a
+;   Added Date  : 24/09/2022
+; \_______________________________________________________________________/
+DWL_MSGRESULT,equ 0
+DWL_DLGPROC,equ 4
+DWL_USER,equ 8
+DWLP_MSGRESULT,equ 0
+DWLP_DLGPROC,equ DWLP_MSGRESULT + sizeof(LRESULT)
+DWLP_USER,equ DWLP_DLGPROC + sizeof(DLGPROC)
 ;
 NULL,equ 0
 TRUE,equ 1

@@ -1615,7 +1615,12 @@ GetClassFileOrMime,pbc,szFilename,pBuffer,cbSize,szMime,dwReserved,pclsid
 GetClassIDFromBlob,hBlob,pOwnerName,pCategoryName,pTagName,pclsid
 GetClassInfo,hInstance,lpClassName,lpWndClass
 GetClassInfoEx,hinstance,lpcstr,lpwndclassexa
-GetClassLong,hwnd,nIndex
+GetClassLong,hWnd,nIndex
+GetClassLongA,hWnd,nIndex
+GetClassLongW,hWnd,nIndex
+GetClassLongPtr,hWnd,nIndex
+GetClassLongPtrA,hWnd,nIndex
+GetClassLongPtrW,hWnd,nIndex
 GetClassName,hwnd,lpClassName,nMaxCount
 GetClassURL,szURL,pclsid
 GetClassWord,hwnd,nIndex
@@ -2075,8 +2080,8 @@ GetWindowContextHelpId,hWnd
 GetWindowDC,hwnd
 GetWindowExtEx,hdc,lpSize
 GetWindowInfo,hwnd,pwi
-GetWindowLong,hwnd,nIndex
-GetWindowLongPtr,hwnd,nIndex
+GetWindowLong,hWnd,nIndex
+GetWindowLongPtr,hWnd,nIndex
 GetWindowModuleFileName,hwnd,pszFileName,cchFileNameMax
 GetWindowOrgEx,hdc,lpPoint
 GetWindowPlacement,hwnd,lpwndpl
@@ -5114,6 +5119,11 @@ SetCaretPos,x,y
 SetCatalogState,pwcsCat,pwcsMachine,dwNewState,pdwOldState
 SetClassIDInBlob,hBlob,pOwnerName,pCategoryName,pTagName,pclsid
 SetClassLong,hwnd,nIndex,dwNewLong
+SetClassLongA,hwnd,nIndex,dwNewLong
+SetClassLongW,hwnd,nIndex,dwNewLong
+SetClassLongPtr,hWnd,nIndex,dwNewLong
+SetClassLongPtrA,hWnd,nIndex,dwNewLong
+SetClassLongPtrW,hWnd,nIndex,dwNewLong
 SetClassWord,hwnd,nIndex,wNewWord
 SetClipboardData,uFormat,hMem
 SetClipboardViewer,hwnd
@@ -5490,7 +5500,7 @@ SetVolumeMountPoint,lpszVolumeMountPoint,lpszVolumeName
 SetWaitableTimer,hTimer,lpDueTime,lPeriod,pfnCompletionRoutine,lpArgToCompletionRoutine,fResume
 SetWindowContextHelpId,hWnd,dw
 SetWindowExtEx,hdc,nX,nY,lpSize
-SetWindowLong,hwnd,nIndex,dwNewLong
+SetWindowLong,hWnd,nIndex,dwNewLong
 SetWindowLongPtr,hwnd,nIndex,dwNewLong
 SetWindowOrgEx,hdc,nX,nY,lpPoint
 SetWindowPlacement,hwnd,lpwndpl
@@ -6449,7 +6459,7 @@ WideCharToMultiByte,CodePage,dwFlags,lpWideCharStr,cchWideChar,lpMultiByteStr,cc
 WidenPath,hdc
 WindowFromAccessibleObject,TIAccessible,phwnd
 WindowFromDC,hdc
-WindowFromPoint,xPoint,yPoint
+WindowFromPoint,POINT point
 WinExec,lpCmdLine,nCmdShow
 WinExecError,hwnd,error,lpstrFileName,lpstrTitle
 WinHelp,hwnd,lpHelpFile,wCommand,dwData

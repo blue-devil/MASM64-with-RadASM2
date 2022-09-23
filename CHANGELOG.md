@@ -41,6 +41,10 @@
 * ADDED: MASM64ApiMacroCall.api
 * ADDED: HDC and HBITMAP to MASM64.ini for color hiliting
 * ADDED: TUTE20, TUTE21, TUTE22
+* Added: SetWindowHookEx first parameters added to MASM64ApiConst.api
+* Added: Hook Codes added to MASM64ApiWord.api
+* Added: GetClassLongPtr and SetClassLongPtr 2nd parameteres to MASM64ApiConst.api
+* Added: SetClassLongPtr, GetClassLongPtr to MASM64ApiCall.api
 
 
 ### Changes
@@ -49,7 +53,9 @@
 * FIX: Taskbar constants edited
 * UPDATE: MASM64ApiWord.api common controls updated
 * UPDATE: Cosmetic
-* FIX: Wrong LIB64 parameters fixed in MASM64.ini, 
+* FIX: Wrong LIB64 parameters fixed in MASM64.ini
+* FIX: WindowFromPoint proto fixed in MASM64ApiCall.api
+* FIX: added SetClassLong 2nd parameter
 
 ## [2022.09.01] - 01-09-2022
 ### Added

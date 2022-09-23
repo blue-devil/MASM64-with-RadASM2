@@ -6,7 +6,7 @@ echo " #   -=[                ASSEMBLE and LINK SCRIPT                ]=-    #"
 echo " #     _______ _______ _______                                         #"
 echo " #    |    ...|    ...|    ...|  Author : Blue DeviL                   #"
 echo " #    |  _____|    .__|_   .._|  E-mail : bluedevil.SCT@gmail.com      #"
-echo " #    | |_____|   .|    |  .|    Date   : 16/09/2022                   #"
+echo " #    | |_____|   .|    |  .|    Date   : 23/09/2022                   #"
 echo " #    |_____.:|   :|    |  :|    WEB    : github.com/blue-devil        #"
 echo " #     _____|:|   :|__  |  :|                                          #"
 echo " #    |    .::|   .:::| |  :|  --/   Freedom, doesn't come from   \--  #"
@@ -15,7 +15,7 @@ echo " #                                                                     #"
 echo " #######################################################################"
 
 
-set appname=DialogWithManifest
+set appname=TUTE24
 
 REM Delete compiled files if exists
 if exist %appname%.exe del %appname%.exe
@@ -25,7 +25,7 @@ if exist %appname%.obj del %appname%.obj
 REM Compile resource file
 \masm64\bin64\rc.exe /v %appname%.rc
 REM If an object file needed from compiled resource uncomment the line below
-REM \masm64\bin64\Cvtres.exe /machine:x64 DialogWithManifest.res
+REM \masm64\bin64\Cvtres.exe /machine:x64 TUTE24.res
 
 REM Assemble
 \masm64\bin64\ml64.exe /c %appname%.asm
