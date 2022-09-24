@@ -45,6 +45,8 @@
 * Added: Hook Codes added to MASM64ApiWord.api
 * Added: GetClassLongPtr and SetClassLongPtr 2nd parameteres to MASM64ApiConst.api
 * Added: SetClassLongPtr, GetClassLongPtr to MASM64ApiCall.api
+* ADDED: ULONG,ULONGLONG,ULONG_PTR,ULONG32,ULONG64 to MASM64.ini
+* ADDED: MSLLHOOKSTRUCT and constants
 
 
 ### Changes
@@ -56,6 +58,7 @@
 * FIX: Wrong LIB64 parameters fixed in MASM64.ini
 * FIX: WindowFromPoint proto fixed in MASM64ApiCall.api
 * FIX: added SetClassLong 2nd parameter
+* FIX: TUTE24
 
 ## [2022.09.01] - 01-09-2022
 ### Added

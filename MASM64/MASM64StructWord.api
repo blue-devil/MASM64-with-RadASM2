@@ -123,3 +123,15 @@ STARTF_USEPOSITION,equ 4h
 STARTF_USESHOWWINDOW,equ 1h
 STARTF_USESIZE,equ 2h
 STARTF_USESTDHANDLES,equ 100h
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : MSLLHOOKSTRUCT Constants
+;   Where: CommCtrl.h
+;   Web  : https://tiny.one/msllhookstruct
+; \_______________________________________________________________________/
+;mouseData
+XBUTTON1,equ 1
+XBUTTON1,equ 2
+;flags
+LLMHF_INJECTED,equ 1
+LLMHF_LOWER_IL_INJECTED,equ 2

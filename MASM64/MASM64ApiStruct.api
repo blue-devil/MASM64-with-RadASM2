@@ -721,6 +721,7 @@ MONITOR_INFO_2A,pName,pEnvironment,pDLLName
 MONLINKSTRUCT,cb,dwTime,htask,fEstablished,fNoData,hszSvc,hszTopic,hszItem,wFmt,fServer,hConvServer,hConvClient
 MONMSGSTRUCT,cb,hwndTo,dwTime,htask,wMsg,wParam,lParam,dmhd:DDEML_MSG_HOOK_DATA
 MOUSEHOOKSTRUCT,pt:POINT,hwnd,wHitTestCode,dwExtraInfo
+MSLLHOOKSTRUCT,pt:POINT,mouseData,flags,time,dwExtraInfo
 MOUSEKEYS,cbSize,dwFlags,iMaxSpeed,iTimeToMaxSpeed,iCtrlSpeed,dwReserved1,dwReserved2
 MOUSE_EVENT_RECORD,dwMousePosition:COORD,dwButtonState,dwControlKeyState,dwEventFlags
 MSG,hwnd,message,wParam,lParam,time,pt:POINT

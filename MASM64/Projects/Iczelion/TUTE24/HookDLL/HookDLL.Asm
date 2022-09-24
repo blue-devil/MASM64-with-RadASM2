@@ -54,7 +54,9 @@
 ; _________________________________________________________________________
 ; funtion prototypes
 
-    TestHello           PROTO
+    UninstallHook       PROTO
+    InstallHook         PROTO   :HWND
+    MouseProc           PROTO   :QWORD,:WPARAM,:LPARAM
 
 ; _________________________________________________________________________
 ; constant variables
@@ -62,12 +64,13 @@
 .const
     WM_MOUSEHOOK        equ WM_USER+6
     
-    MOUSEHOOKSTRUCT STRUCT
+    MSLLHOOKSTRUCT STRUCT 
         pt              POINT <>
-        hwnd            QWORD ?
-        wHitTestCode    QWORD ?
-        dwExtraInfo     QWORD ?
-    MOUSEHOOKSTRUCT ENDS
+        mouseData       DWORD ?
+        flags           DWORD ?
+        time            DWORD ?
+        dwExtraInfo     ULONG_PTR ?
+    MSLLHOOKSTRUCT ENDS
 
 ; _________________________________________________________________________
 ; initialized variables
@@ -84,19 +87,10 @@
 
 .code
 
-DllMain proc hinstDLL:HINSTANCE, fdwReason:DWORD, lpReserved :DWORD
+DllMain proc hinstDLL:HINSTANCE, fdwReason:DWORD, lpReserved :QWORD
 
     push    hinstDLL
     pop     hInstance
-    
-    
-    comment *
-    .if fdwReason==DLL_PROCESS_ATTACH
-        push    hinstDLL
-        pop     hInstance
-        call    ShowBitmap
-    .endif
-    *
     
     mov eax, TRUE
     ret
@@ -105,7 +99,7 @@ DllMain endp
 
 MouseProc proc nCode:QWORD, wParam:WPARAM,lParam:LPARAM
 
-    LOCAL   ms:MOUSEHOOKSTRUCT
+    LOCAL   ms:MSLLHOOKSTRUCT
 
     invoke CallNextHookEx, hHook, nCode, wParam, lParam
     mov rdx, lParam
@@ -129,7 +123,7 @@ InstallHook proc hwnd:HWND
     
     push hwnd
     pop hWnd
-    invoke SetWindowsHookEx, WH_MOUSE, addr MouseProc, hInstance, 0
+    invoke SetWindowsHookEx, WH_MOUSE_LL, addr MouseProc, hInstance, 0
     mov hHook, rax
     
     ret

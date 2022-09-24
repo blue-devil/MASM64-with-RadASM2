@@ -139,7 +139,7 @@ DlgProc proc hDlg:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke GetDlgItemText, hDlg, IDC_CLASSNAME, addr buffer2, 128
         invoke GetClassName, wParam, addr buffer1, 128
         invoke lstrcmpi, addr buffer1, addr buffer2
-        .if rax {} 0
+        .if rax{}0
             invoke SetDlgItemText, hDlg, IDC_CLASSNAME, addr buffer1
         .endif
         
@@ -147,7 +147,7 @@ DlgProc proc hDlg:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke GetClassLongPtr, wParam, GCL_WNDPROC
         invoke wsprintf, addr buffer1, addr template, rax
         invoke lstrcmpi, addr buffer1, addr buffer2
-        .if rax {} 0
+        .if rax{}0
             invoke SetDlgItemText, hDlg, IDC_WNDPROC, addr buffer1
         .endif
     .elseif uMsg==WM_COMMAND
