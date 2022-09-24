@@ -36,7 +36,7 @@ Debug=0
 Menu=0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
 2=3,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",2
-3=7,O,$B\LINK.EXE /SECTION:.bbs|S /ENTRY:DllMain /SUBSYSTEM:WINDOWS /RELEASE /DLL /DEF:$6 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$7",3
+3=7,O,$B\LINK.EXE /SECTION:.bss|S /ENTRY:DllMain /SUBSYSTEM:WINDOWS /RELEASE /DLL /DEF:$6 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$7",3
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
@@ -101,7 +101,7 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=43391984
+PTimer=43689531
 [Collapse]
 1=
 2=
