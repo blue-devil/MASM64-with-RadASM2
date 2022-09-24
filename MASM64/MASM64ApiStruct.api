@@ -820,8 +820,9 @@ NONCLIENTMETRICS,cbSize,iBorderWidth,iScrollWidth,iScrollHeight,iCaptionWidth,iC
 NONCLIENTMETRICSA,cbSize,iBorderWidth,iScrollWidth,iScrollHeight,iCaptionWidth,iCaptionHeight,lfCaptionFont:LOGFONTA,iSMCaptionWidth,iSMCaptionHeight,lfSMCaptionFont:LOGFONTA,iMenuWidth,iMenuHeight,lfMenuFont:LOGFONTA,lfStatusFont:LOGFONTA,lfMessageFont:LOGFONTA
 NOTIFICATION,ulEventType,ulAlignPad
 NOTIFKEY,cb,ab
-NOTIFYICONDATA,cbSize,hwnd,uID,uFlags,uCallbackMessage,hIcon,szTip
-NOTIFYICONDATAA,cbSize,hwnd,uID,uFlags,uCallbackMessage,hIcon,szTip
+NOTIFYICONDATA,cbSize,hwnd,uID,uFlags,uCallbackMessage,hIcon,szTip,dwState,dwStateMask,szInfo[256],union:DUMMYUNIONNAME,szInfoTitle[64],dwInfoFlags,guidItem,hBalloonIcon
+NOTIFYICONDATAA,cbSize,hwnd,uID,uFlags,uCallbackMessage,hIcon,szTip,dwState,dwStateMask,szInfo[256],union:DUMMYUNIONNAME,szInfoTitle[64],dwInfoFlags,guidItem,hBalloonIcon
+NOTIFYICONDATAW,cbSize,hwnd,uID,uFlags,uCallbackMessage,hIcon,szTip,dwState,dwStateMask,szInfo[256],union:DUMMYUNIONNAME,szInfoTitle[64],dwInfoFlags,guidItem,hBalloonIcon
 NRESARRAY,cItems,nr:NETRESOURCE
 NT_TIB,ExceptionList,StackBase,StackLimit,SubSystemTib,FiberData,Version,ArbitraryUserPointer,Self
 NUMBERFMT,NumDigits,LeadingZero,Grouping,lpDecimalSep,lpThousandSep,NegativeOrder

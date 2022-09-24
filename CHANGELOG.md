@@ -47,6 +47,7 @@
 * Added: SetClassLongPtr, GetClassLongPtr to MASM64ApiCall.api
 * ADDED: ULONG,ULONGLONG,ULONG_PTR,ULONG32,ULONG64 to MASM64.ini
 * ADDED: MSLLHOOKSTRUCT and constants
+* ADDED: NOTIFYICONDATA and constants
 
 
 ### Changes
@@ -59,6 +60,9 @@
 * FIX: WindowFromPoint proto fixed in MASM64ApiCall.api
 * FIX: added SetClassLong 2nd parameter
 * FIX: TUTE24
+* UPDATE: MASM64.ini Windows DataTypes are updated
+* UPDATE: According to [Directives Reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/directives-reference?view=msvc-170) MASM64.ini updated
+* UPDATE: [Symbols reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/symbols-reference?view=msvc-170) checked and MASM64.ini updated
 
 ## [2022.09.01] - 01-09-2022
 ### Added

@@ -210,7 +210,7 @@ WPARAM,8,32-bit message parameter.
 ; |                                                                       |
 ;   What : MASM64 Data Types
 ;   Where: 
-;   Web  : 
+;   Web  : https://www.pcjs.org/documents/books/mspl13/masm/mpguide/
 ; \_______________________________________________________________________/
 DB,1,Unsigned byte (8 bits).
 DW,2,Unsigned word (16 bits).
@@ -220,6 +220,12 @@ DT,10,Ten bytes float.
 SWORD,2,Signed word (16 bits).
 REAL4,4,floating point 4 bytes
 REAL8,8,floating point double 8 bytes
+C,equ 001b
+SYSCALL,equ 010b
+STDCALL,equ 011b
+PASCAL,equ 100b
+FORTRAN,equ 101b
+BASIC,equ 110b
 ;  _______________________________________________________________________ 
 ; |                                                                       |
 ;   What : Other Data Types

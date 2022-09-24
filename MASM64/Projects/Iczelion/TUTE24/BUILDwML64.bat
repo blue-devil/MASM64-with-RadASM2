@@ -1,5 +1,8 @@
 @echo off
 
+REM Clean command prompt screen
+cls
+
 echo " #######################################################################"
 echo " #                                                                     #"
 echo " #   -=[                ASSEMBLE and LINK SCRIPT                ]=-    #"

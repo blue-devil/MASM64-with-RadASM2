@@ -1,5 +1,8 @@
 @echo off
 
+REM Clean command prompt screen
+cls
+
 echo " #######################################################################"
 echo " #                                                                     #"
 echo " #   -=[                ASSEMBLE and LINK SCRIPT                ]=-    #"
@@ -32,7 +35,7 @@ REM \masm64\bin64\Cvtres.exe /machine:x64 HookDLL.res
 REM Assemble
 \masm64\bin64\ml64.exe /c %appname%.asm
 REM Link
-\masm64\bin64\link.exe /DLL /DEF:%appname%.def /SECTION:.bbs,S /ENTRY:DllMain /SUBSYSTEM:WINDOWS /LARGEADDRESSAWARE %appname%.obj
+\masm64\bin64\link.exe /DLL /DEF:%appname%.def /SECTION:.bss,S /ENTRY:DllMain /SUBSYSTEM:WINDOWS /LARGEADDRESSAWARE %appname%.obj
 
 dir %appname%.dll
 

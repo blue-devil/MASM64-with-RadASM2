@@ -135,3 +135,32 @@ XBUTTON1,equ 2
 ;flags
 LLMHF_INJECTED,equ 1
 LLMHF_LOWER_IL_INJECTED,equ 2
+;  _______________________________________________________________________ 
+; |                                                                       |
+;   What : NOTIFYICONDATA Constants
+;   Where: Shellapi.h
+;   Web  : https://tiny.one/notifyicondata
+; \_______________________________________________________________________/
+NOTIFYICON_VERSION,equ 3
+NOTIFYICON_VERSION_4,equ 4
+NIF_MESSAGE,equ 0x00000001
+NIF_ICON,equ 0x00000002
+NIF_TIP,equ 0x00000004
+NIF_STATE,equ 0x00000008
+NIF_INFO,equ 0x00000010
+NIF_GUID,equ 0x00000020
+NIF_REALTIME,equ 0x00000040
+NIF_SHOWTIP,equ 0x00000080
+; dwState: State of the Icon
+NIS_HIDDEN,equ 0x00000001
+NIS_SHAREDICON,equ 0x00000002
+; Notify Icon Infotip flags
+NIIF_NONE,equ 0x00000000
+NIIF_INFO,equ 0x00000001
+NIIF_WARNING,equ 0x00000002
+NIIF_ERROR,equ 0x00000003
+NIIF_USER,equ 0x00000004
+NIIF_ICON_MASK,equ 0x0000000F
+NIIF_NOSOUND,equ 0x00000010
+NIIF_LARGE_ICON,equ 0x00000020
+NIIF_RESPECT_QUIET_TIME,equ 0x00000080
