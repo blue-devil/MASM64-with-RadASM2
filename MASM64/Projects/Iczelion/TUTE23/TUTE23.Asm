@@ -61,7 +61,7 @@ NOTIFYICONDATAA STRUCT
     uCallbackMessage    DWORD   ?
     hIcon               HICON   ?
     szTip               BYTE    64 dup (?)
-                        BYTE    128 dup (?)
+    ;                    BYTE    128 dup (?)
     dwState             DWORD   ?
     dwStateMask         DWORD   ?
     szInfo              BYTE    256 dup(?)
@@ -83,7 +83,7 @@ NOTIFYICONDATAW STRUCT
     uCallbackMessage    DWORD   ?
     hIcon               HICON   ?
     szTip               WORD    64 dup (?)
-                        WORD    128 dup (?)
+    ;                    WORD    128 dup (?)
     dwState             DWORD   ?
     dwStateMask         DWORD   ?
     szInfo              WORD    256 dup(?)
@@ -163,6 +163,7 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     
     invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
+    mov note.hIcon, rax
     invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
@@ -229,7 +230,15 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         invoke AppendMenu, hPopupMenu, MF_STRING, IDM_RESTORE, addr RestoreString
         invoke AppendMenu, hPopupMenu, MF_STRING, IDM_EXIT, addr ExitString
     .elseif uMsg==WM_COMMAND
-    
+        .if lParam==0
+            invoke Shell_NotifyIcon, NIM_DELETE, addr note
+            mov rax, wParam
+            .if ax==IDM_RESTORE
+                invoke ShowWindow, hWnd, SW_RESTORE
+            .else
+                invoke DestroyWindow, hWnd
+            .endif
+        .endif
     .elseif uMsg==WM_SIZE
         .if wParam==SIZE_MINIMIZED
             mov note.cbSize, sizeof NOTIFYICONDATA
@@ -242,10 +251,22 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
             mov note.hIcon, rax
             
             invoke lstrcpy, addr note.szTip, addr AppName
+            
             invoke ShowWindow, hWnd, SW_HIDE
             invoke Shell_NotifyIcon, NIM_ADD, addr note
         .endif
     .elseif uMsg==WM_SHELLNOTIFY
+        .if wParam==IDI_TRAY
+            .if lParam==WM_RBUTTONDOWN
+                invoke GetCursorPos, addr pt
+                invoke SetForegroundWindow, hWnd
+                invoke TrackPopupMenu, hPopupMenu, TPM_RIGHTALIGN, pt.x, pt.y, NULL, hWnd, NULL
+                invoke PostMessage, hWnd, WM_NULL, 0, 0
+                
+            .elseif lParam==WM_LBUTTONDBLCLK
+                invoke SendMessage, hWnd, WM_COMMAND, IDM_RESTORE, 0
+            .endif
+        .endif
         
     .elseif uMsg==WM_DESTROY
         invoke  PostQuitMessage, NULL
