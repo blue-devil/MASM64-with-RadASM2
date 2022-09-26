@@ -114,6 +114,7 @@ ENDIF
 
 .const
     WM_SHELLNOTIFY      equ WM_USER+5
+    NOTIFICATION_TRAY_ICON_MSG equ WM_USER + 100h
     IDI_TRAY            equ 0
     IDM_RESTORE         equ 1000
     IDM_EXIT            equ 1010
@@ -163,7 +164,6 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     
     invoke  LoadIcon, NULL, IDI_APPLICATION
     mov     hIcon, rax
-    mov note.hIcon, rax
     invoke  LoadCursor, NULL, IDC_ARROW
     mov     hCursor, rax
     
@@ -245,9 +245,10 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
             mov rax, hWnd
             mov note.hwnd, rax
             mov note.uID, IDI_TRAY
+            mov note.uFlags, NIF_ICON or NIF_MESSAGE or NIF_TIP
             mov note.uCallbackMessage, WM_SHELLNOTIFY
             
-            invoke LoadIcon, NULL, IDI_WINLOGO
+            mov rax, hIcon
             mov note.hIcon, rax
             
             invoke lstrcpy, addr note.szTip, addr AppName
