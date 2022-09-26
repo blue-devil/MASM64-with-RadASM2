@@ -1,0 +1,47 @@
+[Project]
+Assembler=MASM64
+Type=Win64 App
+Description=Iczelion Tutorial 28: Win64 Debug API Part 1
+Backup=$P\Bak\
+Group=1
+GroupExpand=1
+[Files]
+1=TUTE28.Asm
+[MakeFiles]
+0=TUTE28.rap
+1=TUTE28.rc
+2=TUTE28.asm
+3=TUTE28.obj
+4=TUTE28.res
+5=TUTE28.exe
+6=TUTE28.def
+7=TUTE28.dll
+8=TUTE28.txt
+9=TUTE28.lib
+10=TUTE28.mak
+11=TUTE28.hla
+12=TUTE28.com
+13=TUTE28.ocx
+14=TUTE28.idl
+15=TUTE28.tlb
+16=TUTE28.sys
+17=TUTE28.dp32
+18=TUTE28.pdb
+19=TUTE28.dp64
+20=TUTE28.md
+[MakeDef]
+Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+1=4,O,$B\RC.EXE /v,1
+2=3,O,$B\ML64.exe /c -Zp8 /D_WIN64 /Cp /nologo /W2 /I"$I",2
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
+4=0,0,,5
+5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
+7=0,0,"$E\x64\x64dbg",5
+[Group]
+Group=Assembly
+1=1
+[AutoLoad]
+AutoLoad=
+[RADebugBP]
+1=

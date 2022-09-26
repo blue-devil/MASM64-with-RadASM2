@@ -1,0 +1,13 @@
+#include "\masm64\include64\Resource.h"
+#define IDD_MAINDIALOG                  101
+#define IDC_OK                          1000
+#define IDC_EXIT                        1001
+IDD_MAINDIALOG DIALOG DISCARDABLE  0, 0, 229, 96
+STYLE DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU | DS_CENTER
+CAPTION "x64 Tooltip Example"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "OK",IDC_OK,55,68,50,14
+    PUSHBUTTON      "E&xit",IDC_EXIT,123,68,50,14
+END
