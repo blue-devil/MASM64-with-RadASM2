@@ -49,6 +49,11 @@
 * ADDED: MSLLHOOKSTRUCT and constants
 * ADDED: NOTIFYICONDATA and constants
 * ADDED: TUTE28
+* ADDED: DuplicateHandle's constants
+* ADDED: Status Flags
+* ADDED: Compatibility macros
+* ADDED: DEBUG_EVENT Structure Constants
+* ADDED: MessageBox constants
 
 
 ### Changes
@@ -64,6 +69,7 @@
 * UPDATE: MASM64.ini Windows DataTypes are updated
 * UPDATE: According to [Directives Reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/directives-reference?view=msvc-170) MASM64.ini updated
 * UPDATE: [Symbols reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/symbols-reference?view=msvc-170) checked and MASM64.ini updated
+* UPDATE: MessageBooep constants updated
 
 ## [2022.09.01] - 01-09-2022
 ### Added

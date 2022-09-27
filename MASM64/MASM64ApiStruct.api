@@ -727,6 +727,7 @@ MOUSE_EVENT_RECORD,dwMousePosition:COORD,dwButtonState,dwControlKeyState,dwEvent
 MSG,hwnd,message,wParam,lParam,time,pt:POINT
 MSGBOXPARAMS,cbSize,hwndOwner,hInstance,lpszText,lpszCaption,dwStyle,lpszIcon,dwContextHelpId,lpfnMsgBoxCallback,dwLanguageId
 MSGBOXPARAMSA,cbSize,hwndOwner,hInstance,lpszText,lpszCaption,dwStyle,lpszIcon,dwContextHelpId,lpfnMsgBoxCallback,dwLanguageId
+MSGBOXPARAMSW,cbSize,hwndOwner,hInstance,lpszText,lpszCaption,dwStyle,lpszIcon,dwContextHelpId,lpfnMsgBoxCallback,dwLanguageId
 MSGFILTER,nmhdr:NMHDR,msg,wParam,lParam
 MSG_INFO_0,msgi0_name
 MSG_INFO_1,msgi1_name,msgi1_forward_flag,msgi1_forward

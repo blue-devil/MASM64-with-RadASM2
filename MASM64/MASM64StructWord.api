@@ -26,23 +26,21 @@
 ; |                                                                       |
 ; | This file contains the constants of frequently used structures.       |
 ; \_______________________________________________________________________/
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : BUTTON_IMAGELIST Type Constants
 ;   Where: CommCtrl.h,
 ;   Web  : https://tiny.one/controls-buttons
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 BUTTON_IMAGELIST_ALIGN_LEFT,equ 0
 BUTTON_IMAGELIST_ALIGN_RIGHT,equ 1
 BUTTON_IMAGELIST_ALIGN_TOP,equ 2
 BUTTON_IMAGELIST_ALIGN_BOTTOM,equ 3
 BUTTON_IMAGELIST_ALIGN_CENTER,equ 4,Doesn't draw text
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : BUTTON_SPLITINFO Mask Flags
 ;   Where: CommCtrl.h,
 ;   Web  : https://tiny.one/controls-buttons
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 BCSIF_GLYPH,equ 1
 BCSIF_IMAGE,equ 2
 BCSIF_STYLE,equ 4
@@ -52,13 +50,12 @@ BCSS_NOSPLIT,equ 1
 BCSS_STRETCH,equ 2
 BCSS_ALIGNLEFT,equ 4
 BCSS_IMAGE,equ 8
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : Hot item change flags
 ;   Where: CommCtrl.h,
 ;   Web  : https://tiny.one/controls-buttons
 ;   Note : NMBCHOTITEM Mask Flags uses.
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 // 
 HICF_OTHER,equ 0h
 HICF_MOUSE,equ 1h,Triggered by mouse
@@ -70,12 +67,11 @@ HICF_LEAVING,equ 20h,idNew is invalid
 HICF_RESELECT,equ 40h,hot item reselected
 HICF_LMOUSE,equ 80h,left mouse button selected
 HICF_TOGGLEDROPDOWN,equ 100h,Toggle button's dropdown state
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : OpenFileName Structure Flag Constants
 ;   Where: commdlg.h
 ;   Web  : https://tinyurl.com/ns-commdlg-openfilenamea
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 OFN_READONLY,equ 1h
 OFN_EX_NOPLACESBAR,equ 1h
 OFN_OVERWRITEPROMPT,equ 2h
@@ -103,12 +99,11 @@ OFN_ENABLEINCLUDENOTIFY,equ 400000h
 OFN_ENABLESIZING,equ 800000h
 OFN_DONTADDTORECENT,equ 2000000h
 OFN_FORCESHOWHIDDEN,equ 10000000h
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : STARTUPINFO Flag Parameter Constants
 ;   Where: CommCtrl.h
 ;   Web  : https://tiny.one/startupinfoa
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 STARTF_FORCEONFEEDBACK,equ 40h
 STARTF_FORCEOFFFEEDBACK,equ 80h
 STARTF_PREVENTPINNING,equ 2000h
@@ -123,24 +118,22 @@ STARTF_USEPOSITION,equ 4h
 STARTF_USESHOWWINDOW,equ 1h
 STARTF_USESIZE,equ 2h
 STARTF_USESTDHANDLES,equ 100h
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : MSLLHOOKSTRUCT Constants
 ;   Where: CommCtrl.h
 ;   Web  : https://tiny.one/msllhookstruct
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 ;mouseData
 XBUTTON1,equ 1
 XBUTTON1,equ 2
 ;flags
 LLMHF_INJECTED,equ 1
 LLMHF_LOWER_IL_INJECTED,equ 2
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : NOTIFYICONDATA Constants
 ;   Where: Shellapi.h
 ;   Web  : https://tiny.one/notifyicondata
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 NOTIFYICON_VERSION,equ 3
 NOTIFYICON_VERSION_4,equ 4
 NIF_MESSAGE,equ 0x00000001
@@ -164,3 +157,17 @@ NIIF_ICON_MASK,equ 0x0000000F
 NIIF_NOSOUND,equ 0x00000010
 NIIF_LARGE_ICON,equ 0x00000020
 NIIF_RESPECT_QUIET_TIME,equ 0x00000080
+; ------------------------------------------------------------------------------
+;   What : DEBUG_EVENT Structure Constants
+;   Where: minwinbase.h
+;   Web  : https://tiny.one/ns-minwinbase-debugevent
+; ------------------------------------------------------------------------------
+EXCEPTION_DEBUG_EVENT,equ 1
+CREATE_THREAD_DEBUG_EVENT,equ 2
+CREATE_PROCESS_DEBUG_EVENT,equ 3
+EXIT_THREAD_DEBUG_EVENT,equ 4
+EXIT_PROCESS_DEBUG_EVENT,equ 5
+LOAD_DLL_DEBUG_EVENT,equ 6
+UNLOAD_DLL_DEBUG_EVENT,equ 7
+OUTPUT_DEBUG_STRING_EVENT,equ 8
+RIP_EVENT,equ 9

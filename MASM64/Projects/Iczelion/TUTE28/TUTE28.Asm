@@ -78,18 +78,7 @@
                         db "Thread Handle: %016IX", 0Dh, 0Ah
                         db "Image Base: %016IX", 0Dh, 0Ah
                         db "Start Address: %016IX", 0
-    fmtRegDump          db "rax",9,": %016IX", 0Dh, 0Ah
-                        db "rbx",9,": %016IX", 0Dh, 0Ah
-                        db "rcx",9,": %016IX", 0Dh, 0Ah
-                        db "rdx",9,": %016IX", 0Dh, 0Ah
-                        db "r8",9,": %016IX", 0Dh, 0Ah
-                        db "r9",9,": %016IX", 0Dh, 0Ah
-                        db "r10",9,": %016IX", 0Dh, 0Ah
-                        db "r11",9,": %016IX", 0Dh, 0Ah
-                        db "r12",9,": %016IX", 0Dh, 0Ah
-                        db "r13",9,": %016IX", 0Dh, 0Ah
-                        db "r14",9,": %016IX", 0Dh, 0Ah
-                        db "r15",9,": %016IX", 0Dh, 0Ah,0
+
 .data?
     buffer              db 512 dup(?)
     ofn                 OPENFILENAME <>
@@ -108,28 +97,18 @@ WinMainCRTStartup proc
     mov ofn.lpstrFile, rdi
     mov ofn.nMaxFile, 512
     mov ofn.Flags, OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
-    comment *
-    mov eax, DBEvent.dwDebugEventCode
-    lea rdx, DBEvent.dwDebugEventCode
-    lea r8, DBEvent.dwProcessId
-    lea r9, DBEvent.dwThreadId
-    mov r8, offset [DBEvent + 0]
-    mov r9, offset [DBEvent + 4]
-    mov r10, offset [DBEvent + 8]
-    mov r11, offset [DBEvent + 12]
-    mov r12, qword ptr [DBEvent + 16]
-    invoke wsprintf, addr buffer, addr fmtRegDump, rax, rbx, rcx, rdx, r8, r9, r10, r11
-    invoke MessageBox, 0, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
-    *
+    
     invoke GetOpenFileName, addr ofn
     
     .if rax==TRUE
         invoke GetStartupInfo, addr startinfo
-        invoke CreateProcess, addr buffer, NULL, NULL, NULL, FALSE, DEBUG_PROCESS or DEBUG_ONLY_THIS_PROCESS, NULL, NULL, addr startinfo, addr pi
+        invoke CreateProcess, \
+                        addr buffer, NULL, NULL, NULL, FALSE, \
+                        DEBUG_PROCESS or DEBUG_ONLY_THIS_PROCESS, \
+                        NULL, NULL, addr startinfo, addr pi
     
-        ;lea rax, DBEvent
         .while TRUE
-            invoke WaitForDebugEvent, addr DBEvent,  INFINITE
+            invoke WaitForDebugEvent, addr DBEvent, INFINITE
             
             .if DBEvent.dwDebugEventCode==EXIT_PROCESS_DEBUG_EVENT
                 invoke MessageBox, 0, addr ExitProc, addr AppName, MB_OK or MB_ICONINFORMATION
@@ -151,15 +130,15 @@ WinMainCRTStartup proc
                 mov r15, qword ptr [DBEvent + 16]           ; DBEvent.u.Exception.pExceptionRecord.ExceptionCode
                 ;.if DBEvent.Exception.pExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
                 .if r15==EXCEPTION_BREAKPOINT
-                    invoke ContinueDebugEvent, DBEvent.dwProcessId,DBEvent.dwThreadId,DBG_CONTINUE
+                    invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
                     .continue
                 .endif
                 
             .elseif DBEvent.dwDebugEventCode==CREATE_THREAD_DEBUG_EVENT
-                invoke MessageBox,0, addr NewThread, addr AppName,MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, 0, addr NewThread, addr AppName, MB_OK or MB_ICONINFORMATION
             
             .elseif DBEvent.dwDebugEventCode==EXIT_THREAD_DEBUG_EVENT
-                invoke MessageBox,0, addr EndThread, addr AppName,MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, 0, addr EndThread, addr AppName, MB_OK or MB_ICONINFORMATION
             
             .endif
             invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_EXCEPTION_NOT_HANDLED

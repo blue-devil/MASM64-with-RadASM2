@@ -499,6 +499,7 @@ CheckDlgButton,hDlg,nIDButton,uCheck
 CheckMenuItem,hMenu,wIDCheckItem,wCheck
 CheckMenuRadioItem,hMenu,un1,un2,un3,un4
 CheckRadioButton,hDlg,nIDFirstButton,nIDLastButton,nIDCheckButton
+CheckRemoteDebuggerPresent,hProcess,[in,out]pbDebuggerPresent
 CheckSumMappedFile,BaseAddress,FileLength,HeaderSum,CheckSum
 CheckTokenMembership,TokenHandle,SidToCheck,IsMember
 ChildWindowFromPoint,hWnd,xPoint,yPoint
@@ -1054,6 +1055,7 @@ DdeUninitialize,idInst
 DeactivateWindowTheme,hWnd,pszSubAppName,pszSubIdList
 DeallocateNtmsMedia,hSession,lpMediaId,dwOptions
 DebugActiveProcess,dwProcessId
+DebugActiveProcessStop,dwProcessId
 DebugBreak
 DebugPrintWaitWorkerThreads,dwDebugLevel
 DecommissionNtmsMedia,hSession,lpMediaId
@@ -1272,7 +1274,7 @@ DsWriteAccountSpn,hDS,Operation,pszAccount,cSpn,rpszSpn
 DtcGetTransactionManagerC,i_pszHost,i_pszTmName,i_riid,i_dwReserved1,i_wcbReserved2,i_pvReserved2,o_ppvObject
 DtcGetTransactionManagerEx,i_pszHost,i_pszTmName,i_riid,i_grfOptions,i_pvConfigParams,o_ppvObject
 DuplicateBlob,hSrcBlob,hBlobThatWillBeCreated
-DuplicateHandle,hSourceProcessHandle,hSourceHandle,hTargetProcessHandle,lpTargetHandle,dwDesiredAccess,bInheritHandle,dwOptions
+DuplicateHandle,hSourceProcessHandle,hSourceHandle,hTargetProcessHandle,[out]lpTargetHandle,dwDesiredAccess,bInheritHandle,dwOptions
 DuplicateIcon,hInst,hIcon
 DuplicateToken,ExistingTokenHandle,ImpersonationLevel,DuplicateTokenHandle
 DuplicateTokenEx,hExistingToken,dwDesiredAccess,lpTokenAttributes,ImpersonationLevel,TokenType,phNewToken
@@ -3326,7 +3328,7 @@ MesEncodeIncrementalHandleCreate,UserState,AllocFn,WriteFn,pHandle
 MesHandleFree,Handle
 MesIncrementalHandleReset,Handle,UserState,AllocFn,WriteFn,ReadFn,Operation
 MesInqProcEncodingId,Handle,pInterfaceId,pProcNum
-MessageBeep,wType
+MessageBeep,uType
 MessageBox,hwnd,lpText,lpCaption,wType
 MessageBoxEx,hwnd,lpText,lpCaption,wType,wLanguageId
 MessageBoxIndirect,lpMsgBoxParams
@@ -4247,6 +4249,8 @@ OpenWaitableTimer,dwDesiredAccess,bInheritHandle,lpTimerName
 OpenWindowStation,lpszWinSta,fInherit,dwDesiredAccess
 OutputDebugStr,lpszOutputString
 OutputDebugString,lpOutputString
+OutputDebugStringA,lpOutputString
+OutputDebugStringW,lpOutputString
 PackDDElParam,msg,uiLo,uiHi
 PageSetupDlg,pPagesetupdlg
 PaintDesktop,hdc
@@ -6392,7 +6396,8 @@ VirtualUnlock,lpAddress,dwSize
 VkKeyScan,cChar
 VkKeyScanEx,ch,dwhkl
 WaitCommEvent,hFile,lpEvtMask,lpOverlapped
-WaitForDebugEvent,lpDebugEvent,dwMilliseconds
+WaitForDebugEvent,[out]lpDebugEvent,dwMilliseconds
+WaitForDebugEventEx,[out]lpDebugEvent,dwMilliseconds
 WaitForInputIdle,hProcess,dwMilliseconds
 WaitForMultipleObjects,nCount,lpHandles,bWaitAll,dwMilliseconds
 WaitForMultipleObjectsEx,nCount,lpHandles,bWaitAll,dwMilliseconds,bAlertable
