@@ -118,6 +118,8 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     LOCAL   tvinsert:TV_INSERTSTRUCT
     LOCAL   hBitmap:QWORD
     LOCAL   tvhit:TV_HITTESTINFO
+    LOCAL   posX:INT32
+    LOCAL   posY:INT32
     
     .if uMsg==WM_CREATE
         invoke  CreateWindowEx, \
@@ -191,18 +193,21 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         .endif
     .elseif uMsg==WM_NOTIFY
         mov rdi, lParam
-        comment *
-        assume rdi:ptr NM_TREEVIEW
-        .if [rdi].hdr.code==TVN_BEGINDRAG
-            invoke SendMessage, hTreeView, TVM_CREATEDRAGIMAGE, 0, [rdi].itemNew.hItem
+        
+        .if (NMTREEVIEW ptr [rdi]).hdr._code==TVN_BEGINDRAG
+            mov rax, (NMTREEVIEW ptr [rdi]).itemNew.hItem
+            invoke SendMessage, hTreeView, TVM_CREATEDRAGIMAGE, 0, rax
             mov hDragImageList, rax
             invoke ImageList_BeginDrag, hDragImageList, 0, 0, 0
-            invoke ImageList_DragEnter, hTreeView, [rdi].ptDrag.x, [rdi].ptDrag.y
+            mov eax, (NMTREEVIEW ptr [rdi]).ptDrag.x
+            mov posX, eax
+            mov eax, (NMTREEVIEW ptr [rdi]).ptDrag.y
+            mov posY, eax
+            invoke ImageList_DragEnter, hTreeView, posX, posY
             invoke SetCapture, hWnd
             mov DragMode, TRUE
         .endif
-        assume rdi:nothing
-        *
+        
     .elseif uMsg==WM_DESTROY
         invoke  PostQuitMessage, NULL
     .else

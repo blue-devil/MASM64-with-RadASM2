@@ -810,8 +810,10 @@ NMTTDISPINFO,hdr:NMHDR,lpszText,szText,hInst,hinst,uFlags,lParam
 NMTTDISPINFOA,hdr:NMHDR,lpszText,szText,hinst,uFlags,lParam
 NMTVCUSTOMDRAW,nmcd:NMCUSTOMDRAW,clrText,clrTextBk,iLevel
 NMTVDISPINFO,hdr:NMHDR,item:TVITEM
+NMTVDISPINFOEX,hdr:NMHDR,item:TVITEMEX
 NMTVGETINFOTIP,hdr:NMHDR,pszText,cchTextMax,hItem,lParam
 NMTVGETINFOTIPA,hdr:NMHDR,pszText,cchTextMax,hItem,lParam
+NMTVGETINFOTIPW,hdr:NMHDR,pszText,cchTextMax,hItem,lParam
 NMTVKEYDOWN,hdr:NMHDR,wVKey,flags
 NMUPDOWN,hdr:NMHDR,iPos,iDelta
 NM_LISTVIEW,hdr:NMHDR,iItem,iSubItem,uNewState,uOldState,uChanged,ptAction:POINT,lParam
@@ -1281,7 +1283,8 @@ TT_HITTESTINFO,hWnd,pt:POINT,ti:TOOLINFO
 TVHITTESTINFO,pt:POINT,flags,hItem
 TVITEM,_mask,hItem,state,stateMask,pszText,cchTextMax,iImage,iSelectedImage,cChildren,lParam
 TVITEMA,_mask,hItem,state,stateMask,pszText,cchTextMax,iImage,iSelectedImage,cChildren,lParam
-TVITEMEX,imask,hItem,state,stateMask,pszText,cchTextMax,iImage,iSelectedImage,cChildren,lParam,iIntegral
+TVITEMW,_mask,hItem,state,stateMask,pszText,cchTextMax,iImage,iSelectedImage,cChildren,lParam
+TVITEMEX,_mask,hItem,state,stateMask,pszText,cchTextMax,iImage,iSelectedImage,cChildren,lParam,iIntegral
 TVSORTCB,hParent,lpfnCompare,lParam
 TV_DISPINFO,hdr:NMHDR,item:TVITEM
 TV_HITTESTINFO,pt:POINT,flags,hItem

@@ -51,7 +51,7 @@
     TVGN_DROPHILITE         EQU 8
     TVGN_CARET	            EQU 9
     
-    ; Treeview cONTROL styles
+    ; Treeview Control styles
     TVS_HASBUTTONS	        EQU 0001h
     TVS_HASLINES	        EQU 0002h
     TVS_LINESATROOT         EQU 0004h
