@@ -1160,8 +1160,12 @@ DispGetIDsOfNames,ptinfo,rgszNames,cNames,rgdispid
 DispGetParam,pdispparams,position,vtTarg,pvarResult,puArgErr
 DispInvoke,this,ptinfo,dispidMember,wFlags,pparams,pvarResult,pexcepinfo,puArgErr
 DlgDirList,hDlg,lpPathSpec,nIDListBox,nIDStaticPath,wFileType
-DlgDirListComboBox,hDlg,lpPathSpec,nIDComboBox,nIDStaticPath,wFileType
-DlgDirSelectComboBoxEx,hWndDlg,lpszPath,cbPath,idComboBox
+DlgDirListComboBox,hDlg,lpPathSpec,nIDComboBox,nIDStaticPath,uFileType
+DlgDirListComboBoxA,hDlg,lpPathSpec,nIDComboBox,nIDStaticPath,uFileType
+DlgDirListComboBoxW,hDlg,lpPathSpec,nIDComboBox,nIDStaticPath,uFileType
+DlgDirSelectComboBoxEx,hWndDlg,[out]lpString,cchOut,idComboBox
+DlgDirSelectComboBoxExA,hWndDlg,[out]lpString,cchOut,idComboBox
+DlgDirSelectComboBoxExW,hWndDlg,[out]lpString,cchOut,idComboBox
 DlgDirSelectEx,hWndDlg,lpszPath,cbPath,idListBox
 DllCanUnloadNow
 DllGetClassObject,rclsid,riid,ppv
@@ -1290,6 +1294,8 @@ EditStreamCut,pavi,plStart,plLength,ppResult
 EditStreamPaste,pavi,plPos,plLength,pstream,lStart,lEnd
 EditStreamSetInfo,pavi,lpInfo,cbInfo
 EditStreamSetName,pavi,lpszName
+Editwordbreakproca,lpch,ichCurrent,cch,code
+Editwordbreakprocw,lpch,ichCurrent,cch,code
 EjectDiskFromSADrive,lpComputerName,lpAppName,lpDeviceName,hwnd,lpTitle,lpMessage,dwOptions
 EjectNtmsCleaner,hSession,lpLibrary,lpEjectOperation,dwAction
 EjectNtmsMedia,hSession,lpMediaId,lpEjectOperation,dwAction
@@ -1655,7 +1661,7 @@ GetColorProfileElementTag,THPROFILE,dword,TPTAGTYPE
 GetColorProfileFromHandle,THPROFILE,pbyte,pdword
 GetColorProfileHeader,THPROFILE,TPPROFILEHEADER
 GetColorSpace,hdc
-GetComboBoxInfo,hwndCombo,pcbi
+GetComboBoxInfo,hwndCombo,[out]pcbi
 GetCommandLine
 GetCommConfig,hCommDev,lpCC,lpdwSize
 GetCommMask,hFile,lpEvtMask

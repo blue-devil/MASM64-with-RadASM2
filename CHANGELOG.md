@@ -54,6 +54,7 @@
 * ADDED: Compatibility macros
 * ADDED: DEBUG_EVENT Structure Constants
 * ADDED: MessageBox constants
+* ADDED: Lots of new constants and macros of window controls
 
 
 ### Changes
