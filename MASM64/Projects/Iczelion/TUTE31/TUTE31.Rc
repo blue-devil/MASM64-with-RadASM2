@@ -1,0 +1,18 @@
+#include "\masm64\include64\Resource.h"
+
+#define IDM_MAINMENU        10000
+#define IDM_ICON            LVS_ICON
+#define IDM_SMALLICON       LVS_SMALLICON
+#define IDM_LIST            LVS_LIST
+#define IDM_REPORT          LVS_REPORT
+
+IDM_MAINMENU MENU
+{
+ POPUP "&View"
+        {
+         MENUITEM "&Icon View",IDM_ICON
+         MENUITEM "&Small Icon View",IDM_SMALLICON
+         MENUITEM "&List View", IDM_LIST
+         MENUITEM "&Report View",IDM_REPORT
+        }
+}
