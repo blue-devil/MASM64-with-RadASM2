@@ -68,13 +68,15 @@
 
 .data
     AppName             db "Win64 Debug Example no.1", 0
-    ofn                 OPENFILENAME <>
     FilterString        db "Executable Files", 0,"*.exe", 0
                         db "All Files", 0,"*.*", 0, 0
-    ExitProc            db "The debuggee exits",0Dh,0Ah
-                        db "Total Instructions executed : %lu %lu", 0
+    ExitProc            db "The debuggee exits", 0Dh, 0Ah
+                        db "Total Instructions executed : %016IX %016IX", 0
     TotalInstruction    dq 0
     bam                 dq 0
+    ofn                 OPENFILENAME <sizeof ofn,,,offset FilterString,,,,offset buffer,\
+                        sizeof buffer,,,,,OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or \
+                        OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY>
 
 .data?
     buffer              db 512 dup(?)
@@ -86,17 +88,9 @@
 .code
 
 WinMainCRTStartup proc
-
-    invoke RtlZeroMemory, addr ofn, sizeof OPENFILENAME
-    mov ofn.lStructSize, sizeof ofn
-    lea rdi, FilterString
-    mov ofn.lpstrFilter, rdi
-    lea rdi, buffer
-    mov ofn.lpstrFile, rdi
-    mov ofn.nMaxFile, 260
-    mov ofn.Flags, OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
     
     invoke GetOpenFileName, addr ofn
+    
     .if rax==TRUE
         invoke GetStartupInfo, addr startinfo
         invoke CreateProcess, \
@@ -113,11 +107,8 @@ WinMainCRTStartup proc
                 .break
                 
             .elseif DBEvent.dwDebugEventCode==EXCEPTION_DEBUG_EVENT
-                
-                xor r15, r15
-                mov r15, qword ptr [DBEvent + 16]           ; DBEvent.u.Exception.pExceptionRecord.ExceptionCode
-                .if r15d==080000003h;EXCEPTION_BREAKPOINT
-                    inc bam;invoke MessageBox,0,addr AppName,addr AppName,MB_OK
+                .if DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
+                    inc bam
                     mov context.ContextFlags, CONTEXT_CONTROL
                     invoke GetThreadContext, pi.hThread, addr context
                     or context.EFlags, 100h                 ; set trap flag
@@ -125,10 +116,7 @@ WinMainCRTStartup proc
                     invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
                     .continue
                     
-                .elseif r15d==080000004h;EXCEPTION_SINGLE_STEP
-                    ;invoke MessageBox,0,addr AppName,addr AppName,MB_OK or MB_ICONASTERISK
-                    
-                    
+                .elseif DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_SINGLE_STEP
                     inc TotalInstruction
                     invoke GetThreadContext, pi.hThread, addr context
                     or context.EFlags, 100h

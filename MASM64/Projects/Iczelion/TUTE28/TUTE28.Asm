@@ -70,7 +70,7 @@
     AppName             db "Win64 Debug Example no.1", 0
     FilterString        db "Executable Files", 0,"*.exe", 0
                         db "All Files", 0,"*.*", 0, 0
-    ExitProc            db "The debuggee exits", 0       
+    ExitProc            db "The debuggee exits", 0
     NewThread           db "A new thread is created", 0
     EndThread           db "A thread is destroyed", 0
     ProcessInfo         db "File Handle: %016IX ", 0Dh, 0Ah
@@ -79,34 +79,30 @@
                         db "Image Base: %016IX", 0Dh, 0Ah
                         db "Start Address: %016IX", 0
 
+    ofn                 OPENFILENAME <sizeof ofn,,,offset FilterString,,,,offset buffer,\
+                        sizeof buffer,,,,,OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or \
+                        OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY>
+
 .data?
     buffer              db 512 dup(?)
-    ofn                 OPENFILENAME <>
     startinfo           STARTUPINFO <>
     pi                  PROCESS_INFORMATION <>
     DBEvent             DEBUG_EVENT <>
+
 
 .code
 
 WinMainCRTStartup proc
 
-    mov ofn.lStructSize, sizeof ofn
-    lea rdi, FilterString
-    mov ofn.lpstrFilter, rdi
-    lea rdi, buffer
-    mov ofn.lpstrFile, rdi
-    mov ofn.nMaxFile, 512
-    mov ofn.Flags, OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
-    
     invoke GetOpenFileName, addr ofn
     
     .if rax==TRUE
         invoke GetStartupInfo, addr startinfo
-        invoke CreateProcess, \
-                        addr buffer, NULL, NULL, NULL, FALSE, \
-                        DEBUG_PROCESS or DEBUG_ONLY_THIS_PROCESS, \
-                        NULL, NULL, addr startinfo, addr pi
-    
+        invoke CreateProcess, addr buffer, \
+                    NULL, NULL, NULL, FALSE, \
+                    DEBUG_PROCESS or DEBUG_ONLY_THIS_PROCESS, \
+                    NULL, NULL, addr startinfo, addr pi
+
         .while TRUE
             invoke WaitForDebugEvent, addr DBEvent, INFINITE
             
@@ -115,30 +111,22 @@ WinMainCRTStartup proc
                 .break
             
             .elseif DBEvent.dwDebugEventCode==CREATE_PROCESS_DEBUG_EVENT
-                mov r15, qword ptr [DBEvent + 16 + 48]      ; DBEvent.u.CreateProcessInfo.lpStartAddress
-                mov r14, qword ptr [DBEvent + 16 + 24]      ; DBEvent.u.CreateProcessInfo.lpBaseOfImage
-                mov r13, qword ptr [DBEvent + 16 + 16]      ; DBEvent.CreateProcessInfo.hThread
-                mov r12, qword ptr [DBEvent + 16 + 8]       ; DBEvent.u.CreateProcessInfo.hProcess
-                mov r11, qword ptr [DBEvent + 16]           ; DBEvent.CreateProcessInfo.hFile
-                invoke wsprintf, addr buffer, addr ProcessInfo, r11, r12, r13, r14, r15
-                ;invoke wsprintf, addr buffer, addr ProcessInfo, DBEvent.CreateProcessInfo.hFile,\
-                ;       DBEvent.u.CreateProcessInfo.hProcess, DBEvent.CreateProcessInfo.hThread,\
-                ;       DBEvent.u.CreateProcessInfo.lpBaseOfImage,DBEvent.u.CreateProcessInfo.lpStartAddress
+                invoke wsprintf, addr buffer, addr ProcessInfo, DBEvent.CreateProcessInfo.hFile,\
+                       DBEvent.CreateProcessInfo.hProcess, DBEvent.CreateProcessInfo.hThread,\
+                       DBEvent.CreateProcessInfo.lpBaseOfImage, DBEvent.CreateProcessInfo.lpStartAddress
                 invoke MessageBox,0, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
             
             .elseif DBEvent.dwDebugEventCode==EXCEPTION_DEBUG_EVENT
-                mov r15, qword ptr [DBEvent + 16]           ; DBEvent.u.Exception.pExceptionRecord.ExceptionCode
-                ;.if DBEvent.Exception.pExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
-                .if r15==EXCEPTION_BREAKPOINT
+                .if DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
                     invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
                     .continue
                 .endif
                 
             .elseif DBEvent.dwDebugEventCode==CREATE_THREAD_DEBUG_EVENT
-                invoke MessageBox, 0, addr NewThread, addr AppName, MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, 0, addr NewThread, addr AppName,MB_OK or MB_ICONINFORMATION
             
             .elseif DBEvent.dwDebugEventCode==EXIT_THREAD_DEBUG_EVENT
-                invoke MessageBox, 0, addr EndThread, addr AppName, MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, 0, addr EndThread, addr AppName,MB_OK or MB_ICONINFORMATION
             
             .endif
             invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_EXCEPTION_NOT_HANDLED

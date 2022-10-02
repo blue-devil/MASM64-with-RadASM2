@@ -33,7 +33,7 @@ Debug=0
 [MakeDef]
 Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
-2=3,O,$B\ML64.exe /c -Zp8 /D_WIN64 /Cp /nologo /W2 /I"$I",2
+2=3,O,$B\ML64.exe /c /D_WIN64 /Cp /nologo /W2 /I"$I",2
 3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
@@ -63,7 +63,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=27
+MilestoneOnDateDate=3
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
 MilestoneOnDateTimeDate=27
@@ -96,11 +96,11 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=7342515
+PTimer=11597156
 [Collapse]
 1=
 [Size]
-1=0,0,0,0,6045
+1=0,0,0,0,5566
 [GroupExpand]
 GroupExpand=1,0,0,0
 [BookMark]
@@ -116,3 +116,5 @@ GroupExpand=1,0,0,0
 9=
 [BreakPoint]
 0=
+[Find]
+1="OFN_FILEMUSTEXIST"
