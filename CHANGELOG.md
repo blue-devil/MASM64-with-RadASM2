@@ -71,6 +71,7 @@
 * UPDATE: According to [Directives Reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/directives-reference?view=msvc-170) MASM64.ini updated
 * UPDATE: [Symbols reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/symbols-reference?view=msvc-170) checked and MASM64.ini updated
 * UPDATE: MessageBooep constants updated
+* UPDATE: TUTE28 - [Accessing Union elements inside a Structure in MASM64](https://masm32.com/board/index.php?topic=10387.0)
 
 ## [2022.09.01] - 01-09-2022
 ### Added
