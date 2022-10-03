@@ -71,19 +71,18 @@
     FilterString        db "Executable Files", 0,"*.exe", 0
                         db "All Files", 0,"*.*", 0, 0
     ExitProc            db "The debuggee exits", 0Dh, 0Ah
-                        db "Total Instructions executed : %016IX %016IX", 0
+                        db "Total Instructions executed : %016IX", 0
     TotalInstruction    dq 0
-    bam                 dq 0
     ofn                 OPENFILENAME <sizeof ofn,,,offset FilterString,,,,offset buffer,\
                         sizeof buffer,,,,,OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or \
                         OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY>
+    context             CONTEXT <>
 
 .data?
     buffer              db 512 dup(?)
     startinfo           STARTUPINFO <>
     pi                  PROCESS_INFORMATION <>
     DBEvent             DEBUG_EVENT <>
-    context             CONTEXT <>
 
 .code
 
@@ -102,16 +101,15 @@ WinMainCRTStartup proc
             invoke WaitForDebugEvent, addr DBEvent, INFINITE
             
             .if DBEvent.dwDebugEventCode==EXIT_PROCESS_DEBUG_EVENT
-                invoke wsprintf, addr buffer, addr ExitProc, TotalInstruction, bam
-                invoke MessageBox, 0, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
+                invoke wsprintf, addr buffer, addr ExitProc, TotalInstruction
+                invoke MessageBox, NULL, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
                 .break
                 
             .elseif DBEvent.dwDebugEventCode==EXCEPTION_DEBUG_EVENT
                 .if DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
-                    inc bam
                     mov context.ContextFlags, CONTEXT_CONTROL
                     invoke GetThreadContext, pi.hThread, addr context
-                    or context.EFlags, 100h                 ; set trap flag
+                    or context.EFlags, 10000h                 ; set resume flag
                     invoke SetThreadContext, pi.hThread, addr context
                     invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
                     .continue
@@ -119,7 +117,7 @@ WinMainCRTStartup proc
                 .elseif DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_SINGLE_STEP
                     inc TotalInstruction
                     invoke GetThreadContext, pi.hThread, addr context
-                    or context.EFlags, 100h
+                    or context.EFlags, 10000h
                     invoke SetThreadContext, pi.hThread, addr context
                     invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
                     .continue

@@ -107,14 +107,17 @@ WinMainCRTStartup proc
             invoke WaitForDebugEvent, addr DBEvent, INFINITE
             
             .if DBEvent.dwDebugEventCode==EXIT_PROCESS_DEBUG_EVENT
-                invoke MessageBox, 0, addr ExitProc, addr AppName, MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, NULL, addr ExitProc, addr AppName, MB_OK or MB_ICONINFORMATION
                 .break
             
             .elseif DBEvent.dwDebugEventCode==CREATE_PROCESS_DEBUG_EVENT
-                invoke wsprintf, addr buffer, addr ProcessInfo, DBEvent.CreateProcessInfo.hFile,\
-                       DBEvent.CreateProcessInfo.hProcess, DBEvent.CreateProcessInfo.hThread,\
-                       DBEvent.CreateProcessInfo.lpBaseOfImage, DBEvent.CreateProcessInfo.lpStartAddress
-                invoke MessageBox,0, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
+                invoke wsprintf, addr buffer, addr ProcessInfo, \
+                        DBEvent.CreateProcessInfo.hFile,\           ; image file handle
+                        DBEvent.CreateProcessInfo.hProcess, \       ; process handle
+                        DBEvent.CreateProcessInfo.hThread,\         ; thread handle
+                        DBEvent.CreateProcessInfo.lpBaseOfImage, \  ; imagebase
+                        DBEvent.CreateProcessInfo.lpStartAddress    ; entrypoint
+                invoke MessageBox, NULL, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
             
             .elseif DBEvent.dwDebugEventCode==EXCEPTION_DEBUG_EVENT
                 .if DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
@@ -123,10 +126,10 @@ WinMainCRTStartup proc
                 .endif
                 
             .elseif DBEvent.dwDebugEventCode==CREATE_THREAD_DEBUG_EVENT
-                invoke MessageBox, 0, addr NewThread, addr AppName,MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, NULL, addr NewThread, addr AppName,MB_OK or MB_ICONINFORMATION
             
             .elseif DBEvent.dwDebugEventCode==EXIT_THREAD_DEBUG_EVENT
-                invoke MessageBox, 0, addr EndThread, addr AppName,MB_OK or MB_ICONINFORMATION
+                invoke MessageBox, NULL, addr EndThread, addr AppName,MB_OK or MB_ICONINFORMATION
             
             .endif
             invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_EXCEPTION_NOT_HANDLED

@@ -2270,6 +2270,26 @@ STATUS_SXS_INVALID_DEACTIVATION,equ 0C0150010
 MAXIMUM_WAIT_OBJECTS,equ 64,Maximum number of wait objects
 MAXIMUM_SUSPEND_COUNT,equ MAXCHAR,Maximum times thread can be suspended
 ; ------------------------------------------------------------------------------
+;   What : CONTEXT Flags
+;   Where: winnt.h
+;   Web  : 
+; ------------------------------------------------------------------------------
+CONTEXT_AMD64,equ 100000h
+CONTEXT_CONTROL,equ CONTEXT_AMD64 or 1
+CONTEXT_INTEGER,equ CONTEXT_AMD64 or 2
+CONTEXT_SEGMENTS,equ CONTEXT_AMD64 or 4
+CONTEXT_FLOATING_POINT,equ CONTEXT_AMD64 or 8
+CONTEXT_DEBUG_REGISTERS,equ CONTEXT_AMD64 or 10h
+CONTEXT_FULL,equ CONTEXT_CONTROL or CONTEXT_INTEGER or CONTEXT_FLOATING_POINT
+CONTEXT_ALL,equ CONTEXT_CONTROL or CONTEXT_INTEGER or CONTEXT_SEGMENTS or CONTEXT_FLOATING_POINT or CONTEXT_DEBUG_REGISTERS
+CONTEXT_XSTATE,equ CONTEXT_AMD64 or 40h
+INITIAL_MXCSR,equ 1F80h
+INITIAL_FPCSR,equ 0x027f
+CONTEXT_EXCEPTION_ACTIVE,equ 8000000h
+CONTEXT_SERVICE_ACTIVE,equ 10000000h
+CONTEXT_EXCEPTION_REQUEST,equ 40000000h
+CONTEXT_EXCEPTION_REPORTING,equ 80000000h
+; ------------------------------------------------------------------------------
 ;   What : Compatibility macros
 ;   Where: minwinbase.h
 ;   Web  : 

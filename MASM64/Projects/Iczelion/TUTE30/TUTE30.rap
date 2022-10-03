@@ -34,17 +34,17 @@ Debug=0
 Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
 2=3,O,$B\ML64.exe /c /D_WIN64 /Cp /nologo /W2 /I"$I",2
-3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
-6=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
+6=*.obj,O,$B\ML64.exe /c /Zi /D_WIN64 /Cp /nologo /W2 /I"$I",*.asm
 7=0,0,"$E\x64\x64dbg",5
 11=4,O,$B\RC.EXE /v,1
-12=3,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2 /Zi /Zd /nologo /I"$I",2
-13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:$18 /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
+12=3,O,$B\ML64.exe /c /Zi /D_WIN64 /Cp /nologo /W2 /Zd /nologo /I"$I",2
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:$18 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
 14=0,0,,5
 15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
-16=*.obj,O,$B\ML64.exe /c -Zp8 /Zi /D_WIN64 /Cp /nologo /W2  /I"$I",*.asm
+16=*.obj,O,$B\ML64.exe /c /Zi /D_WIN64 /Cp /nologo /W2  /I"$I",*.asm
 17=0,0,"$E\x64\x64dbg",$.exe
 [Group]
 Group=Assembly,Resources,Misc
@@ -63,7 +63,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=3
+MilestoneOnDateDate=4
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=9
 MilestoneOnDateTimeDate=27
@@ -96,11 +96,11 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=11597156
+PTimer=23190187
 [Collapse]
 1=
 [Size]
-1=0,0,0,0,5566
+1=0,0,0,0,2
 [GroupExpand]
 GroupExpand=1,0,0,0
 [BookMark]
