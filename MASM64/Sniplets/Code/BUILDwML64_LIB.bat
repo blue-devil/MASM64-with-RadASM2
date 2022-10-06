@@ -19,9 +19,10 @@ echo " #######################################################################"
 
 set appname=OURLIBNAME
 
-del %appname%.obj
-del %appname%.exe
-del %appname%.lib
+REM Delete compiled files if exists
+if exist %appname%.lib del %appname%.lib
+if exist %appname%.res del %appname%.res
+if exist %appname%.obj del %appname%.obj
 
 REM Compile resource file
 REM \masm64\bin64\rc.exe /v %appname%.rc
