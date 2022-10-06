@@ -17,15 +17,15 @@ echo " #    |_______|_______| |___|  --\_     second-hand thoughts.    _/--  #"
 echo " #                                                                     #"
 echo " #######################################################################"
 
-set appname=OURLIBNAME
+set libname=OURLIBNAME
 
 REM Delete compiled files if exists
-if exist %appname%.lib del %appname%.lib
-if exist %appname%.res del %appname%.res
-if exist %appname%.obj del %appname%.obj
+if exist %libname%.lib del %libname%.lib
+if exist %libname%.res del %libname%.res
+if exist %libname%.obj del %libname%.obj
 
 REM Compile resource file
-REM \masm64\bin64\rc.exe /v %appname%.rc
+REM \masm64\bin64\rc.exe /v %libname%.rc
 REM If an object file needed from compiled resource uncomment the line below
 REM \masm64\bin64\Cvtres.exe /machine:x64 OURAPPNAME.res
 
@@ -34,8 +34,8 @@ REM Assemble
 \masm64\bin64\ml64.exe /c Modules\LIBMODULE_2.asm
 
 REM Compile object files into lib
-\masm64\bin64\LIB.EXE *.obj /out:%appname%.lib
+\masm64\bin64\LIB.EXE *.obj /out:%libname%.lib
 
-dir %appname%.lib
+dir %libname%.lib
 
 pause
