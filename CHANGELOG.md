@@ -55,6 +55,8 @@
 * ADDED: DEBUG_EVENT Structure Constants
 * ADDED: MessageBox constants
 * ADDED: Lots of new constants and macros of window controls
+* ADDED: TUTE32
+* ADDED: Batch file for building LIB files
 
 
 ### Changes

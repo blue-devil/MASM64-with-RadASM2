@@ -28,7 +28,7 @@ if exist %appname%.obj del %appname%.obj
 REM Compile resource file
 REM \masm64\bin64\rc.exe /v %appname%.rc
 REM If an object file needed from compiled resource uncomment the line below
-REM \masm64\bin64\Cvtres.exe /machine:x64 TUTE04.res
+REM \masm64\bin64\Cvtres.exe /machine:x64 %appname%.res
 
 REM Assemble
 \masm64\bin64\ml64.exe /c %appname%.asm

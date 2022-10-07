@@ -18,7 +18,7 @@ echo " #                                                                     #"
 echo " #######################################################################"
 
 
-set appname=OURDLLNAME
+set dllname=OURDLLNAME
 
 REM Delete compiled files if exists
 if exist %dllname%.dll del %dllname%.dll
@@ -30,7 +30,7 @@ if exist %dllname%.obj del %dllname%.obj
 REM Compile resource file
 REM \masm64\bin64\rc.exe /v %dllname%.rc
 REM If an object file needed from compiled resource uncomment the line below
-REM \masm64\bin64\Cvtres.exe /machine:x64 OURDLLNAME.res
+REM \masm64\bin64\Cvtres.exe /machine:x64 %dllname%.res
 
 REM Assemble
 \masm64\bin64\ml64.exe /c %dllname%.asm

@@ -1,0 +1,41 @@
+#include "\masm64\include64\Resource.h"
+
+#define IDR_MAINMENU            101
+#define IDR_CHILDMENU           102
+#define IDM_EXIT                40001
+#define IDM_TILEHORZ            40002
+#define IDM_TILEVERT            40003
+#define IDM_CASCADE             40004
+#define IDM_NEW                 40005
+#define IDM_CLOSE               40006
+
+IDR_MAINMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New", IDM_NEW
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Window"    
+    BEGIN
+        MENUITEM "Tile Horizontal",IDM_TILEHORZ
+        MENUITEM "Tile Vertical",IDM_TILEVERT
+        MENUITEM "Cascade",IDM_CASCADE
+    END
+END
+
+IDR_CHILDMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File (child)"
+    BEGIN
+        MENUITEM "&New", IDM_NEW
+        MENUITEM "&Close",IDM_CLOSE
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Window (child)"    
+    BEGIN
+        MENUITEM "Tile Horizontal",IDM_TILEHORZ
+        MENUITEM "Tile Vertical",IDM_TILEVERT
+        MENUITEM "Cascade",IDM_CASCADE
+    END
+END

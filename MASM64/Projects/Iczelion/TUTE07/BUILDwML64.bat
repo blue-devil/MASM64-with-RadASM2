@@ -9,7 +9,7 @@ echo " #   -=[                ASSEMBLE and LINK SCRIPT                ]=-    #"
 echo " #     _______ _______ _______                                         #"
 echo " #    |    ...|    ...|    ...|  Author : Blue DeviL                   #"
 echo " #    |  _____|    .__|_   .._|  E-mail : bluedevil.SCT@gmail.com      #"
-echo " #    | |_____|   .|    |  .|    Date   : 24/09/2022                   #"
+echo " #    | |_____|   .|    |  .|    Date   : 07/10/2022                   #"
 echo " #    |_____.:|   :|    |  :|    WEB    : github.com/blue-devil        #"
 echo " #     _____|:|   :|__  |  :|                                          #"
 echo " #    |    .::|   .:::| |  :|  --/   Freedom, doesn't come from   \--  #"
@@ -18,7 +18,7 @@ echo " #                                                                     #"
 echo " #######################################################################"
 
 
-set appname=TUTE02
+set appname=TUTE07
 
 REM Delete compiled files if exists
 if exist %appname%.exe del %appname%.exe

@@ -1,0 +1,127 @@
+[Project]
+Assembler=MASM64
+Type=Win64 App
+Description=Iczelion Tutorial 32: Multiple Document Interface (MDI)
+Backup=$P\Bak\
+Group=1
+GroupExpand=1
+Debug=0
+[Files]
+1=TUTE32.Asm
+2=TUTE32.Rc
+[MakeFiles]
+0=TUTE32.rap
+1=TUTE32.rc
+2=TUTE32.asm
+3=TUTE32.obj
+4=TUTE32.res
+5=TUTE32.exe
+6=TUTE32.def
+7=TUTE32.dll
+8=TUTE32.txt
+9=TUTE32.lib
+10=TUTE32.mak
+11=TUTE32.hla
+12=TUTE32.com
+13=TUTE32.ocx
+14=TUTE32.idl
+15=TUTE32.tlb
+16=TUTE32.sys
+17=TUTE32.dp32
+18=TUTE32.pdb
+19=TUTE32.dp64
+20=TUTE32.md
+[MakeDef]
+Menu=1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+1=4,O,$B\RC.EXE /v,1
+2=3,O,$B\ML64.exe /c /nologo /W2 /I"$I",2
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
+4=0,0,,5
+5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+6=*.obj,O,$B\ML64.exe /c /nologo /W2 /I"$I",*.asm
+7=0,0,"$E\x64\x64dbg",5
+11=4,O,$B\RC.EXE /v,1
+12=3,O,$B\ML64.exe /c /Zi /D_WIN64 /Cp /nologo /W2 /Zd /nologo /I"$I",2
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:$18 /VERSION:4.0 /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
+14=0,0,,5
+15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+16=*.obj,O,$B\ML64.exe /c /Zi /D_WIN64 /Cp /nologo /W2  /I"$I",*.asm
+17=0,0,"$E\x64\x64dbg",$.exe
+[Group]
+Group=Assembly,Resources
+1=1
+2=2
+[AutoLoad]
+AutoLoad=
+[RADebugBP]
+2=
+1=
+[Collapse]
+2=
+1=
+[Size]
+2=0,0,0,0,1079
+1=0,0,0,0,2
+[Find]
+1="ClientStruct"
+2="WS_EX_MDICHILD"
+3="WS_EX_MDICHILD "
+[VersionControl]
+Settings=1246
+Milestones=129
+MilestoneEvery=10
+MilestoneEveryCurrent=0
+MilestoneOnBuild=0.0.0.0
+MilestoneOnTime=2
+MilestoneOnDate=0
+MilestoneOnDateWhen=1
+MilestoneOnDateStatus=0
+MilestoneOnDateDate=7
+MilestoneOnDateTimeYear=2022
+MilestoneOnDateTimeMonth=10
+MilestoneOnDateTimeDate=7
+MilestoneOnDateTimeHour=3
+MilestoneOnDateTimeMin=11
+MilestoneOnDateTimeSec=5
+MilestoneOnDateTimeStatus=0
+BackupLocation=C:\Program Files\SCTTools\Editors\RadASM2\MASM64\Projects\VCBackups\
+CompressionLevel=0
+DefaultComment=Project $N, $Z, Backup Created On $D At $T.
+ExcludeExt1=\
+ExcludeExt2=\
+ExcludeExt3=\
+ExcludeExt4=\
+FileVerLength=4
+FileVer2Range=0
+FileVer3Range=0
+FileVer4Range=0
+ProductVerLength=4
+ProductVer2Range=0
+ProductVer3Range=0
+ProductVer4Range=0
+[Colref]
+0=00FFFFFF
+1=00FFFFFF
+2=00FFFFFF
+3=00FFFFFF
+4=00FFFFFF
+5=00FFFFFF
+6=00FFFFFF
+7=00FFFFFF
+[PTimer]
+PTimer=12579703
+[GroupExpand]
+GroupExpand=1,1,0
+[BookMark]
+0=
+1=
+2=
+3=
+4=
+5=
+6=
+7=
+8=
+9=
+[BreakPoint]
+0=
