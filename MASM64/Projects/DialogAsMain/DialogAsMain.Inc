@@ -24,7 +24,7 @@
     includelib \masm64\lib64\gdi32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

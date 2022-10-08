@@ -22,7 +22,7 @@
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
+; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
 ; |                   Tutorial 4 - Painting With Text                     |
 ; \_______________________________________________________________________/
 

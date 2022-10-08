@@ -18,12 +18,12 @@
 ; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
 ; | @IDE      : RadASM v2.2.2.4                                           |
 ; | @template : Blue DeviL                                                |
-; | @date     : 08/09/2022                                                |
+; | @date     : 08/10/2022                                                |
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
 ; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
-; |                  Tutorial 13 - Memory Mapped Files                    |
+; |                Tutorial 33 - RichEdit Control: Basics                 |
 ; \_______________________________________________________________________/
 
 
@@ -44,6 +44,7 @@
 
     include \masm64\include64\kernel32.inc
     include \masm64\include64\user32.inc
+    include \masm64\include64\gdi32.inc
     include \masm64\include64\comdlg32.inc
 
 ; _________________________________________________________________________
@@ -51,48 +52,65 @@
 
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\user32.lib
+    includelib \masm64\lib64\gdi32.lib
     includelib \masm64\lib64\comdlg32.lib
 
 ; _________________________________________________________________________
 ; function prototypes
 
     WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
-    CloseMapFile        PROTO
 
 ; _________________________________________________________________________
 ; constant variables
 
 .const
-    IDM_OPEN        equ 1
-    IDM_SAVE        equ 2
-    IDM_EXIT        equ 3
-    MAXSIZE         equ 260
+    IDR_MAINMENU                    equ 101
+    IDM_OPEN                        equ  40001
+    IDM_SAVE                        equ 40002
+    IDM_CLOSE                       equ 40003
+    IDM_SAVEAS                      equ 40004
+    IDM_EXIT                        equ 40005
+    IDM_COPY                        equ  40006
+    IDM_CUT                         equ  40007
+    IDM_PASTE                       equ 40008
+    IDM_DELETE                      equ 40009
+    IDM_SELECTALL                   equ 40010
+    IDM_OPTION                      equ 40011
+    IDM_UNDO                        equ 40012
+    IDM_REDO                        equ 40013
+    IDD_OPTIONDLG                   equ 101
+    IDC_BACKCOLORBOX                equ 1000
+    IDC_TEXTCOLORBOX                equ 1001
+
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
-    ClassName       db "Win64ASMFileMappingClass",0
-    AppName         db "Win64 ASM File Mapping Example",0
-    MenuName        db "FirstMenu",0
-    ofn             OPENFILENAME <>
-    FilterStr       db "All Files",0,"*.*",0
-                    db "Text Files",0,"*.txt",0,0
-    buffer          db MAXSIZE dup(0)
-    hMapFile        HANDLE 0
+    ClassName                       db "x64IczEditClass", 0    ; the name of our window class
+    AppName                         db "x64 IczEdit version 1.0", 0    ; the name of our window
+    RichEditDLL                     db "riched20.dll",0
+    RichEditClass                   db "RichEdit20A",0
+    NoRichEdit                      db "Cannot find riched20.dll",0
+    ASMFilterString                 db "ASM Source code (*.asm)",0,"*.asm",0
+                                    db "All Files (*.*)",0,"*.*",0,0
+    OpenFileFail                    db "Cannot open the file",0
+    WannaSave                       db "The data in the control is modified. Want to save it?",0
+    FileOpened                      dq FALSE
+    BackgroundColor                 dd 0FFFFFFh		; default to white
+    TextColor                       dd 0		; default to black
 
 ; _________________________________________________________________________
 ; uninitialized variables
 
 .data?
-    CommandLine     LPSTR ?
-    hInstance       HINSTANCE ?
-    hIcon           HICON ?
-    hCursor         HCURSOR ?
-    hFileRead       HANDLE ?
-    hFileWrite      HANDLE ?
-    hMenu           HANDLE ?
-    pMemory         QWORD ?
-    SizeWritten     QWORD ?
+    CommandLine         LPSTR ?
+    hInstance           HINSTANCE ?
+    hIcon               HICON ?
+    hCursor             HCURSOR ?
+    hRichEdit           HANDLE ?
+    hwndRichEdit        HANDLE ?
+    AlternateFileName   db 256 dup(?)
+    CustomColors        dd 16 dup(?)
 
 .code
 
@@ -104,7 +122,14 @@ WinMainCRTStartup proc
     invoke  GetCommandLine
     mov     CommandLine, rax
     
-    invoke  WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    invoke  LoadLibrary, addr RichEditDLL
+    .if rax{}0
+        mov hRichEdit, rax
+        invoke WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
+    .else
+        invoke MessageBox, NULL, addr NoRichEdit, addr AppName, MB_OK or MB_ICONERROR
+    .endif
+
     invoke  ExitProcess, eax
     
     ret
@@ -135,22 +160,21 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     mov     rbx, hCursor
     mov     wcex.hCursor, rbx
     mov     wcex.hbrBackground, COLOR_WINDOW + 1
-    lea     rdi, MenuName
-    mov     wcex.lpszMenuName, rdi
+    mov     wcex.lpszMenuName, IDR_MAINMENU
     lea     rdi, ClassName
     mov     wcex.lpszClassName, rdi
     mov     wcex.hIconSm, rax
     invoke  RegisterClassEx, addr wcex
     
     invoke  CreateWindowEx, \
-                    WS_EX_CLIENTEDGE, \
+                    NULL, \
                     addr ClassName, \
                     addr AppName, \
                     WS_OVERLAPPEDWINDOW, \
                     CW_USEDEFAULT, \
                     CW_USEDEFAULT, \
-                    300, \
-                    200, \
+                    CW_USEDEFAULT, \
+                    CW_USEDEFAULT, \
                     NULL, \
                     NULL, \
                     hInst, \
@@ -177,76 +201,7 @@ WinMain endp
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
-    .if uMsg==WM_CREATE
-        invoke GetMenu, hWnd
-        mov hMenu, rax
-        
-        mov ofn.lStructSize, sizeof ofn
-        mov rax, hWnd
-        mov ofn.hwndOwner, rax
-        mov rax, hInstance
-        mov ofn.hInstance, rax
-        lea rdi, FilterStr
-        mov ofn.lpstrFilter, rdi
-        lea rdi, buffer
-        mov ofn.lpstrFile, rdi
-        mov ofn.nMaxFile, MAXSIZE
-    .elseif uMsg==WM_COMMAND
-        mov rax, wParam
-        .if lParam==0
-            .if ax==IDM_OPEN
-                mov ofn.Flags,  OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or \
-                                OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
-                invoke GetOpenFileName, addr ofn
-                .if rax==TRUE
-                    invoke  CreateFile,addr buffer, \
-                                    GENERIC_READ, \
-                                    NULL, \
-                                    NULL, \
-                                    OPEN_EXISTING, \
-                                    FILE_ATTRIBUTE_ARCHIVE, \
-                                    NULL
-                    mov hFileRead, rax
-                    invoke  CreateFileMapping, hFileRead, NULL, PAGE_READONLY, NULL, NULL, NULL
-                    mov hMapFile, rax
-                    lea rax, buffer
-                    movzx edx, ofn.nFileOffset
-                    add rax, rdx
-                    
-                    invoke SetWindowText, hWnd, rax
-                    invoke EnableMenuItem, hMenu, IDM_OPEN, MF_GRAYED
-                    invoke EnableMenuItem, hMenu, IDM_SAVE, MF_ENABLED
-                .endif
-            .elseif ax==IDM_SAVE
-                mov ofn.Flags, OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY
-                invoke GetSaveFileName, addr ofn
-                .if rax==TRUE
-                    invoke  CreateFile, addr buffer, \
-                                    GENERIC_READ or GENERIC_WRITE, \
-                                    FILE_SHARE_READ or FILE_SHARE_WRITE, \
-                                    NULL, \
-                                    CREATE_NEW, \
-                                    FILE_ATTRIBUTE_ARCHIVE, \
-                                    NULL
-                    mov hFileWrite, rax
-                    invoke MapViewOfFile, hMapFile, FILE_MAP_READ, 0, 0, 0
-                    mov pMemory, rax
-                    invoke GetFileSize, hFileRead, NULL
-                    invoke WriteFile, hFileWrite, pMemory, rax, addr SizeWritten, NULL
-                    invoke CloseMapFile
-                    invoke CloseHandle, hFileWrite
-                    invoke SetWindowText, hWnd, addr AppName
-                    invoke EnableMenuItem, hMenu, IDM_OPEN, MF_ENABLED
-                    invoke EnableMenuItem, hMenu, IDM_SAVE, MF_GRAYED
-                .endif
-            .else
-                invoke DestroyWindow, hWnd
-            .endif
-        .endif
-    .elseif uMsg==WM_DESTROY
-        .if hMapFile {} 0
-            invoke CloseMapFile
-        .endif
+    .if uMsg==WM_DESTROY
         invoke  PostQuitMessage, NULL
     .else
         invoke  DefWindowProc, hWnd, uMsg, wParam, lParam
@@ -256,14 +211,5 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     ret
 
 WndProc endp
-
-CloseMapFile proc
-    
-    invoke  CloseHandle, hMapFile
-    mov     hMapFile, 0
-    invoke  CloseHandle, hFileRead
-    ret
-
-CloseMapFile endp
 
 end

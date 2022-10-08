@@ -22,7 +22,7 @@
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
+; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
 ; |                      Tutorial 24 - Windows Hooks                      |
 ; \_______________________________________________________________________/
 
@@ -54,7 +54,7 @@
     includelib HookDLL.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     DlgProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

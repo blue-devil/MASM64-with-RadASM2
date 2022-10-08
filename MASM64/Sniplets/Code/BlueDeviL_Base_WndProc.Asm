@@ -52,7 +52,7 @@
     includelib \masm64\lib64\user32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

@@ -21,10 +21,10 @@
     includelib \masm64\lib64\kernel32.lib
     includelib \masm64\lib64\comctl32.lib
     includelib \masm64\lib64\shell32.lib
-    includelib \masm64\lib64\gdý32.lib
+    includelib \masm64\lib64\gdï¿½32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     DlgProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

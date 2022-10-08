@@ -30,7 +30,7 @@
     includelib \masm64\lib64\comctl32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

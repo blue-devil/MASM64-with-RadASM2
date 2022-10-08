@@ -22,7 +22,7 @@
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
+; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
 ; |             Tutorial 12 - Memory Management and File I/O              |
 ; \_______________________________________________________________________/
 
@@ -54,7 +54,7 @@
     includelib \masm64\lib64\comdlg32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

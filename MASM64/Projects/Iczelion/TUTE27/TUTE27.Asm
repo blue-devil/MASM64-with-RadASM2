@@ -22,7 +22,7 @@
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
+; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
 ; |                     Tutorial 27 - Tooltip Control                     |
 ; \_______________________________________________________________________/
 
@@ -54,7 +54,7 @@
     includelib \masm64\lib64\comctl32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     DlgProc             PROTO   :HWND, :UINT, :WPARAM, :LPARAM
     EnumChild           PROTO   :HANDLE,:LPARAM

@@ -22,7 +22,7 @@
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
+; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
 ; |                    Tutorial 31 - Listview Control                     |
 ; \_______________________________________________________________________/
 
@@ -75,7 +75,7 @@
         lParam          LPARAM ?
     NMLISTVIEW ENDS
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     WndProc                 PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 

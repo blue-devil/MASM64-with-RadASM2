@@ -1,0 +1,60 @@
+#include "\masm64\include64\Resource.h"
+
+#define IDR_MAINMENU                    101
+#define IDD_OPTIONDLG                   101
+#define IDC_BACKCOLORBOX                1000
+#define IDC_TEXTCOLORBOX                1001
+#define IDM_OPEN                        40001
+#define IDM_SAVE                        40002
+#define IDM_CLOSE                       40003
+#define IDM_SAVEAS                      40004
+#define IDM_EXIT                        40005
+#define IDM_COPY                        40006
+#define IDM_CUT                         40007
+#define IDM_PASTE                       40008
+#define IDM_DELETE                      40009
+#define IDM_SELECTALL                   40010
+#define IDM_OPTION                      40011
+#define IDM_UNDO                        40012
+#define IDM_REDO                        40013
+
+IDR_MAINMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open",                       IDM_OPEN
+        MENUITEM "&Close",                      IDM_CLOSE
+        MENUITEM "&Save",                       IDM_SAVE
+        MENUITEM "Save &As",                    IDM_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo",                       IDM_UNDO
+        MENUITEM "&Redo",                       IDM_REDO
+        MENUITEM "&Copy",                       IDM_COPY
+        MENUITEM "C&ut",                        IDM_CUT
+        MENUITEM "&Paste",                      IDM_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "&Delete",                     IDM_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "Select &All",                 IDM_SELECTALL
+    END
+    MENUITEM "Options",                     IDM_OPTION
+END
+
+
+IDD_OPTIONDLG DIALOG DISCARDABLE  0, 0, 183, 54
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_CENTER
+CAPTION "Options"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,137,7,39,14
+    PUSHBUTTON      "Cancel",IDCANCEL,137,25,39,14
+    GROUPBOX        "",IDC_STATIC,5,0,124,49
+    LTEXT           "Background Color:",IDC_STATIC,20,14,60,8
+    LTEXT           "",IDC_BACKCOLORBOX,85,11,28,14,SS_NOTIFY | WS_BORDER
+    LTEXT           "Text Color:",IDC_STATIC,20,33,35,8
+    LTEXT           "",IDC_TEXTCOLORBOX,85,29,28,14,SS_NOTIFY | WS_BORDER
+END

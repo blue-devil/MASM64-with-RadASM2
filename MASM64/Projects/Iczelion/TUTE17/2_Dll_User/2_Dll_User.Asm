@@ -22,7 +22,7 @@
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |           Iczelion's Win32 Assembly Tutorials with MASM64             |
+; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
 ; |                 Tutorial 17 - Dynamic Link Libraries                  |
 ; \_______________________________________________________________________/
 
@@ -52,7 +52,7 @@
     includelib \masm64\lib64\user32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     
 

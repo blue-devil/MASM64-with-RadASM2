@@ -18,7 +18,7 @@
     includelib \masm64\lib64\comctl32.lib
 
 ; _________________________________________________________________________
-; funtion prototypes
+; function prototypes
 
     DlgProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
     

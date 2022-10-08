@@ -82,9 +82,14 @@ pgoui.dll
 
 ## TODO
 
-* [ ] Add/Edit Common Control messages and constants to *.api files
+* [ ] Add/Edit Common Control messages and constants
 * [x] Add Console64 App Build.bat
-* [ ] Create build batch files for projects
+* [x] Fix/Clean build parameters
+* [ ] Add batch files which can handle projects with/without rc files
+* [ ] Add templates
+  * [ ] Add Console64 templates
+  * [ ] Add DLL64 templates
+  * [ ] Add Lib64 templates
 
 ## Resources
 * [MASM64 Beta Version 2 Forum Topic][web-masm64-forum-topic]
