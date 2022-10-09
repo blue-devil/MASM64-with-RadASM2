@@ -57,6 +57,7 @@
 * ADDED: Lots of new constants and macros of window controls
 * ADDED: TUTE32
 * ADDED: Batch file for building LIB files
+* ADDED: TUTE33 but not finished
 
 
 ### Changes
@@ -74,6 +75,7 @@
 * UPDATE: [Symbols reference](https://learn.microsoft.com/en-us/cpp/assembler/masm/symbols-reference?view=msvc-170) checked and MASM64.ini updated
 * UPDATE: MessageBooep constants updated
 * UPDATE: TUTE28 - [Accessing Union elements inside a Structure in MASM64](https://masm32.com/board/index.php?topic=10387.0)
+* UPDATE: EM_REDO was missing on sendmessage MASM64ApiConst.api
 
 ## [2022.09.01] - 01-09-2022
 ### Added
