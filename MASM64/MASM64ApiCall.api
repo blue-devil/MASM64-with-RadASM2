@@ -1294,6 +1294,7 @@ EditStreamCut,pavi,plStart,plLength,ppResult
 EditStreamPaste,pavi,plPos,plLength,pstream,lStart,lEnd
 EditStreamSetInfo,pavi,lpInfo,cbInfo
 EditStreamSetName,pavi,lpszName
+Editwordbreakproc,lpch,ichCurrent,cch,code
 Editwordbreakproca,lpch,ichCurrent,cch,code
 Editwordbreakprocw,lpch,ichCurrent,cch,code
 EjectDiskFromSADrive,lpComputerName,lpAppName,lpDeviceName,hwnd,lpTitle,lpMessage,dwOptions
