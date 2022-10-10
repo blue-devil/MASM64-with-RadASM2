@@ -1,35 +1,34 @@
 [Project]
 Assembler=MASM64
 Type=Win64 App
-Description=Iczelion Tutorial 30: Win64 Debug API part 3
+Description=Target App for Iczelion Tutorial 29
 Backup=$P\Bak\
 Group=1
 GroupExpand=1
-Debug=0
 [Files]
-1=TUTE30.Asm
+1=target.Asm
 [MakeFiles]
-0=TUTE30.rap
-1=TUTE30.rc
-2=TUTE30.asm
-3=TUTE30.obj
-4=TUTE30.res
-5=TUTE30.exe
-6=TUTE30.def
-7=TUTE30.dll
-8=TUTE30.txt
-9=TUTE30.lib
-10=TUTE30.mak
-11=TUTE30.hla
-12=TUTE30.com
-13=TUTE30.ocx
-14=TUTE30.idl
-15=TUTE30.tlb
-16=TUTE30.sys
-17=TUTE30.dp32
-18=TUTE30.pdb
-19=TUTE30.dp64
-20=TUTE30.md
+0=target.rap
+1=target.rc
+2=target.asm
+3=target.obj
+4=target.res
+5=target.exe
+6=target.def
+7=target.dll
+8=target.txt
+9=target.lib
+10=target.mak
+11=target.hla
+12=target.com
+13=target.ocx
+14=target.idl
+15=target.tlb
+16=target.sys
+17=target.dp32
+18=target.pdb
+19=target.dp64
+20=target.md
 [MakeDef]
 Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
@@ -39,20 +38,17 @@ Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML64.exe /c /nologo /W2 /I"$I",*.asm
 7=0,0,"$E\x64\x64dbg",5
-11=4,O,$B\RC.EXE /v,1
-12=3,O,$B\ML64.exe /c /Cp /nologo /W2 /Zi /Zd /nologo /I"$I",2
-13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:"$18" /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
-14=0,0,,5
-15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
-16=*.obj,O,$B\ML64.exe /c /Zi /Zd /Cp /nologo /W2  /I"$I",*.asm
-17=0,0,"$E\x64\x64dbg",$.exe
 [Group]
-Group=Assembly,Resources,Misc
+Group=Assembly
 1=1
 [AutoLoad]
-AutoLoad=1
+AutoLoad=
 [RADebugBP]
 1=
+[Collapse]
+1=
+[Size]
+1=0,0,0,0,1
 [VersionControl]
 Settings=1246
 Milestones=129
@@ -65,11 +61,11 @@ MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
 MilestoneOnDateDate=11
 MilestoneOnDateTimeYear=2022
-MilestoneOnDateTimeMonth=9
-MilestoneOnDateTimeDate=27
-MilestoneOnDateTimeHour=5
-MilestoneOnDateTimeMin=59
-MilestoneOnDateTimeSec=49
+MilestoneOnDateTimeMonth=10
+MilestoneOnDateTimeDate=10
+MilestoneOnDateTimeHour=23
+MilestoneOnDateTimeMin=39
+MilestoneOnDateTimeSec=41
 MilestoneOnDateTimeStatus=0
 BackupLocation=C:\Program Files\SCTTools\Editors\RadASM2\MASM64\Projects\VCBackups\
 CompressionLevel=0
@@ -96,13 +92,9 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=23207312
-[Collapse]
-1=
-[Size]
-1=0,0,0,0,2
+PTimer=216313
 [GroupExpand]
-GroupExpand=1,0,0,0
+GroupExpand=1,0
 [BookMark]
 0=
 1=
@@ -116,5 +108,3 @@ GroupExpand=1,0,0,0
 9=
 [BreakPoint]
 0=
-[Find]
-1="OFN_FILEMUSTEXIST"

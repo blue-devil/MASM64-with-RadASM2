@@ -1,0 +1,55 @@
+[Project]
+Assembler=MASM64
+Type=Win64 App
+Description=Iczelion Tutorial 29-1: Win32 Debug API part 2
+Backup=$P\Bak\
+Group=1
+GroupExpand=1
+Debug=1
+[Files]
+1=TUTE29-1.Asm
+[MakeFiles]
+0=TUTE29-1.rap
+1=TUTE29-1.rc
+2=TUTE29-1.asm
+3=TUTE29-1.obj
+4=TUTE29-1.res
+5=TUTE29-1.exe
+6=TUTE29-1.def
+7=TUTE29-1.dll
+8=TUTE29-1.txt
+9=TUTE29-1.lib
+10=TUTE29-1.mak
+11=TUTE29-1.hla
+12=TUTE29-1.com
+13=TUTE29-1.ocx
+14=TUTE29-1.idl
+15=TUTE29-1.tlb
+16=TUTE29-1.sys
+17=TUTE29-1.dp32
+18=TUTE29-1.pdb
+19=TUTE29-1.dp64
+20=TUTE29-1.md
+[MakeDef]
+Menu=0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+1=4,O,$B\RC.EXE /v,1
+2=3,O,$B\ML64.exe /c /nologo /W2 /I"$I",2
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
+4=0,0,,5
+5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+6=*.obj,O,$B\ML64.exe /c /nologo /W2 /I"$I",*.asm
+7=0,0,"$E\x64\x64dbg",5
+11=4,O,$B\RC.EXE /v,1
+12=3,O,$B\ML64.exe /c /Cp /nologo /W2 /Zi /Zd /nologo /I"$I",2
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:"$18" /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3
+14=0,0,,5
+15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+16=*.obj,O,$B\ML64.exe /c /Zi /Zd /Cp /nologo /W2 /I"$I",*.asm
+17=0,0,"$E\x64\x64dbg",$.exe
+[Group]
+Group=Assembly
+1=1
+[AutoLoad]
+AutoLoad=
+[RADebugBP]
+1=
