@@ -58,6 +58,7 @@
 * ADDED: TUTE32
 * ADDED: Batch file for building LIB files
 * ADDED: TUTE33 but not finished
+* ADDED: TUTE34
 
 
 ### Changes
@@ -76,6 +77,7 @@
 * UPDATE: MessageBooep constants updated
 * UPDATE: TUTE28 - [Accessing Union elements inside a Structure in MASM64](https://masm32.com/board/index.php?topic=10387.0)
 * UPDATE: EM_REDO was missing on sendmessage MASM64ApiConst.api
+* UPDATE: TUTE33
 
 ## [2022.09.01] - 01-09-2022
 ### Added

@@ -23,7 +23,7 @@
 ; |_______________________________________________________________________|
 ; |                                                                       |
 ; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
-; |                Tutorial 33 - RichEdit Control: Basics                 |
+; |          Tutorial 34 - RichEdit Control: More Text Operation          |
 ; \_______________________________________________________________________/
 
 
@@ -82,26 +82,67 @@
     IDC_BACKCOLORBOX                equ 1000
     IDC_TEXTCOLORBOX                equ 1001
     
+    IDR_MAINACCEL                   equ 105
+    IDD_FINDDLG                     equ 102
+    IDD_GOTODLG                     equ 103
+    IDD_REPLACEDLG                  equ 104
+    IDC_FINDEDIT                    equ 1000
+    IDC_MATCHCASE                   equ 1001
+    IDC_REPLACEEDIT                 equ 1001
+    IDC_WHOLEWORD                   equ 1002
+    IDC_DOWN                        equ 1003
+    IDC_UP                          equ 1004
+    IDC_LINENO                      equ 1005
+    IDM_FIND                        equ 40014
+    IDM_FINDNEXT                    equ 40015
+    IDM_REPLACE                     equ 40016
+    IDM_GOTOLINE                    equ 40017
+    IDM_FINDPREV                    equ 40018
+    
     RichEditID                      equ 300
     
     CHOOSECOLORZ STRUC
-      lStructSize	 DWORD ?,?
-      hwndOwner	 QWORD ?
-      hInstance	 QWORD ?
-      rgbResult	 DWORD ?,?
-      lpCustColors	 QWORD ?
-      Flags 	 DWORD ?,?
-      lCustData	 QWORD ?
-      lpfnHook	 QWORD ?
-      lpTemplateName QWORD ?
+      lStructSize       DWORD ?, ?
+      hwndOwner         QWORD ?
+      hInstance         QWORD ?
+      rgbResult         DWORD ?, ?
+      lpCustColors      QWORD ?
+      Flags             DWORD ?, ?
+      lCustData         QWORD ?
+      lpfnHook          QWORD ?
+      lpTemplateName    QWORD ?
     CHOOSECOLORZ ENDS
+    
+    IFNDEF FINDTEXTEX
+        FINDTEXTEX STRUCT QWORD
+            chrg            CHARRANGE <>
+            lpstrText       dq ?
+            chrgText        CHARRANGE <>
+        FINDTEXTEX ENDS
+    ENDIF
+    
+    IFNDEF SETTEXTEX
+        SETTEXTEX STRUCT
+          flags             DWORD ?
+          codepage          DWORD ?
+        SETTEXTEX ENDS
+    ENDIF
+    
+    IFNDEF MSGFILTER
+        MSGFILTER STRUCT
+            nmhdr           NMHDR <>
+            msg             UINT ?
+            wParam          WPARAM ?
+            lParam          LPARAM ?
+        MSGFILTER ENDS
+    ENDIF
 
 ; _________________________________________________________________________
 ; initialized variables
 
 .data
     ClassName                       db "x64IczEditClass", 0    ; the name of our window class
-    AppName                         db "x64 IczEdit version 1.0", 0    ; the name of our window
+    AppName                         db "x64 IczEdit version 2.0", 0    ; the name of our window
     RichEditDLL                     db "riched20.dll",0
     RichEditClass                   db "RichEdit20A",0
     NoRichEdit                      db "Cannot find riched20.dll",0
@@ -123,9 +164,15 @@
     hCursor             HCURSOR ?
     hRichEdit           HANDLE ?
     hwndRichEdit        HANDLE ?
+    hSearch             HANDLE ?
+    hAccell             HANDLE ?
     AlternateFileName   db 256 dup(?)
     FileName            db 256 dup(?)
     CustomColors        dd 16 dup(?)
+    FindBuffer          db 256 dup(?)
+    ReplaceBuffer       db 256 dup(?)
+    uFlags              dd ?
+    findtext            FINDTEXTEX <>
 
 .code
 
@@ -136,6 +183,9 @@ WinMainCRTStartup proc
     
     invoke  GetCommandLine
     mov     CommandLine, rax
+    
+    mov     byte ptr [FindBuffer], 0
+    mov     byte ptr [ReplaceBuffer], 0
     
     invoke  LoadLibrary, addr RichEditDLL
     .if rax{}0
@@ -200,13 +250,22 @@ WinMain proc hInst:HINSTANCE,hPrevInst:HINSTANCE,CmdLine:LPSTR,CmdShow:DWORD
     invoke  ShowWindow, hWnd, SW_SHOWNORMAL
     invoke  UpdateWindow, hWnd
     
+    invoke  LoadAccelerators, hInstance, IDR_MAINACCEL
+    mov     hAccell, rax
+    
     .while TRUE
         invoke  GetMessage, addr msg, NULL, 0, 0
         .if (rax == 0)
             .break
         .endif
-        invoke  TranslateMessage, addr msg
-        invoke  DispatchMessage, addr msg
+        invoke  IsDialogMessage, hSearch, addr msg
+        .if rax==FALSE
+            invoke TranslateAccelerator, hWnd, hAccell, addr msg
+            .if rax==0
+                invoke  TranslateMessage, addr msg
+                invoke  DispatchMessage, addr msg
+            .endif
+        .endif
     .endw
     
     mov     rax, msg.wParam
@@ -362,6 +421,236 @@ OptionProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     
 OptionProc endp
 
+SearchProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
+    
+    .if uMsg==WM_INITDIALOG
+        mov rax, hWnd
+        mov hSearch, rax
+        
+        ;===================================================
+        ; Select the default search down option
+        ;===================================================
+        invoke CheckRadioButton, hWnd, IDC_DOWN, IDC_UP, IDC_DOWN
+        invoke SendDlgItemMessage, hWnd, IDC_FINDEDIT, WM_SETTEXT, 0, addr FindBuffer
+        
+    .elseif uMsg==WM_COMMAND
+        mov rax, wParam
+        shr rax, 16
+        .if ax==BN_CLICKED
+            mov rax, wParam
+            .if ax==IDOK
+                mov uFlags, 0
+                invoke SendMessage, hwndRichEdit, EM_EXGETSEL, 0, addr findtext.chrg
+                invoke GetDlgItemText, hWnd, IDC_FINDEDIT, addr FindBuffer, sizeof FindBuffer
+                .if rax{}0
+                    invoke IsDlgButtonChecked, hWnd, IDC_DOWN
+                    .if rax==BST_CHECKED
+                        or uFlags, FR_DOWN
+                        mov eax, findtext.chrg.cpMin
+                        .if eax{}findtext.chrg.cpMax
+                            mov eax, findtext.chrg.cpMax
+                            mov findtext.chrg.cpMin, eax
+                        .endif
+                        mov findtext.chrg.cpMax, -1
+                    .else
+                        mov findtext.chrg.cpMax, 0
+                    .endif
+                    
+                    invoke IsDlgButtonChecked, hWnd, IDC_MATCHCASE
+                    .if rax==BST_CHECKED
+                        or uFlags, FR_MATCHCASE
+                    .endif
+                    
+                    invoke IsDlgButtonChecked,hWnd,IDC_WHOLEWORD
+                    .if rax==BST_CHECKED
+                        or uFlags, FR_WHOLEWORD
+                    .endif
+                    lea rdi, FindBuffer
+                    mov findtext.lpstrText, rdi
+                    invoke SendMessage, hwndRichEdit, EM_FINDTEXTEX, uFlags, addr findtext
+                    .if rax{}-1
+                        invoke SendMessage, hwndRichEdit, EM_EXSETSEL, 0, addr findtext.chrgText
+                    .endif
+                    
+                .endif
+                
+            .elseif ax==IDCANCEL
+                invoke SendMessage, hWnd, WM_CLOSE, 0, 0
+                
+            .else
+                mov eax, FALSE
+                ret
+                
+            .endif
+        .endif
+        
+    .elseif uMsg==WM_CLOSE
+        mov hSearch, 0
+        invoke EndDialog, hWnd, 0
+        
+    .else
+        mov eax, FALSE
+        ret
+        
+    .endif
+    
+    mov eax, TRUE
+    ret
+
+SearchProc endp
+
+ReplaceProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
+    
+    LOCAL   settext:SETTEXTEX
+    
+    .if uMsg==WM_INITDIALOG
+        mov rax, hWnd
+        mov hSearch, rax
+        invoke SetDlgItemText, hWnd, IDC_FINDEDIT, addr FindBuffer
+        invoke SetDlgItemText, hWnd, IDC_REPLACEEDIT, addr ReplaceBuffer
+        
+    .elseif uMsg==WM_COMMAND
+        mov rax, wParam
+        shr rax, 16
+        .if ax==BN_CLICKED
+            mov rax, wParam
+            .if ax==IDCANCEL
+                invoke SendMessage, hWnd, WM_CLOSE, 0, 0
+                
+            .elseif ax==IDOK
+                invoke GetDlgItemText, hWnd, IDC_FINDEDIT, addr FindBuffer, sizeof FindBuffer
+                invoke GetDlgItemText, hWnd, IDC_REPLACEEDIT, addr ReplaceBuffer, sizeof ReplaceBuffer
+                mov findtext.chrg.cpMin, 0
+                mov findtext.chrg.cpMax, -1
+                lea rdi, FindBuffer
+                mov findtext.lpstrText, rdi
+                mov settext.flags, ST_SELECTION
+                mov settext.codepage, CP_ACP
+                .while TRUE
+                    invoke SendMessage, hwndRichEdit, EM_FINDTEXTEX, FR_DOWN, addr findtext
+                    .if rax==-1
+                        .break
+                    .else
+                        invoke SendMessage, hwndRichEdit, EM_EXSETSEL, 0, addr findtext.chrgText
+                        invoke SendMessage, hwndRichEdit, EM_SETTEXTEX, addr settext, addr ReplaceBuffer
+                    .endif
+                .endw
+                
+            .endif
+        .endif
+        
+    .elseif uMsg==WM_CLOSE
+        mov hSearch, 0
+        invoke EndDialog, hWnd, 0
+    .else
+        mov eax, FALSE
+        ret
+        
+    .endif
+    
+    mov eax, TRUE
+    ret
+
+ReplaceProc endp
+
+GoToProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
+    
+    LOCAL   LineNo:QWORD
+    LOCAL   chrg:CHARRANGE
+    
+    .if uMsg==WM_INITDIALOG
+        mov rax, hWnd
+        mov hSearch, rax
+    .elseif uMsg==WM_COMMAND
+        mov rax, wParam
+        shr rax, 16
+        .if ax==BN_CLICKED
+            mov rax, wParam
+            .if ax==IDCANCEL
+                invoke SendMessage, hWnd, WM_CLOSE, 0, 0
+                
+            .elseif ax==IDOK
+                invoke GetDlgItemInt, hWnd, IDC_LINENO, NULL, FALSE
+                mov LineNo, rax
+                invoke SendMessage, hwndRichEdit, EM_GETLINECOUNT, 0, 0
+                .if rax}LineNo
+                    invoke SendMessage, hwndRichEdit, EM_LINEINDEX, LineNo, 0
+                    invoke SendMessage, hwndRichEdit, EM_SETSEL, rax, rax
+                    invoke SetFocus, hwndRichEdit
+                .endif
+                
+            .endif
+        .endif
+        
+    .elseif uMsg==WM_CLOSE
+        mov hSearch, 0
+        invoke EndDialog, hWnd, 0
+        
+    .else
+        mov eax, FALSE
+        ret
+        
+    .endif
+    
+    mov eax, TRUE
+    ret
+
+GoToProc endp
+
+PrepareEditMenu proc hSubMenu:HANDLE
+    
+    LOCAL   chrg:CHARRANGE
+    
+    ;=============================================================================
+    ; Check whether there is some text in the clipboard. If so, we enable the paste menuitem
+    ;=============================================================================
+    invoke SendMessage, hwndRichEdit, EM_CANPASTE, CF_TEXT, 0
+    .if rax==0      ; no text in the clipboard
+        invoke EnableMenuItem, hSubMenu, IDM_PASTE, MF_GRAYED
+    .else
+        invoke EnableMenuItem, hSubMenu, IDM_PASTE, MF_ENABLED
+    .endif
+    
+    ;==========================================================
+    ; check whether the undo queue is empty
+    ;==========================================================
+    invoke SendMessage, hwndRichEdit, EM_CANUNDO, 0, 0
+    .if rax==0
+        invoke EnableMenuItem, hSubMenu, IDM_UNDO, MF_GRAYED
+    .else
+        invoke EnableMenuItem, hSubMenu, IDM_UNDO, MF_ENABLED
+    .endif
+    
+    ;=========================================================
+    ; check whether the redo queue is empty
+    ;=========================================================
+    invoke SendMessage, hwndRichEdit, EM_CANREDO, 0, 0
+    .if rax==0
+        invoke EnableMenuItem, hSubMenu, IDM_REDO, MF_GRAYED
+    .else
+        invoke EnableMenuItem, hSubMenu, IDM_REDO, MF_ENABLED
+    .endif
+    
+    ;=========================================================
+    ; check whether there is a current selection in the richedit control.
+    ; If there is, we enable the cut/copy/delete menuitem
+    ;=========================================================
+    invoke SendMessage, hwndRichEdit, EM_EXGETSEL, 0, addr chrg
+    mov eax,chrg.cpMin
+    .if eax==chrg.cpMax     ; no current selection
+        invoke EnableMenuItem, hSubMenu, IDM_COPY, MF_GRAYED
+        invoke EnableMenuItem, hSubMenu, IDM_CUT, MF_GRAYED
+        invoke EnableMenuItem, hSubMenu, IDM_DELETE, MF_GRAYED
+    .else
+        invoke EnableMenuItem, hSubMenu, IDM_COPY, MF_ENABLED
+        invoke EnableMenuItem, hSubMenu, IDM_CUT, MF_ENABLED
+        invoke EnableMenuItem, hSubMenu, IDM_DELETE, MF_ENABLED
+    .endif
+    
+    ret
+
+PrepareEditMenu endp
+
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
 
@@ -372,6 +661,8 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
     LOCAL   hFile:HANDLE
     LOCAL   nWidth:INT32
     LOCAL   nHeight:INT32
+    LOCAL   hPopup:HANDLE
+    LOCAL   pt:POINT
     
     .if uMsg==WM_CREATE
         invoke CreateWindowEx, WS_EX_CLIENTEDGE, \
@@ -395,11 +686,37 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         ;=============================================================
         invoke SetColor
         invoke SendMessage, hwndRichEdit, EM_SETMODIFY, FALSE, 0
+        ;============================================================
+        ; set event mask
+        ;============================================================
+        invoke SendMessage, hwndRichEdit, EM_SETEVENTMASK, 0, ENM_MOUSEEVENTS
         invoke SendMessage, hwndRichEdit, EM_EMPTYUNDOBUFFER, 0, 0
+        
+    .elseif uMsg==WM_NOTIFY
+        mov rdi, lParam
+        
+        mov eax, (NMHDR ptr[rdi])._code
+        .if rax==EN_MSGFILTER
+            mov eax, (MSGFILTER ptr[rdi]).msg
+            .if rax==WM_RBUTTONDOWN
+                invoke GetMenu, hWnd
+                invoke GetSubMenu, rax, 1
+                mov hPopup, rax
+                invoke PrepareEditMenu, hPopup
+                mov rdx, (MSGFILTER ptr[rdi]).lParam
+                mov rcx, rdx
+                and rdx, 0FFFFh
+                shr ecx, 16
+                mov pt.x, edx
+                mov pt.y, ecx
+                invoke ClientToScreen, hWnd, addr pt
+                invoke TrackPopupMenu, hPopup, TPM_LEFTALIGN or TPM_BOTTOMALIGN, pt.x, pt.y, NULL, hWnd, NULL
+            .endif
+        .endif
         
     .elseif uMsg==WM_INITMENUPOPUP
         mov rax, lParam
-        .if ax==0
+        .if ax==0                       ; File Menu
             .if FileOpened==TRUE
                 invoke EnableMenuItem, wParam, IDM_OPEN, MF_GRAYED
                 invoke EnableMenuItem, wParam, IDM_CLOSE, MF_ENABLED
@@ -412,49 +729,24 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                 invoke EnableMenuItem, wParam, IDM_SAVEAS, MF_GRAYED
             .endif
             
-        .elseif ax==1
-            ;=============================================================================
-            ; Check whether there is some text in the clipboard. If so, we enable the paste menuitem
-            ;=============================================================================
-            invoke SendMessage, hwndRichEdit, EM_CANPASTE, CF_TEXT, 0
-            .if rax==0      ; no text in the clipboard
-                invoke EnableMenuItem, wParam, IDM_PASTE, MF_GRAYED
+        .elseif ax==1                   ; Edit Menu
+            invoke PrepareEditMenu, wParam
+
+        .elseif ax==2                   ; Search Menu bar
+            .if FileOpened==TRUE
+                invoke EnableMenuItem, wParam, IDM_FIND, MF_ENABLED
+                invoke EnableMenuItem, wParam, IDM_FINDNEXT, MF_ENABLED
+                invoke EnableMenuItem, wParam, IDM_FINDPREV, MF_ENABLED
+                invoke EnableMenuItem, wParam, IDM_REPLACE, MF_ENABLED
+                invoke EnableMenuItem, wParam, IDM_GOTOLINE, MF_ENABLED
             .else
-                invoke EnableMenuItem, wParam, IDM_PASTE, MF_ENABLED
+                invoke EnableMenuItem, wParam, IDM_FIND, MF_GRAYED
+                invoke EnableMenuItem, wParam, IDM_FINDNEXT, MF_GRAYED
+                invoke EnableMenuItem, wParam, IDM_FINDPREV, MF_GRAYED
+                invoke EnableMenuItem, wParam, IDM_REPLACE, MF_GRAYED
+                invoke EnableMenuItem, wParam, IDM_GOTOLINE, MF_GRAYED
             .endif
-            ;==========================================================
-            ; check whether the undo queue is empty
-            ;==========================================================
-            invoke SendMessage, hwndRichEdit, EM_CANUNDO, 0, 0
-            .if rax==0
-                invoke EnableMenuItem, wParam, IDM_UNDO, MF_GRAYED
-            .else
-                invoke EnableMenuItem, wParam, IDM_UNDO, MF_ENABLED
-            .endif
-            ;=========================================================
-            ; check whether the redo queue is empty
-            ;=========================================================
-            invoke SendMessage, hwndRichEdit, EM_CANREDO, 0, 0
-            .if eax==0
-                invoke EnableMenuItem, wParam, IDM_REDO, MF_GRAYED
-            .else
-                invoke EnableMenuItem, wParam, IDM_REDO, MF_ENABLED
-            .endif
-            ;=========================================================
-            ; check whether there is a current selection in the richedit control.
-            ; If there is, we enable the cut/copy/delete menuitem
-            ;=========================================================
-            invoke SendMessage, hwndRichEdit, EM_EXGETSEL, 0, addr chrg
-            mov eax, chrg.cpMin
-            .if eax==chrg.cpMax     ; no current selection
-                invoke EnableMenuItem, wParam, IDM_COPY, MF_GRAYED
-                invoke EnableMenuItem, wParam, IDM_CUT, MF_GRAYED
-                invoke EnableMenuItem, wParam, IDM_DELETE, MF_GRAYED
-            .else
-                invoke EnableMenuItem, wParam, IDM_COPY, MF_ENABLED
-                invoke EnableMenuItem, wParam, IDM_CUT, MF_ENABLED
-                invoke EnableMenuItem, wParam, IDM_DELETE, MF_ENABLED
-            .endif
+            
         .endif
     
     .elseif uMsg==WM_COMMAND
@@ -594,6 +886,53 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                     .endif
                 .endif
                 
+            .elseif ax==IDM_FIND
+                .if hSearch==0
+                    invoke CreateDialogParam, hInstance, IDD_FINDDLG, hWnd, addr SearchProc, 0
+                .endif
+                
+            .elseif ax==IDM_REPLACE
+                .if hSearch==0
+                    invoke CreateDialogParam, hInstance, IDD_REPLACEDLG, hWnd, addr ReplaceProc, 0
+                .endif
+                
+            .elseif ax==IDM_GOTOLINE
+                .if hSearch==0
+                    invoke CreateDialogParam, hInstance, IDD_GOTODLG, hWnd, addr GoToProc, 0
+                .endif
+                
+            .elseif ax==IDM_FINDNEXT
+                invoke lstrlen, addr FindBuffer
+                .if rax{}0
+                    invoke SendMessage, hwndRichEdit, EM_EXGETSEL, 0, addr findtext.chrg
+                    mov eax,findtext.chrg.cpMin
+                    .if eax{}findtext.chrg.cpMax
+                        mov eax, findtext.chrg.cpMax
+                        mov findtext.chrg.cpMin, eax
+                    .endif
+                    
+                    mov findtext.chrg.cpMax, -1
+                    lea rdi, FindBuffer
+                    mov findtext.lpstrText, rdi
+                    invoke SendMessage, hwndRichEdit, EM_FINDTEXTEX, FR_DOWN, addr findtext
+                    .if rax{}-1
+                        invoke SendMessage, hwndRichEdit, EM_EXSETSEL, 0,addr findtext.chrgText
+                    .endif
+                .endif
+                
+            .elseif ax==IDM_FINDPREV
+                invoke lstrlen, addr FindBuffer
+                .if rax{}0
+                    invoke SendMessage, hwndRichEdit, EM_EXGETSEL, 0, addr findtext.chrg
+                    mov findtext.chrg.cpMax, 0
+                    lea rdi, FindBuffer
+                    mov findtext.lpstrText, rdi
+                    invoke SendMessage, hwndRichEdit, EM_FINDTEXTEX, 0, addr findtext
+                    .if rax{}-1
+                        invoke SendMessage, hwndRichEdit, EM_EXSETSEL, 0, addr findtext.chrgText
+                    .endif
+                .endif
+                
             .elseif ax==IDM_EXIT
                 invoke SendMessage, hWnd, WM_CLOSE, 0, 0
                 
@@ -615,6 +954,7 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
         and rdx, 0FFFFh
         mov nHeight, edx
         invoke MoveWindow, hwndRichEdit, 0, 0, nWidth, nHeight, TRUE
+        
     .elseif uMsg==WM_DESTROY
         invoke  PostQuitMessage, NULL
         
