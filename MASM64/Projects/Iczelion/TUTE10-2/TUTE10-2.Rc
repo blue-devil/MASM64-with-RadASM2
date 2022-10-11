@@ -7,7 +7,7 @@
 
 #define IDM_GETTEXT                                   32000
 #define IDM_CLEAR                                     32001
-#define IDM_EXIT                                      32003
+#define IDM_EXIT                                      32002
 
 
 MyDialog DIALOG 10, 10, 205, 60

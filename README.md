@@ -85,7 +85,7 @@ pgoui.dll
 * [ ] Add/Edit Common Control messages and constants
 * [x] Add Console64 App Build.bat
 * [x] Fix/Clean build parameters
-* [ ] Add batch files which can handle projects with/without rc files
+* [x] Add batch files which can handle projects with/without rc files
 * [ ] Add templates
   * [ ] Add Console64 templates
   * [ ] Add DLL64 templates
