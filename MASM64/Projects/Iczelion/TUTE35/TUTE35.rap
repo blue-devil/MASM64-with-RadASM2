@@ -5,6 +5,7 @@ Description=Iczelion Tutorial 35: RichEdit Control: Syntax Hilighting
 Backup=$P\Bak\
 Group=1
 GroupExpand=1
+Debug=1
 [Files]
 1=TUTE35.Asm
 2=TUTE35.Rc
@@ -38,13 +39,20 @@ Menu=1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML64.exe /c /nologo /W2 /I"$I",*.asm
-7=0,0,"$E\x64\x64dbg",5
+7=0,0,"$E\x64dbg.exe",5
+11=4,O,$B\RC.EXE /v,1
+12=3,O,$B\ML64.exe /c /Cp /nologo /W2 /Zi /Zd /nologo /I"$I",2
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /DEBUGTYPE:CV /PDB:"$18" /MACHINE:X64 /LIBPATH:"$L" /OUT:"$5",3,4
+14=0,0,,5
+15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+16=*.obj,O,$B\ML64.exe /c /Zi /Zd /Cp /nologo /W2 /I"$I",*.asm
+17=0,0,"$E\x64dbg.exe",$.exe
 [Group]
 Group=Assembly,Resources
 1=1
 2=2
 [AutoLoad]
-AutoLoad=1
+AutoLoad=
 [RADebugBP]
 2=
 1=
@@ -64,7 +72,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=10
+MilestoneOnDateDate=11
 MilestoneOnDateTimeYear=2022
 MilestoneOnDateTimeMonth=10
 MilestoneOnDateTimeDate=10
@@ -97,7 +105,7 @@ ProductVer4Range=0
 6=00FFFFFF
 7=00FFFFFF
 [PTimer]
-PTimer=8467483
+PTimer=27826295
 [GroupExpand]
 GroupExpand=1,1,0
 [BookMark]
@@ -113,3 +121,6 @@ GroupExpand=1,1,0
 9=
 [BreakPoint]
 0=
+[Find]
+1="if byte ptr [rdi]{}0"
+2="lstrlen"

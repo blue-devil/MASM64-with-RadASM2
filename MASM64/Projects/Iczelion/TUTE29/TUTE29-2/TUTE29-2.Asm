@@ -18,12 +18,12 @@
 ; | @tester   : ErrorInside <errorinside@sctzine.com>                     |
 ; | @IDE      : RadASM v2.2.2.4                                           |
 ; | @template : Blue DeviL                                                |
-; | @date     : 27/09/2022                                                |
+; | @date     : 11/08/2022                                                |
 ; | @license  : n/a                                                       |
 ; |_______________________________________________________________________|
 ; |                                                                       |
 ; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
-; |                 Tutorial 30 - Win64 Debug API Part 3                  |
+; |                 Tutorial 29 - Win64 Debug API Part 2                  |
 ; \_______________________________________________________________________/
 
 
@@ -38,7 +38,7 @@
     include \masm64\macros64\macros64.inc   ; auxillary macro file
 
     STACKFRAME                              ; create a default stack frame
-    
+
 ; _________________________________________________________________________
 ; include files
 
@@ -56,7 +56,7 @@
 ; _________________________________________________________________________
 ; function prototypes
 
-    
+    WndProc             PROTO   :HWND,:UINT,:WPARAM,:LPARAM
 
 ; _________________________________________________________________________
 ; constant variables
@@ -67,75 +67,75 @@
 ; initialized variables
 
 .data
-    AppName             db "Win64 Debug Example no.4", 0
-    FilterString        db "Executable Files", 0,"*.exe", 0
-                        db "All Files", 0,"*.*", 0, 0
-    ExitProc            db "The debuggee exits", 0Dh, 0Ah
-                        db "Total Instructions executed : %016IX", 0
-    TotalInstruction    dq 0
-    ofn                 OPENFILENAME <sizeof ofn,,,offset FilterString,,,,offset buffer,\
-                        sizeof buffer,,,,,OFN_FILEMUSTEXIST or OFN_PATHMUSTEXIST or \
-                        OFN_LONGNAMES or OFN_EXPLORER or OFN_HIDEREADONLY>
+    ClassName           db "SimpleWin64Class", 0
+    AppName             db "Win64 Debug Example no.3", 0
+    SearchFail          db "Cannot find the target process", 0
+    LoopSkipped         db "Skip two bytes!",0
+    ErrFmt              db "[-] Error suspending thread %016IX",0
+    ErrCode             dd 0
+
+; _________________________________________________________________________
+; uninitialized variables
 
 .data?
-    buffer              db 512 dup(?)
-    startinfo           STARTUPINFO <>
-    pi                  PROCESS_INFORMATION <>
+    CommandLine         LPSTR ?
+    hInstance           HINSTANCE ?
+    ProcessId           QWORD ?
+    ThreadId            QWORD ?
     DBEvent             DEBUG_EVENT <>
-    align 16
+    align 16            ; CONTEXT structure must be aligned
     context             CONTEXT <>
 
 .code
 
 WinMainCRTStartup proc
     
-    invoke GetOpenFileName, addr ofn
+    LOCAL   errBuff[512]:BYTE
     
-    .if rax==TRUE
-        invoke GetStartupInfo, addr startinfo
-        invoke CreateProcess, \
-                        addr buffer, NULL, NULL, NULL, FALSE, \
-                        DEBUG_PROCESS or DEBUG_ONLY_THIS_PROCESS, \
-                        NULL, NULL, addr startinfo, addr pi
+    invoke RtlZeroMemory, addr context, sizeof context
+
+    invoke FindWindow, addr ClassName, NULL
+    .if rax{}NULL
+        invoke GetWindowThreadProcessId, rax, addr ProcessId
+        mov ThreadId, rax
         
+        invoke DebugActiveProcess, ProcessId
         .while TRUE
             invoke WaitForDebugEvent, addr DBEvent, INFINITE
-            
             .if DBEvent.dwDebugEventCode==EXIT_PROCESS_DEBUG_EVENT
-                invoke wsprintf, addr buffer, addr ExitProc, TotalInstruction
-                invoke MessageBox, NULL, addr buffer, addr AppName, MB_OK or MB_ICONINFORMATION
                 .break
+            .endif
+                
+            .if DBEvent.dwDebugEventCode==CREATE_PROCESS_DEBUG_EVENT
+                mov context.ContextFlags, CONTEXT_CONTROL
+                invoke GetThreadContext, DBEvent.CreateProcessInfo.hThread, addr context
+                .if rax==0
+                    mov rax, rv(GetLastError)
+                    invoke wsprintf, addr errBuff, addr ErrFmt, rax
+                    invoke MessageBox, NULL, addr errBuff, addr AppName, MB_OK
+                    
+                    mov eax, FALSE
+                    ret 
+                .endif
+                
+                add context.Rip, 2
+                invoke SetThreadContext, DBEvent.CreateProcessInfo.hThread, addr context
+                invoke MessageBox, NULL, addr LoopSkipped, addr AppName, MB_OK or MB_ICONINFORMATION
                 
             .elseif DBEvent.dwDebugEventCode==EXCEPTION_DEBUG_EVENT
                 .if DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_BREAKPOINT
-                    mov context.ContextFlags, CONTEXT_CONTROL
-                    invoke GetThreadContext, pi.hThread, addr context
-                    or context.EFlags, 100h                 ; set resume flag
-                    invoke SetThreadContext, pi.hThread, addr context
                     invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
                     .continue
-                    
-                .elseif DBEvent.Exception.ExceptionRecord.ExceptionCode==EXCEPTION_SINGLE_STEP
-                    inc TotalInstruction
-                    invoke GetThreadContext, pi.hThread, addr context
-                    or context.EFlags, 100h
-                    invoke SetThreadContext, pi.hThread, addr context
-                    invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_CONTINUE
-                    .continue
-                    
                 .endif
+                
             .endif
-            
             invoke ContinueDebugEvent, DBEvent.dwProcessId, DBEvent.dwThreadId, DBG_EXCEPTION_NOT_HANDLED
-            
         .endw
-        
+    .else
+        invoke MessageBox, NULL, addr SearchFail, addr AppName, MB_OK or MB_ICONERROR
     .endif
     
-    invoke CloseHandle, pi.hProcess
-    invoke CloseHandle, pi.hThread
-
-    invoke ExitProcess, 0
+    invoke  ExitProcess, 0
 
 WinMainCRTStartup endp
 

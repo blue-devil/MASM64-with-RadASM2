@@ -229,7 +229,7 @@ WinMainCRTStartup proc
         ;===========================================================
         ; Load the words to be hilighted
         ;===========================================================
-        ;call FillHiliteInfo
+        call FillHiliteInfo
         
         invoke WinMain, hInstance, NULL, CommandLine, SW_SHOWDEFAULT
         invoke FreeLibrary, hRichEdit
@@ -696,6 +696,7 @@ ParseBuffer proc uses rdi rsi hHeap:HANDLE, pBuffer:QWORD, nSize:QWORD, ArrayOff
     
     LOCAL   buffer[128]:BYTE
     LOCAL   InProgress:QWORD
+    LOCAL   tmpRCX:QWORD
     
     mov InProgress, FALSE
     lea rsi, buffer
@@ -728,7 +729,7 @@ EndOfWord:
 
 WordFound:
     mov byte ptr[rsi], 0
-    push rcx
+    mov tmpRCX, rcx
     ;========================================================
     ; store the word in a WORDINFO structure
     ;========================================================
@@ -757,7 +758,7 @@ WordFound:
     .endif
     
     pop rsi
-    pop rcx
+    mov rcx, tmpRCX
     lea rsi, buffer
     mov InProgress, FALSE
     jmp SkipIt
@@ -1048,6 +1049,328 @@ FillHiliteInfo proc uses rdi
 
 FillHiliteInfo endp
 
+NewRichEditProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
+    
+    LOCAL	hdc:HANDLE
+    LOCAL	hOldFont:HANDLE
+    LOCAL	FirstChar:QWORD
+    LOCAL	rect:RECT
+    LOCAL	txtrange:TEXTRANGE
+    LOCAL	buffer[1024*10]:BYTE
+    LOCAL	hRgn:HANDLE
+    LOCAL	hOldRgn:HANDLE
+    LOCAL	RealRect:RECT
+    LOCAL	pString:QWORD
+    LOCAL	BufferSize:QWORD
+    LOCAL	pt:POINT
+
+    .if uMsg==WM_PAINT
+        push rdi
+        push rsi
+        invoke HideCaret, hWnd
+        invoke CallWindowProc, OldWndProc, hWnd, uMsg, wParam, lParam
+        push rax
+        lea rdi, ASMSyntaxArray
+        invoke GetDC, hWnd
+        mov hdc, rax
+        invoke SetBkMode, hdc, TRANSPARENT
+    
+        ;===================================================================
+        ; Do syntax hiliting here!
+        ;===================================================================
+        invoke SendMessage, hWnd, EM_GETRECT, 0, addr rect
+        invoke SendMessage, hWnd, EM_CHARFROMPOS, 0, addr rect
+        
+        ;========================================================
+        ; obtain the line number
+        ;========================================================
+        invoke SendMessage, hWnd, EM_LINEFROMCHAR, rax,0
+        invoke SendMessage, hWnd, EM_LINEINDEX, rax,0
+        mov txtrange.chrg.cpMin, eax
+        mov FirstChar, rax
+        
+        invoke SendMessage, hWnd, EM_CHARFROMPOS, 0, addr rect.right
+        mov txtrange.chrg.cpMax, eax
+        
+        mrmd RealRect.left, rect.left
+        mrmd RealRect.top, rect.top
+        mrmd RealRect.right, rect.right
+        mrmd RealRect.bottom, rect.bottom
+        invoke CreateRectRgn, RealRect.left, RealRect.top, RealRect.right, RealRect.bottom
+        mov hRgn, rax
+        invoke SelectObject, hdc, hRgn
+        mov hOldRgn, rax
+        invoke SetTextColor, hdc, CommentColor
+        
+        ;===================================================================
+        ; Get the visible text into buffer
+        ;===================================================================
+        lea rax, buffer
+        mov txtrange.lpstrText, rax
+        invoke SendMessage, hWnd, EM_GETTEXTRANGE, 0, addr txtrange
+        mov rsi, rax
+        .if rsi}0
+            mov BufferSize, rax
+            
+            ;=========================================================
+            ; Search for comments first
+            ;=========================================================
+            push rdi
+            push rbx
+            lea rdi, buffer
+            mov rdx, rdi
+            mov rcx, rsi
+            mov al, ";"
+            
+    ScanMore:
+            repne scasb
+            je NextSkip
+            jmp NoMoreHit
+    
+    NextSkip:
+            dec rdi
+            inc rcx
+            mov pString, rdi
+            mov rbx, rdi
+            sub rbx, rdx
+            add rbx, FirstChar
+            mov txtrange.chrg.cpMin, ebx
+            
+            ;===================================================
+            ; search the end of line or the end of buffer
+            ;===================================================
+            push rax
+            mov al, 0Dh
+            repne scasb
+            pop rax
+            
+    HiliteTheComment:
+            .if rcx}0
+                mov byte ptr [rdi-1],0
+            .endif
+            
+            mov rbx, rdi
+            sub rbx, rdx
+            add rbx, FirstChar
+            mov txtrange.chrg.cpMax, ebx
+            ;pushad not available in 64 bit
+            push rax
+            push rbx
+            push rcx
+            push rdx
+            push rsi
+            push rdi
+            
+            ;====================================================================
+            ; Now we must search the range for the tabs
+            ;====================================================================
+            mov rdi, pString
+            mov esi, txtrange.chrg.cpMax
+            sub esi, txtrange.chrg.cpMin     ; esi contains the length of the buffer
+            mov rax, rsi
+            push rdi
+            .while rax } 0
+                .if byte ptr[rdi]==9
+                    mov byte ptr [rdi], 0
+                .endif
+                inc rdi
+                dec rax
+            .endw
+            pop rdi
+            
+            .while rsi } 0
+                .if byte ptr [rdi]{}0
+                    invoke lstrlen, rdi
+                    push rax
+                    mov rcx, rdi
+                    lea rdx, buffer
+                    sub rcx, rdx
+                    add rcx, FirstChar
+                    .if RichEditVersion==3
+                        invoke SendMessage, hWnd, EM_POSFROMCHAR, addr rect, rcx
+                    .else
+                        invoke SendMessage, hWnd, EM_POSFROMCHAR, rcx, 0
+                        mov rcx, rax
+                        and rcx, 0FFFFh
+                        mov rect.left, ecx
+                        shr rax, 16
+                        mov rect.top, eax
+                    .endif
+                    
+                    invoke DrawText, hdc, rdi, -1, addr rect, 0
+                    pop rax
+                    add rdi, rax
+                    sub rsi, rax
+                    
+                .else
+                    inc rdi
+                    dec rsi
+                .endif
+            .endw
+            mov ecx, txtrange.chrg.cpMax
+            sub ecx, txtrange.chrg.cpMin
+            invoke RtlZeroMemory, pString, ecx
+            ;popad not available in 64 bit
+            pop rdi
+            pop rsi
+            pop rdx
+            pop rcx
+            pop rbx
+            pop rax
+            
+            .if rcx}0
+                jmp ScanMore
+            .endif
+    
+    NoMoreHit:
+            pop rbx
+            pop rdi
+            
+            ;==============================================================================
+            ; Now that the comments are out of our way, Get rid of the separators
+            ;==============================================================================
+            mov rcx, BufferSize
+            lea rsi, buffer
+            .while rcx}0
+                mov al, byte ptr [rsi]
+                ;.if is only masm32, here we use a substitute defined in macros64.inc
+                .if al==" " || al==0Dh || al=="/" || al=="," || al=="|" || al=="+" || al=="-" || al=="*" || al=="&" 
+                    mov byte ptr [rsi], 0
+                    ;       <          >                     (          )
+                .elseif al==3Ch || al==3Eh || al=="=" || al==28h || al==29h || al=="{" || al=="}" || al=="[" || al=="]"
+                    mov byte ptr [rsi], 0
+                    
+                .elseif al==9 || al==":" || al=="^" 
+                    mov byte ptr [rsi], 0
+                    
+                .endif
+                
+                dec rcx
+                inc rsi
+            .endw
+            
+            ;============================================================================
+            ; Begin the search 
+            ;============================================================================
+            lea rsi, buffer
+            mov rcx, BufferSize
+            
+            .while rcx } 0
+                mov al,byte ptr [rsi]
+                .if al{}0
+                    push rcx
+                    invoke lstrlen, rsi
+                    push rax
+                    mov rdx, rax
+                    movzx rax, byte ptr[rsi]
+                    .if al }="A" && al{="Z"
+                        sub al, "A"
+                        add al, "a"
+                    .endif
+                    shl rax, 2
+                    add rax, rdi ; edi contains the pointer to the WORDINFO pointer array
+                    .if qword ptr[rax]{}0
+                        mov rax, qword ptr[rax]
+                        .while rax{}0
+                            .if rdx==(WORDINFO ptr [rax]).WordLen
+                                push rax
+                                push rbx
+                                push rcx
+                                push rdx
+                                push rsi
+                                push rdi
+                                invoke lstrcmpi, (WORDINFO ptr [rax]).pszWord, rsi
+                                .if rax==0
+                                    pop rdi
+                                    pop rsi
+                                    pop rdx
+                                    pop rcx
+                                    pop rbx
+                                    pop rax
+                                    
+                                    ;=================================================
+                                    ; hilite the word
+                                    ;=================================================
+                                    mov rcx, rsi
+                                    lea rdx, buffer
+                                    sub rcx, rdx
+                                    add rcx, FirstChar
+                                    
+                                    push rax
+                                    push rbx
+                                    push rcx
+                                    push rdx
+                                    push rsi
+                                    push rdi
+                                    .if  RichEditVersion==3
+                                        invoke SendMessage, hWnd, EM_POSFROMCHAR, addr rect, rcx
+                                    .else
+                                        invoke SendMessage, hWnd, EM_POSFROMCHAR, rcx, 0
+                                        mov rcx, rax
+                                        and rcx, 0FFFFh
+                                        mov rect.left, ecx
+                                        shr rax, 16
+                                        mov rect.top, eax
+                                    .endif
+                                    pop rdi
+                                    pop rsi
+                                    pop rdx
+                                    pop rcx
+                                    pop rbx
+                                    pop rax
+                                    
+                                    mov rdx, (WORDINFO ptr [rax]).pColor
+                                    invoke SetTextColor, hdc, qword ptr[rdx]
+                                    invoke DrawText, hdc, rsi, -1, addr rect, 0
+                                    .break
+                                    
+                                .endif
+                                pop rdi
+                                pop rsi
+                                pop rdx
+                                pop rcx
+                                pop rbx
+                                pop rax
+                                
+                            .endif
+                            mov rax, (WORDINFO ptr [rax]).NextLink
+                        .endw
+                    .endif
+                    pop rax
+                    pop rcx
+                    add rsi, rax
+                    sub rcx, rax
+                    
+                .else
+                    inc rsi
+                    dec rcx
+                    
+                .endif
+            .endw
+            
+        .endif
+        invoke SelectObject, hdc, hOldRgn
+        invoke DeleteObject, hRgn
+        invoke SelectObject, hdc, hOldFont
+        invoke ReleaseDC, hWnd, hdc
+        invoke ShowCaret, hWnd 
+        pop rax
+        pop rsi
+        pop rdi
+        ret
+        
+    .elseif uMsg==WM_COMMAND
+        invoke SetWindowLongPtr, hWnd, GWL_WNDPROC, OldWndProc
+        
+    .else
+        invoke CallWindowProc, OldWndProc, hWnd, uMsg, wParam, lParam
+        ret
+        
+    .endif
+
+    ;ret
+
+NewRichEditProc endp
 
 WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
 
@@ -1072,6 +1395,27 @@ WndProc proc hWnd:HWND, uMsg:UINT, wParam:WPARAM, lParam:LPARAM
                 hInstance, \
                 0
         mov hwndRichEdit, rax
+        
+        ;=======================================================
+        ; Check the richedit version
+        ;=======================================================
+        invoke SendMessage, hwndRichEdit, EM_SETTYPOGRAPHYOPTIONS, TO_SIMPLELINEBREAK, TO_SIMPLELINEBREAK
+        invoke SendMessage, hwndRichEdit, EM_GETTYPOGRAPHYOPTIONS, 1, 1
+        .if rax==0
+            mov RichEditVersion, 2
+        .else
+            mov RichEditVersion, 3
+            ;=============================================================================
+            ; Make it emulate system edit control so the text color update doesn't  take very long
+            ;=============================================================================
+            invoke SendMessage, hwndRichEdit, EM_SETEDITSTYLE, SES_EMULATESYSEDIT, SES_EMULATESYSEDIT
+        .endif
+        
+        ;=======================================================
+        ; Subclass the richedit control
+        ;=======================================================
+        invoke SetWindowLongPtr, hwndRichEdit, GWL_WNDPROC, addr NewRichEditProc
+        mov OldWndProc, rax
         
         ;=============================================================
         ; Set the text limit. The default is 64K

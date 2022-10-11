@@ -23,7 +23,7 @@
 ; |_______________________________________________________________________|
 ; |                                                                       |
 ; |            Iczelion's Win32 Assembly Tutorials with MASM64            |
-; |                 Tutorial 29 - Win32 Debug API part 2                  |
+; |                 Tutorial 29 - Win64 Debug API Part 2                  |
 ; \_______________________________________________________________________/
 
 
@@ -71,10 +71,9 @@
     AppName             db "Win64 Debug Example no.2", 0
     SearchFail          db "Cannot find the target process", 0
     TargetPatched       db "Target patched!", 0
-    ErrFmt              db "[-] Error suspending thread %08X",0
+    ErrFmt              db "[-] Error suspending thread %016IX",0
     ErrCode             dd 0
     buffer              dw 9090h
-    context             CONTEXT <>
 
 ; _________________________________________________________________________
 ; uninitialized variables
@@ -85,12 +84,16 @@
     ProcessId           QWORD ?
     ThreadId            QWORD ?
     DBEvent             DEBUG_EVENT <>
+    align 16            ; CONTEXT structure must be aligned
+    context             CONTEXT <>
 
 .code
 
 WinMainCRTStartup proc
     
     LOCAL   errBuff[512]:BYTE
+    
+    invoke RtlZeroMemory, addr context, sizeof context
 
     invoke FindWindow, addr ClassName, NULL
     .if rax{}NULL
@@ -105,21 +108,17 @@ WinMainCRTStartup proc
             .endif
                 
             .if DBEvent.dwDebugEventCode==CREATE_PROCESS_DEBUG_EVENT
-                invoke SuspendThread, DBEvent.CreateProcessInfo.hThread
-                .if eax==0FFFFFFFFh
+                mov context.ContextFlags, CONTEXT_CONTROL
+                invoke GetThreadContext, DBEvent.CreateProcessInfo.hThread, addr context
+                .if rax==0
                     mov rax, rv(GetLastError)
-                    invoke wsprintf, errBuff, ErrFmt, rax
+                    invoke wsprintf, addr errBuff, addr ErrFmt, rax
                     invoke MessageBox, NULL, addr errBuff, addr AppName, MB_OK
                     
                     mov eax, FALSE
                     ret 
                 .endif
                 
-                mov context.ContextFlags, CONTEXT_ALL
-                ;lea rdi, DBEvent
-                ;mov rax, qword ptr[rdi + 12]
-                ;invoke SuspendThread, DBEvent.CreateProcessInfo.hThread
-                invoke GetThreadContext, DBEvent.CreateProcessInfo.hThread, addr context
                 invoke WriteProcessMemory, \
                             DBEvent.CreateProcessInfo.hProcess, \
                             context.Rip, addr buffer, 2, NULL
