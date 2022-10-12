@@ -82,7 +82,7 @@ pgoui.dll
 
 ## TODO
 
-* [ ] Add/Edit Common Control messages and constants
+* [x] Add/Edit Common Control messages and constants
 * [x] Add Console64 App Build.bat
 * [x] Fix/Clean build parameters
 * [x] Add batch files which can handle projects with/without rc files

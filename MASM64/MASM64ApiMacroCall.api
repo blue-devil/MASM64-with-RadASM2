@@ -617,7 +617,7 @@ TreeView_SortChildren,hwnd, hitem, recurse
 TreeView_EnsureVisible,hwnd, hitem
 TreeView_SortChildrenCB,hwnd, psort, recurse
 TreeView_EndEditLabelNow,hwnd, fCancel
-TreeView_SetToolTips,hwnd,  hwndTT
+TreeView_SetToolTips,hwnd, hwndTT
 TreeView_GetToolTips,hwnd
 TreeView_GetISearchString,hwndTV, lpsz
 TreeView_SetInsertMark,hwnd, hItem, fAfter

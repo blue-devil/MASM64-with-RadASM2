@@ -59,6 +59,7 @@
 * ADDED: Batch file for building LIB files
 * ADDED: TUTE33 but not finished
 * ADDED: TUTE34
+* ADDED:Adding and updating Common Control messages and constants finished
 
 
 ### Changes

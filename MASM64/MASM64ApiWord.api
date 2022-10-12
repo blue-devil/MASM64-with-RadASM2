@@ -51,20 +51,19 @@ BCM_FIRST,equ 1600h,Button control messages
 CBM_FIRST,equ 1700h,Combobox control messages
 CCM_FIRST,equ 2000h,Common control shared messages
 CCM_LAST,equ CCM_FIRST + 0x200
-CCM_SETBKCOLOR,equ CCM_FIRST + 1,lParam is bkColor
-MCM_FIRST,equ 1000h,Month Calendar control messages
-CBEN_FIRST,equ (0U-800U, combo box ex
-CBEN_LAST,equ (0U-830U)
-DTN_FIRST,equ (0U-740U),datetimepick
-DTN_LAST,equ (0U-745U),DTN_FIRST - 5
-DTN_FIRST2,equ (0U-753U),datetimepick2
-DTN_LAST2,equ (0U-799U)
-IPN_FIRST,equ (0U-860U),internet address
-IPN_LAST,equ (0U-879U),internet address
+CCM_SETBKCOLOR,equ CCM_FIRST + 1
+MCM_FIRST,equ 1000h
+CBEN_FIRST,equ 0U-800U
+CBEN_LAST,equ 0U-830U
+DTN_FIRST,equ 0U-740U
+DTN_LAST,equ 0U-745),DTN_FIRST - 5
+DTN_FIRST2,equ 0U-753U
+DTN_LAST2,equ 0U-799U
+IPN_FIRST,equ 0U-860U
+IPN_LAST,equ 0U-879U
 ; ------------------------------------------------------------------------------
 ;   What : Animation Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/animation-control-reference
 ; ------------------------------------------------------------------------------
 ACM_OPENA,equ WM_USER+100h
 ACM_OPENW,equ WM_USER+103h
@@ -84,7 +83,6 @@ ACS_TIMER,equ 8h,don't use threads... use timers
 ;   What : Button Control Messages, Notifications, Styles
 ;   Where: CommCtrl.h = BCM_*
 ;   Where: WinUser.h = BM_*
-;   Web  : https://tiny.one/controls-buttons
 ; ------------------------------------------------------------------------------
 BCM_GETIDEALSIZE,equ BCM_FIRST + 0x0001h
 BCM_SETIMAGELIST,equ BCM_FIRST + 0x0002h
@@ -153,7 +151,6 @@ BS_RIGHTBUTTON,equ BS_LEFTTEXT
 ; ------------------------------------------------------------------------------
 ;   What : ComboBox Control Messages
 ;   Where: WinUser.h
-;   Web  : https://tiny.one/combobox-control-messages
 ; ------------------------------------------------------------------------------
 CB_GETEDITSEL,equ 140h
 CB_LIMITTEXT,equ 141h
@@ -221,7 +218,6 @@ CBS_LOWERCASE,equ 4000h
 ; ------------------------------------------------------------------------------
 ;   What : ComboBoxEx Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/comboboxex-control-messages
 ; ------------------------------------------------------------------------------
 CBEM_INSERTITEMA,equ WM_USER+1
 CBEM_SETIMAGELIST,equ WM_USER+2
@@ -245,17 +241,16 @@ CBEM_INSERTITEM,equ CBEM_INSERTITEMW/CBEM_INSERTITEMA
 CBEM_SETITEM,equ CBEM_SETITEMW/CBEM_SETITEMA
 CBEM_GETITEM,equ CBEM_GETITEMW/CBEM_GETITEMA
 ; ComboBoxEx Notifications
-CBEN_GETDISPINFO,equ CBEN_GETDISPINFOW
-CBEN_GETDISPINFO,equ CBEN_GETDISPINFOA
-CBEN_GETDISPINFOA,equ (CBEN_FIRST - 0)
-CBEN_INSERTITEM  ,equ (CBEN_FIRST - 1)
-CBEN_DELETEITEM  ,equ (CBEN_FIRST - 2)
-CBEN_BEGINEDIT   ,equ (CBEN_FIRST - 4)
-CBEN_ENDEDITA    ,equ (CBEN_FIRST - 5)
-CBEN_ENDEDITW    ,equ (CBEN_FIRST - 6)
-CBEN_GETDISPINFOW,equ (CBEN_FIRST - 7)
-CBEN_DRAGBEGINA,equ (CBEN_FIRST - 8)
-CBEN_DRAGBEGINW,equ (CBEN_FIRST - 9)
+CBEN_GETDISPINFO,equ CBEN_GETDISPINFOW/CBEN_GETDISPINFOA
+CBEN_GETDISPINFOA,equ CBEN_FIRST - 0
+CBEN_INSERTITEM,equ CBEN_FIRST - 1
+CBEN_DELETEITEM,equ CBEN_FIRST - 2
+CBEN_BEGINEDIT,equ CBEN_FIRST - 4
+CBEN_ENDEDITA,equ CBEN_FIRST - 5
+CBEN_ENDEDITW,equ CBEN_FIRST - 6
+CBEN_GETDISPINFOW,equ CBEN_FIRST - 7
+CBEN_DRAGBEGINA,equ CBEN_FIRST - 8
+CBEN_DRAGBEGINW,equ CBEN_FIRST - 9
 CBEN_DRAGBEGIN,equ CBEN_DRAGBEGINW/CBEN_DRAGBEGINA
 CBEN_ENDEDIT,equ CBEN_ENDEDITW/CBEN_ENDEDITA
 ; ComboBoxEx Control Extended Styles
@@ -268,7 +263,6 @@ CBES_EX_TEXTENDELLIPSIS,equ 20h
 ; ------------------------------------------------------------------------------
 ;   What : Date and Time Picker Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/datetimepicker-ctrl-msg
 ; ------------------------------------------------------------------------------
 DTM_GETSYSTEMTIME,equ DTM_FIRST + 1
 DTM_SETSYSTEMTIME,equ DTM_FIRST + 2
@@ -288,34 +282,33 @@ DTM_CLOSEMONTHCAL,equ DTM_FIRST + 13
 DTM_GETDATETIMEPICKERINFO,equ DTM_FIRST + 14
 DTM_GETIDEALSIZE,equ DTM_FIRST + 15
 ; Date and Time Picker Notifications
-DTN_DATETIMECHANGE,equ (DTN_FIRST2 - 6),the systemtime has changed, -759
-DTN_USERSTRINGA,equ (DTN_FIRST2 - 5),the user has entered a string, -758
-DTN_USERSTRINGW,equ (DTN_FIRST - 5),-745
+DTN_DATETIMECHANGE,equ DTN_FIRST2 - 6
+DTN_USERSTRINGA,equ DTN_FIRST2 - 5
+DTN_USERSTRINGW,equ DTN_FIRST - 5,-745
 DTN_USERSTRING,equ DTN_USERSTRINGW/DTN_USERSTRINGA
-DTN_WMKEYDOWNA,equ (DTN_FIRST2 - 4),modify keydown on app format field (X), , -757
-DTN_WMKEYDOWNW,equ (DTN_FIRST - 4),-744
+DTN_WMKEYDOWNA,equ DTN_FIRST2 - 4
+DTN_WMKEYDOWNW,equ DTN_FIRST - 4,-744
 DTN_WMKEYDOWN,equ DTN_WMKEYDOWNW/DTN_WMKEYDOWNA
-DTN_FORMATA,equ (DTN_FIRST2 - 3),query display for app format field (X), -756
-DTN_FORMATW,equ (DTN_FIRST - 3),-743
+DTN_FORMATA,equ DTN_FIRST2 - 3
+DTN_FORMATW,equ DTN_FIRST - 3),-743
 DTN_FORMAT,equ DTN_FORMATW/DTN_FORMATA
-DTN_FORMATQUERYA,equ (DTN_FIRST2 - 2),query formatting info for app format field (X), -755
-DTN_FORMATQUERYW,equ (DTN_FIRST - 2),-742
+DTN_FORMATQUERYA,equ DTN_FIRST2 - 2
+DTN_FORMATQUERYW,equ DTN_FIRST - 2,-742
 DTN_FORMATQUERY,equ DTN_FORMATQUERYW/DTN_FORMATQUERYA
-DTN_DROPDOWN,equ (DTN_FIRST2 - 1),MonthCal has dropped down, -754
-DTN_CLOSEUP,equ (DTN_FIRST2),MonthCal is popping up, -753
+DTN_DROPDOWN,equ DTN_FIRST2 - 1
+DTN_CLOSEUP,equ DTN_FIRST2
 ; Date and Time Picker Control Styles
-DTS_UPDOWN,equ 1h,use UPDOWN instead of MONTHCAL
-DTS_SHOWNONE,equ 2h,allow a NONE selection
-DTS_SHORTDATEFORMAT,equ 0h,use the short date format (app must forward WM_WININICHANGE messages)
-DTS_LONGDATEFORMAT,equ 4h,use the long date format (app must forward WM_WININICHANGE messages)
-DTS_SHORTDATECENTURYFORMAT,equ 0Ch,short date format with century (app must forward WM_WININICHANGE messages)
-DTS_TIMEFORMAT,equ 9h,use the time format (app must forward WM_WININICHANGE messages)
-DTS_APPCANPARSE,equ 10h,allow user entered strings (app MUST respond to DTN_USERSTRING)
-DTS_RIGHTALIGN,equ 20h,right-align popup instead of left-align it
+DTS_UPDOWN,equ 1h
+DTS_SHOWNONE,equ 2h
+DTS_SHORTDATEFORMAT,equ 0h
+DTS_LONGDATEFORMAT,equ 4h
+DTS_SHORTDATECENTURYFORMAT,equ 0Ch
+DTS_TIMEFORMAT,equ 9h
+DTS_APPCANPARSE,equ 10h
+DTS_RIGHTALIGN,equ 20h
 ; ------------------------------------------------------------------------------
 ;   What : Edit Control Messages
 ;   Where: WinUser.h
-;   Web  : https://tiny.one/edit-control-messages
 ; ------------------------------------------------------------------------------
 EM_GETSEL,equ 0B0h
 EM_SETSEL,equ 0B1h
@@ -350,7 +343,7 @@ EM_GETWORDBREAKPROC,equ 0D1h
 EM_GETPASSWORDCHAR,equ 0D2h
 EM_SETMARGINS,equ 0D3h
 EM_GETMARGINS,equ 0D4h
-EM_SETLIMITTEXT,equ EM_LIMITTEXT,;win40 Name change
+EM_SETLIMITTEXT,equ EM_LIMITTEXT
 EM_GETLIMITTEXT,equ 0D5h
 EM_POSFROMCHAR,equ 0D6h
 EM_CHARFROMPOS,equ 0D7h
@@ -405,26 +398,25 @@ ES_NUMBER,equ 2000h
 ; ------------------------------------------------------------------------------
 ;   What : Header Control
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/header-control-messages
 ; ------------------------------------------------------------------------------
 HDM_GETITEMCOUNT,equ HDM_FIRST + 0
 HDM_INSERTITEMA,equ HDM_FIRST + 1
 HDM_INSERTITEMW,equ HDM_FIRST + 10
-HDM_INSERTITEM,equ HDM_INSERTITEMW/HDM_INSERTITEMA       
+HDM_INSERTITEM,equ HDM_INSERTITEMW/HDM_INSERTITEMA
 HDM_DELETEITEM,equ HDM_FIRST + 2
 HDM_GETITEMA,equ HDM_FIRST + 3
 HDM_GETITEMW,equ HDM_FIRST + 11
 HDM_GETITEM,equ HDM_GETITEMW/HDM_GETITEMA
 HDM_SETITEMA,equ HDM_FIRST + 4
 HDM_SETITEMW,equ HDM_FIRST + 12
-HDM_SETITEM,equ HDM_SETITEMW/HDM_SETITEMA
+HDM_SETITEM,equ HDM_SETITEMW/HDM_SETITEMA  
 HDM_LAYOUT,equ HDM_FIRST + 5
 HDM_HITTEST,equ HDM_FIRST + 6
 HDM_GETITEMRECT,equ HDM_FIRST + 7
 HDM_SETIMAGELIST,equ HDM_FIRST + 8
 HDM_GETIMAGELIST,equ HDM_FIRST + 9
 HDM_ORDERTOINDEX,equ HDM_FIRST + 15
-HDM_CREATEDRAGIMAGE,equ HDM_FIRST + 16,wparam = which item,equ by index
+HDM_CREATEDRAGIMAGE,equ HDM_FIRST + 16
 HDM_GETORDERARRAY,equ HDM_FIRST + 17
 HDM_SETORDERARRAY,equ HDM_FIRST + 18
 HDM_SETHOTDIVIDER,equ HDM_FIRST + 19
@@ -436,32 +428,47 @@ HDM_SETFILTERCHANGETIMEOUT,equ HDM_FIRST+22
 HDM_EDITFILTER,equ HDM_FIRST+23
 HDM_CLEARFILTER,equ HDM_FIRST+24
 HDM_TRANSLATEACCELERATOR,equ CCM_TRANSLATEACCELERATOR
-HDM_GETITEMDROPDOWNRECT,equ HDM_FIRST+25,rect of item's drop down button
-HDM_GETOVERFLOWRECT,equ HDM_FIRST+26,rect of overflow button
+HDM_GETITEMDROPDOWNRECT,equ HDM_FIRST+25
+HDM_GETOVERFLOWRECT,equ HDM_FIRST+26
 HDM_GETFOCUSEDITEM,equ HDM_FIRST+27
 HDM_SETFOCUSEDITEM,equ HDM_FIRST+28
-HDN_ITEMCHANGING
-HDN_ITEMCHANGINGW
-HDN_ITEMCHANGED
-HDN_ITEMCHANGEDW
-HDN_ITEMCLICK
-HDN_ITEMCLICKW
-HDN_ITEMDBLCLICK
-HDN_ITEMDBLCLICKW
-HDN_DIVIDERDBLCLICK
-HDN_DIVIDERDBLCLICKW
-HDN_BEGINTRACK
-HDN_BEGINTRACKW
-HDN_ENDTRACK
-HDN_ENDTRACKW
-HDN_TRACK
-HDN_TRACKW
-HDN_GETDISPINFO
-HDN_GETDISPINFOW
-HDN_BEGINDRAG
-HDN_ENDDRAG
-HDN_FILTERCHANGE
-HDN_FILTERBTNCLICK
+HDN_ITEMCHANGINGA,equ HDN_FIRST-0
+HDN_ITEMCHANGINGW,equ HDN_FIRST-20
+HDN_ITEMCHANGEDA,equ HDN_FIRST-1
+HDN_ITEMCHANGEDW,equ HDN_FIRST-21
+HDN_ITEMCLICKA,equ HDN_FIRST-2
+HDN_ITEMCLICKW,equ HDN_FIRST-22
+HDN_ITEMDBLCLICKA,equ HDN_FIRST-3
+HDN_ITEMDBLCLICKW,equ HDN_FIRST-23
+HDN_DIVIDERDBLCLICKA,equ HDN_FIRST-5
+HDN_DIVIDERDBLCLICKW,equ HDN_FIRST-25
+HDN_BEGINTRACKA,equ HDN_FIRST-6
+HDN_BEGINTRACKW,equ HDN_FIRST-26
+HDN_ENDTRACKA,equ HDN_FIRST-7
+HDN_ENDTRACKW,equ HDN_FIRST-27
+HDN_TRACKA,equ HDN_FIRST-8
+HDN_TRACKW,equ HDN_FIRST-28
+HDN_GETDISPINFOA,equ HDN_FIRST-9
+HDN_GETDISPINFOW,equ HDN_FIRST-29
+HDN_BEGINDRAG,equ HDN_FIRST-10
+HDN_ENDDRAG,equ HDN_FIRST-11
+HDN_FILTERCHANGE,equ HDN_FIRST-12
+HDN_FILTERBTNCLICK,equ HDN_FIRST-13
+HDN_BEGINFILTEREDIT,equ HDN_FIRST-14
+HDN_ENDFILTEREDIT,equ HDN_FIRST-15
+HDN_ITEMSTATEICONCLICK,equ HDN_FIRST-16
+HDN_ITEMKEYDOWN,equ HDN_FIRST-17
+HDN_DROPDOWN,equ HDN_FIRST-18
+HDN_OVERFLOWCLICK,equ HDN_FIRST-19
+HDN_ITEMCHANGING,equ HDN_ITEMCHANGINGW/HDN_ITEMCHANGINGA
+HDN_ITEMCHANGED,equ HDN_ITEMCHANGEDW/HDN_ITEMCHANGEDA
+HDN_ITEMCLICK,equ HDN_ITEMCLICKW/HDN_ITEMCLICKA
+HDN_ITEMDBLCLICK,equ HDN_ITEMDBLCLICKW/HDN_ITEMDBLCLICKA
+HDN_DIVIDERDBLCLICK,equ HDN_DIVIDERDBLCLICKW/HDN_DIVIDERDBLCLICKA
+HDN_BEGINTRACK,equ HDN_BEGINTRACKW/HDN_BEGINTRACKA
+HDN_ENDTRACK,equ HDN_ENDTRACKW/HDN_ENDTRACKA
+HDN_TRACK,equ HDN_TRACKW/HDN_TRACKA
+HDN_GETDISPINFO,equ HDN_GETDISPINFOW/HDN_GETDISPINFOA
 HDS_HORZ,equ 0h
 HDS_BUTTONS,equ 2h
 HDS_HOTTRACK,equ 4h
@@ -473,14 +480,74 @@ HDS_FLAT,equ 200h
 HDS_CHECKBOXES,equ 400h
 HDS_NOSIZING,equ 800h
 HDS_OVERFLOW,equ 1000h
+HDFT_ISSTRING,equ 0h
+HDFT_ISNUMBER,equ 1h
+HDFT_ISDATE,equ 2h
+HDFT_HASNOVALUE,equ 8000h
+HDI_WIDTH,equ 1h
+HDI_HEIGHT,equ HDI_WIDTH
+HDI_TEXT,equ 2h
+HDI_FORMAT,equ 4h
+HDI_LPARAM,equ 8h
+HDI_BITMAP,equ 10h
+HDI_IMAGE,equ 20h
+HDI_DI_SETITEM,equ 40h
+HDI_ORDER,equ 80h
+HDI_FILTER,equ 100h
+HDI_STATE,equ 200h
+HDF_LEFT,equ 0h
+HDF_RIGHT,equ 1h
+HDF_CENTER,equ 2h
+HDF_JUSTIFYMASK,equ 3h
+HDF_RTLREADING,equ 4h
+HDF_BITMAP,equ 2000h
+HDF_STRING,equ 4000h
+HDF_OWNERDRAW,equ 8000h
+HDF_IMAGE,equ 800h
+HDF_BITMAP_ON_RIGHT,equ 1000h
+HDF_SORTUP,equ 400h
+HDF_SORTDOWN,equ 200h
+HDF_CHECKBOX,equ 40h
+HDF_CHECKED,equ 80h
+HDF_FIXEDWIDTH,equ 100h
+HDF_SPLITBUTTON,equ 1000000h
+HDIS_FOCUSED,equ 1h
+HHT_NOWHERE,equ 1h
+HHT_ONHEADER,equ 2h
+HHT_ONDIVIDER,equ 4h
+HHT_ONDIVOPEN,equ 8h
+HHT_ONFILTER,equ 10h
+HHT_ONFILTERBUTTON,equ 20h
+HHT_ABOVE,equ 100h
+HHT_BELOW,equ 200h
+HHT_TORIGHT,equ 400h
+HHT_TOLEFT,equ 800h
+HHT_ONITEMSTATEICON,equ 1000h
+HHT_ONDROPDOWN,equ 2000h
+HHT_ONOVERFLOW,equ 4000h
+HDSIL_NORMAL,equ 0
+HDSIL_STATE,equ 1
+
 ; ------------------------------------------------------------------------------
 ;   What : Hot Key Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/hot-key-control-messages
 ; ------------------------------------------------------------------------------
 HKM_SETHOTKEY,equ WM_USER+1
 HKM_GETHOTKEY,equ WM_USER+2
 HKM_SETRULES,equ WM_USER+3
+HOTKEYF_SHIFT,equ 1h
+HOTKEYF_CONTROL,equ 2h
+HOTKEYF_ALT,equ 4h
+HOTKEYF_EXT,equ 80h
+HOTKEYF_EXT,equ 8h
+HKCOMB_NONE,equ 1h
+HKCOMB_S,equ 2h
+HKCOMB_C,equ 4h
+HKCOMB_A,equ 8h
+HKCOMB_SC,equ 10h
+HKCOMB_SA,equ 20h
+HKCOMB_CA,equ 40h
+HKCOMB_SCA,equ 80h
 ; ------------------------------------------------------------------------------
 ;   What : ImageList Control
 ;   Where: CommCtrl.h
@@ -493,8 +560,8 @@ ILD_ROP,equ 40h
 ILD_BLEND25,equ 2h
 ILD_BLEND50,equ 4h
 ILD_OVERLAYMASK,equ 0F00h
-ILD_PRESERVEALPHA,equ 1000h,This preserves the alpha channel in dest
-ILD_SCALE,equ 2000h,Causes the image to be scaled to cx, cy instead of clipped
+ILD_PRESERVEALPHA,equ 1000h
+ILD_SCALE,equ 2000h
 ILD_DPISCALE,equ 4000h
 ILD_ASYNC,equ 8000h
 ILD_SELECTED,equ ILD_BLEND50
@@ -513,28 +580,26 @@ ILC_COLOR8,equ 8h
 ILC_COLOR16,equ 10h
 ILC_COLOR24,equ 18h
 ILC_COLOR32,equ 20h
-ILC_PALETTE,equ 800h,(not implemented)
-ILC_MIRROR,equ 2000h,Mirror the icons contained, if the process is mirrored
-ILC_PERITEMMIRROR,equ 8000h,Causes the mirroring code to mirror each item when inserting a set of images, verses the whole strip
-ILC_ORIGINALSIZE,equ 10000h,Imagelist should accept smaller than set images and apply OriginalSize based on image added
-ILC_HIGHQUALITYSCALE,equ 20000h,Imagelist should enable use of the high quality scaler.
+ILC_PALETTE,equ 800h
+ILC_MIRROR,equ 2000h
+ILC_PERITEMMIRROR,equ 8000h
+ILC_ORIGINALSIZE,equ 10000h
+ILC_HIGHQUALITYSCALE,equ 20000h
 ; ------------------------------------------------------------------------------
 ;   What : IP Address Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/ip-address-control-messages
 ; ------------------------------------------------------------------------------
-IPM_CLEARADDRESS,equ WM_USER+100,no parameters
-IPM_SETADDRESS,equ WM_USER+101,lparam = TCP/IP address
-IPM_GETADDRESS,equ WM_USER+102,lresult = # of non black fields.  lparam = LPDWORD for TCP/IP address
-IPM_SETRANGE,equ WM_USER+103,wparam = field, lparam = range
-IPM_SETFOCUS,equ WM_USER+104,wparam = field
-IPM_ISBLANK,equ WM_USER+105,no parameters
+IPM_CLEARADDRESS,equ WM_USER+100
+IPM_SETADDRESS,equ WM_USER+101
+IPM_GETADDRESS,equ WM_USER+102
+IPM_SETRANGE,equ WM_USER+103
+IPM_SETFOCUS,equ WM_USER+104
+IPM_ISBLANK,equ WM_USER+105
 ; IP Address Notifications
-IPN_FIELDCHANGED,equ (IPN_FIRST - 0)
+IPN_FIELDCHANGED,equ IPN_FIRST - 0
 ; ------------------------------------------------------------------------------
 ;   What : List Box Messages
 ;   Where: WinUser.h
-;   Web  : https://tiny.one/list-box-control-messages
 ; ------------------------------------------------------------------------------
 LB_ADDSTRING,equ 0180h
 LB_INSERTSTRING,equ 0181h
@@ -582,20 +647,20 @@ LB_MSGMAX,equ 01B3h
 LB_MSGMAX,equ 01B1h
 LB_MSGMAX,equ 01B0h
 LB_MSGMAX,equ 01A8h
-DL_BEGINDRAG
-DL_DRAGGING
-DL_DROPPED
-DL_CANCELDRAG
-DL_CURSORSET
-DL_STOPCURSOR
-DL_COPYCURSOR
-DL_MOVECURSOR
-LBN_ERRSPACE
-LBN_SELCHANGE
-LBN_DBLCLK
-LBN_SELCANCEL
-LBN_SETFOCUS
-LBN_KILLFOCUS
+DL_BEGINDRAG,equ WM_USER+133
+DL_DRAGGING,equ WM_USER+134
+DL_DROPPED,equ WM_USER+135
+DL_CANCELDRAG,equ WM_USER+136
+DL_CURSORSET,equ 0
+DL_STOPCURSOR,equ 1
+DL_COPYCURSOR,equ 2
+DL_MOVECURSOR,equ 3
+LBN_ERRSPACE,equ -2
+LBN_SELCHANGE,equ 1
+LBN_DBLCLK,equ 2
+LBN_SELCANCEL,equ 3
+LBN_SETFOCUS,equ 4
+LBN_KILLFOCUS,equ 5
 LBS_NOTIFY,equ 1h
 LBS_SORT,equ 2h
 LBS_NOREDRAW,equ 4h
@@ -612,11 +677,10 @@ LBS_DISABLENOSCROLL,equ 1000h
 LBS_NODATA,equ 2000h
 LBS_NOSEL,equ 4000h
 LBS_COMBOBOX,equ 8000h
-LBS_STANDARDLBS_NOTIFY or LBS_SORT or WS_VSCROLL or WS_BORDER
+LBS_STANDARD,equ LBS_NOTIFY or LBS_SORT or WS_VSCROLL or WS_BORDER
 ; ------------------------------------------------------------------------------
 ;   What : List View Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/list-view-control-messages
 ; ------------------------------------------------------------------------------
 LVM_GETBKCOLOR,equ LVM_FIRST + 0
 LVM_SETBKCOLOR,equ LVM_FIRST + 1
@@ -820,7 +884,7 @@ LVNI_ABOVE,equ 0x0100h
 LVNI_BELOW,equ 0x0200h
 LVNI_TOLEFT,equ 0x0400h
 LVNI_TORIGHT,equ 0x0800h
-LVNI_DIRECTIONMASK,equ (LVNI_ABOVE or LVNI_BELOW or LVNI_TOLEFT or LVNI_TORIGHT
+LVNI_DIRECTIONMASK,equ LVNI_ABOVE or LVNI_BELOW or LVNI_TOLEFT or LVNI_TORIGHT
 LVS_ICON,equ 0h
 LVS_REPORT,equ 1h
 LVS_SMALLICON,equ 2h
@@ -848,27 +912,27 @@ LVS_EX_SUBITEMIMAGES,equ 000002h
 LVS_EX_CHECKBOXES,equ 000004h
 LVS_EX_TRACKSELECT,equ 000008h
 LVS_EX_HEADERDRAGDROP,equ 000010h
-LVS_EX_FULLROWSELECT,equ 000020h,applies to report mode only
+LVS_EX_FULLROWSELECT,equ 000020h
 LVS_EX_ONECLICKACTIVATE,equ 000040h
 LVS_EX_TWOCLICKACTIVATE,equ 000080h
-LVS_EX_FLATSB,equ 000100h
-LVS_EX_REGIONAL,equ 000200h
-LVS_EX_INFOTIP,equ 000400h,listview does InfoTips for you
+LVS_EX_FLATSB,equ 100h
+LVS_EX_REGIONAL,equ 200h
+LVS_EX_INFOTIP,equ 400h
 LVS_EX_UNDERLINEHOT,equ 000800h
 LVS_EX_UNDERLINECOLD,equ 001000h
 LVS_EX_MULTIWORKAREAS,equ 002000h
-LVS_EX_LABELTIP,equ 004000h,listview unfolds partly hidden labels if it does not have infotip text
-LVS_EX_BORDERSELECT,equ 008000h,border selection style instead of highlight
+LVS_EX_LABELTIP,equ 004000h
+LVS_EX_BORDERSELECT,equ 008000h
 LVS_EX_DOUBLEBUFFER,equ 010000h
 LVS_EX_HIDELABELS,equ 020000h
 LVS_EX_SINGLEROW,equ 040000h
-LVS_EX_SNAPTOGRID,equ 080000h,Icons automatically snap to grid.
-LVS_EX_SIMPLESELECT,equ 100000h,Also changes overlay rendering to top right for icon mode.
-LVS_EX_JUSTIFYCOLUMNS,equ 200000h,Icons are lined up in columns that use up the whole view area.
-LVS_EX_TRANSPARENTBKGND,equ 400000h,Background is painted by the parent via WM_PRINTCLIENT
-LVS_EX_TRANSPARENTSHADOWTEXT,equ 800000h,Enable shadow text on transparent backgrounds only (useful with bitmaps)
-LVS_EX_AUTOAUTOARRANGE,equ 1000000h,Icons automatically arrange if no icon positions have been set
-LVS_EX_HEADERINALLVIEWS,equ 2000000h,Display column header in all view modes
+LVS_EX_SNAPTOGRID,equ 080000h
+LVS_EX_SIMPLESELECT,equ 100000h
+LVS_EX_JUSTIFYCOLUMNS,equ 200000h
+LVS_EX_TRANSPARENTBKGND,equ 400000h
+LVS_EX_TRANSPARENTSHADOWTEXT,equ 800000h
+LVS_EX_AUTOAUTOARRANGE,equ 1000000h
+LVS_EX_HEADERINALLVIEWS,equ 2000000h
 LVS_EX_AUTOCHECKSELECT,equ 8000000h
 LVS_EX_AUTOSIZECOLUMNS,equ 10000000h
 LVS_EX_COLUMNSNAPPOINTS,equ 40000000h
@@ -884,7 +948,6 @@ LVIS_STATEIMAGEMASK,equ 0F000h
 ; ------------------------------------------------------------------------------
 ;   What : Month Calendar Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/month-calendar-controlmessages
 ; ------------------------------------------------------------------------------
 MCM_GETCURSEL,equ MCM_FIRST + 1
 MCM_SETCURSEL,equ MCM_FIRST + 2
@@ -940,7 +1003,6 @@ MCS_NOSELCHANGEONNAV,equ 100h
 ; ------------------------------------------------------------------------------
 ;   What : Pager Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/pager-control-messages
 ; ------------------------------------------------------------------------------
 PGM_SETCHILD,equ PGM_FIRST + 1,lParam == hWnd
 PGM_RECALCSIZE,equ PGM_FIRST + 2
@@ -968,7 +1030,6 @@ PGS_DRAGNDROP,equ 4h
 ; ------------------------------------------------------------------------------
 ;   What : Progress Bar Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/progress-bar-control-messages
 ; ------------------------------------------------------------------------------
 PBM_SETRANGE,equ WM_USER+1
 PBM_SETPOS,equ WM_USER+2
@@ -993,7 +1054,6 @@ PBS_SMOOTHREVERSE,equ 10h
 ; ------------------------------------------------------------------------------
 ;   What : Property Sheet Messages
 ;   Where: prsht.h - Interface for the Windows Property Sheet Pages
-;   Web  : https://tiny.one/property-sheets-messages
 ; ------------------------------------------------------------------------------
 PSM_SETCURSEL,equ WM_USER + 101
 PSM_REMOVEPAGE,equ WM_USER + 102
@@ -1059,7 +1119,6 @@ PSNRET_MESSAGEHANDLED,equ 3
 ; ------------------------------------------------------------------------------
 ;   What : Rebar Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/rebar-control-messages
 ; ------------------------------------------------------------------------------
 RB_INSERTBANDA,equ WM_USER +  1
 RB_DELETEBAND,equ WM_USER +  2
@@ -1074,16 +1133,16 @@ RB_SETBANDINFOW,equ WM_USER +  11
 RB_GETBANDCOUNT,equ WM_USER +  12
 RB_GETROWCOUNT,equ WM_USER +  13
 RB_GETROWHEIGHT,equ WM_USER +  14
-RB_IDTOINDEX,equ WM_USER +  16,wParam == id
+RB_IDTOINDEX,equ WM_USER +  16
 RB_GETTOOLTIPS,equ WM_USER +  17
 RB_SETTOOLTIPS,equ WM_USER +  18
-RB_SETBKCOLOR,equ WM_USER +  19,sets the default BK color
-RB_GETBKCOLOR,equ WM_USER +  20,defaults to CLR_NONE
+RB_SETBKCOLOR,equ WM_USER +  19
+RB_GETBKCOLOR,equ WM_USER +  20
 RB_SETTEXTCOLOR,equ WM_USER +  21
-RB_GETTEXTCOLOR,equ WM_USER +  22,defaults to 0x00000000
-RB_SIZETORECT,equ WM_USER +  23,resize the rebar/break bands and such to this rect,equ lparam
-RB_SETCOLORSCHEME,equ SETCOLORSCHEME ,lParam is color scheme
-RB_GETCOLORSCHEME,equ GETCOLORSCHEME ,fills in COLORSCHEME pointed to by lParam
+RB_GETTEXTCOLOR,equ WM_USER +  22
+RB_SIZETORECT,equ WM_USER +  23
+RB_SETCOLORSCHEME,equ SETCOLORSCHEME
+RB_GETCOLORSCHEME,equ GETCOLORSCHEME
 RB_INSERTBAND,equRB_INSERTBANDW/RB_INSERTBANDA
 RB_SETBANDINFO,equRB_SETBANDINFOW/RB_SETBANDINFOA
 RB_BEGINDRAG,equ WM_USER + 24
@@ -1096,7 +1155,7 @@ RB_GETBANDINFO,equRB_GETBANDINFOW/RB_GETBANDINFOA
 RB_MINIMIZEBAND,equ WM_USER + 30
 RB_MAXIMIZEBAND,equ WM_USER + 31
 RB_GETDROPTARGET,equ CCM_GETDROPTARGET
-RB_GETBANDBORDERS,equ WM_USER + 34,returns in lparam = lprc the amount of edges added to band wparam
+RB_GETBANDBORDERS,equ WM_USER + 34
 RB_SHOWBAND,equ WM_USER + 35,show/hide band
 RB_SETPALETTE,equ WM_USER + 37
 RB_GETPALETTE,equ WM_USER + 38
@@ -1108,7 +1167,7 @@ RB_SETWINDOWTHEME,equ SETWINDOWTHEME
 RB_SETEXTENDEDSTYLE,equ WM_USER + 41
 RB_GETEXTENDEDSTYLE,equ WM_USER + 42
 RB_PUSHCHEVRON,equ WM_USER + 43
-RB_SETBANDWIDTH,equ WM_USER + 44,set width for docked band
+RB_SETBANDWIDTH,equ WM_USER + 44
 RBN_FIRST,equ 0U-831U, rebar
 RBN_LAST,equ 0U-859U
 RBN_HEIGHTCHANGE,equ RBN_FIRST - 0
@@ -1117,8 +1176,8 @@ RBN_LAYOUTCHANGED,equ RBN_FIRST - 2
 RBN_AUTOSIZE,equ RBN_FIRST - 3
 RBN_BEGINDRAG,equ RBN_FIRST - 4
 RBN_ENDDRAG,equ RBN_FIRST - 5
-RBN_DELETINGBAND,equ RBN_FIRST - 6,Uses NMREBAR
-RBN_DELETEDBAND,equ RBN_FIRST - 7,Uses NMREBAR
+RBN_DELETINGBAND,equ RBN_FIRST - 6
+RBN_DELETEDBAND,equ RBN_FIRST - 7
 RBN_CHILDSIZE,equ RBN_FIRST - 8
 RBN_CHEVRONPUSHED,equ RBN_FIRST - 10
 RBN_SPLITTERDRAG,equ RBN_FIRST - 11
@@ -1130,7 +1189,7 @@ RBS_BANDBORDERS,equ 400h
 RBS_FIXEDORDER,equ 800h
 RBS_REGISTERDROP,equ 1000h
 RBS_AUTOSIZE,equ 2000h
-RBS_VERTICALGRIPPER,equ 4000h, this always has the vertical gripper (default for horizontal mode)
+RBS_VERTICALGRIPPER,equ 4000h
 RBS_DBLCLKTOGGLE,equ 8000h
 ; ------------------------------------------------------------------------------
 ;   What : Rich Edit Constants
@@ -1147,29 +1206,29 @@ ATP_CHANGE,equ 1
 ATP_NOCHANGE,equ 0
 ATP_NODELIMITER,equ 2
 ATP_REPLACEALLTEXT,equ 4
-BOE_CONTEXTALIGNMENT,equ 10h,Context alignment
-BOE_CONTEXTREADING,equ 8h,Context reading order
-BOE_FORCERECALC,equ 20h,Force recalc and redraw
-BOE_LEGACYBIDICLASS,equ 40h,Legacy Bidi classification (obsolete)
-BOE_NEUTRALOVERRIDE,equ 4h,Override neutral layout (obsolete)
-BOE_PLAINTEXT,equ 2h,Use plain text layout (obsolete)
-BOE_RTLDIR,equ 1,Default paragraph direction (implies alignment) (obsolete)
-BOE_UNICODEBIDI,equ 80h,Use Unicode BiDi algorithm
-BOM_CONTEXTALIGNMENT,equ 10h,Context alignment
-BOM_CONTEXTREADING,equ 8h,Context reading order
-BOM_DEFPARADIR,equ 1h,Default paragraph direction (implies alignment) (obsolete)
-BOM_LEGACYBIDICLASS,equ 40h,Legacy Bidi classification (obsolete)
-BOM_NEUTRALOVERRIDE,equ 4h,Override neutral layout (obsolete)
-BOM_PLAINTEXT,equ 2,Use plain text layout (obsolete)
-BOM_UNICODEBIDI,equ 80h,Use Unicode BiDi algorithm
+BOE_CONTEXTALIGNMENT,equ 10h
+BOE_CONTEXTREADING,equ 8h
+BOE_FORCERECALC,equ 20h
+BOE_LEGACYBIDICLASS,equ 40h
+BOE_NEUTRALOVERRIDE,equ 4h
+BOE_PLAINTEXT,equ 2h
+BOE_RTLDIR,equ 1
+BOE_UNICODEBIDI,equ 80h
+BOM_CONTEXTALIGNMENT,equ 10h
+BOM_CONTEXTREADING,equ 8h
+BOM_DEFPARADIR,equ 1h
+BOM_LEGACYBIDICLASS,equ 40h
+BOM_NEUTRALOVERRIDE,equ 4h
+BOM_PLAINTEXT,equ 2
+BOM_UNICODEBIDI,equ 80h
 CFE_ALLCAPS,equ CFM_ALLCAPS
 CFE_AUTOBACKCOLOR,equ CFM_BACKCOLOR
-CFE_AUTOCOLOR,equ 40000000h,NOTE: this corresponds to
+CFE_AUTOCOLOR,equ 40000000h
 CFE_BOLD,equ 1
 CFE_DISABLED,equ CFM_DISABLED
 CFE_EMBOSS,equ CFM_EMBOSS
 CFE_EXTENDED,equ 2000000h
-CFE_FONTBOUND,equ 100000h,Font chosen by binder, not user
+CFE_FONTBOUND,equ 100000h
 CFE_HIDDEN,equ CFM_HIDDEN
 CFE_IMPRINT,equ CFM_IMPRINT
 CFE_ITALIC,equ 2
@@ -1183,74 +1242,74 @@ CFE_REVISED,equ CFM_REVISED
 CFE_SHADOW,equ CFM_SHADOW
 CFE_SMALLCAPS,equ CFM_SMALLCAPS
 CFE_STRIKEOUT,equ 8h
-CFE_SUBSCRIPT,equ 10000h,Superscript and subscript are
-CFE_SUPERSCRIPT,equ 20000h,mutually exclusive
+CFE_SUBSCRIPT,equ 10000h
+CFE_SUPERSCRIPT,equ 20000h
 CFE_UNDERLINE,equ 4h
 CFE_LINKPROTECTED,equ 800000h
 CFM_ALLEFFECTS,equ (CFM_EFFECTS2 | CFM_FONTBOUND | CFM_EXTENDED | CFM_MATHNOBUILDUP | CFM_MATH | CFM_MATHORDINARY)
-CFM_LINKPROTECTED,equ 800000h,Word hyperlink field
+CFM_LINKPROTECTED,equ 800000h
 CFM_ALL,equ (CFM_EFFECTS | CFM_SIZE | CFM_FACE | CFM_OFFSET | CFM_CHARSET)
 CFM_ALL2
-CFM_ALLCAPS,equ 80h,Displayed by 3.0
-CFM_ANIMATION,equ 40000h,(*)
-CFM_BACKCOLOR,equ 4000000h,Higher mask bits defined above
+CFM_ALLCAPS,equ 80h
+CFM_ANIMATION,equ 40000h
+CFM_BACKCOLOR,equ 4000000h
 CFM_BOLD,equ 1h
 CFM_CHARSET,equ 8000000h
 CFM_COLOR,equ 40000000h
-CFM_COOKIE,equ 1000000h,RE 6.0
+CFM_COOKIE,equ 1000000h
 CFM_DISABLED,equ 2000h
-CFM_EFFECTS (CFM_BOLD | CFM_ITALIC | CFM_UNDERLINE | CFM_COLOR | \
-CFM_EFFECTS2 (CFM_EFFECTS | CFM_DISABLED | CFM_SMALLCAPS | CFM_ALLCAPS \
-CFM_EMBOSS,equ 800h,(*)
+CFM_EFFECTS
+CFM_EFFECTS2
+CFM_EMBOSS,equ 800h
 CFM_EXTENDED,equ 2000000h
 CFM_FACE,equ 20000000h
 CFM_FONTBOUND,equ 100000h
-CFM_HIDDEN,equ 100h,Hidden by 3.0
-CFM_IMPRINT,equ 1000h,(*)
+CFM_HIDDEN,equ 100h
+CFM_IMPRINT,equ 1000h
 CFM_ITALIC,equ 2
 CFM_KERNING,equ 100000h
 CFM_LCID,equ 2000000h
-CFM_LINK,equ 20h,Exchange hyperlink extension
+CFM_LINK,equ 20h
 CFM_MATH,equ 10000000h
 CFM_MATHNOBUILDUP,equ 8000000h
 CFM_MATHORDINARY,equ 20000000h
 CFM_OFFSET,equ 10000000h
-CFM_OUTLINE,equ 200h,(*)
+CFM_OUTLINE,equ 200h
 CFM_PROTECTED,equ 10h
 CFM_REVAUTHOR,equ 8000h
 CFM_REVISED,equ 4000h
-CFM_SHADOW,equ 400h,(*)
+CFM_SHADOW,equ 400h
 CFM_SIZE,equ 80000000h
-CFM_SMALLCAPS,equ 40h,(*)
-CFM_SPACING,equ 200000h,Displayed by 3.0
+CFM_SMALLCAPS,equ 40h
+CFM_SPACING,equ 200000h
 CFM_STRIKEOUT,equ 8h
-CFM_STYLE,equ 80000h,(*)
+CFM_STYLE,equ 80000h
 CFM_SUBSCRIPT,equ (CFE_SUBSCRIPT | CFE_SUPERSCRIPT)
 CFM_SUPERSCRIPT,equ CFM_SUBSCRIPT
 CFM_UNDERLINE,equ 4
-CFM_UNDERLINETYPE,equ 800000h,Many displayed by 3.0
+CFM_UNDERLINETYPE,equ 800000h
 CFM_WEIGHT,equ 400000h
-CFU_CF1UNDERLINE,equ 0FFh,Map charformat's bit underline to CF2
-CFU_INVERT,equ 0FEh,For IME composition fake a selection
+CFU_CF1UNDERLINE,equ 0FFh
+CFU_INVERT,equ 0FEh
 CFU_UNDERLINE,equ 1
 CFU_UNDERLINEDASH,equ 5
 CFU_UNDERLINEDASHDOT,equ 6
 CFU_UNDERLINEDASHDOTDOT,equ 7
 CFU_UNDERLINEDOTTED,equ 4
-CFU_UNDERLINEDOUBLE,equ 3,(*) display as single
-CFU_UNDERLINEDOUBLEWAVE,equ 11,(*) display as wave
-CFU_UNDERLINEHAIRLINE,equ 10,(*) display as single
-CFU_UNDERLINEHEAVYWAVE,equ 12,(*) display as wave
-CFU_UNDERLINELONGDASH,equ 13,(*) display as dash
+CFU_UNDERLINEDOUBLE,equ 3 display as single
+CFU_UNDERLINEDOUBLEWAVE,equ 11 display as wave
+CFU_UNDERLINEHAIRLINE,equ 10 display as single
+CFU_UNDERLINEHEAVYWAVE,equ 12 display as wave
+CFU_UNDERLINELONGDASH,equ 13 display as dash
 CFU_UNDERLINENONE,equ 0
 CFU_UNDERLINETHICK,equ 9
-CFU_UNDERLINETHICKDASH,equ 14,(*) display as dash
-CFU_UNDERLINETHICKDASHDOT,equ 15,(*) display as dash dot
-CFU_UNDERLINETHICKDASHDOTDOT,equ 16,(*) display as dash dot dot
-CFU_UNDERLINETHICKDOTTED,equ 17,(*) display as dot
-CFU_UNDERLINETHICKLONGDASH,equ 18,(*) display as dash
+CFU_UNDERLINETHICKDASH,equ 14 display as dash
+CFU_UNDERLINETHICKDASHDOT,equ 15 display as dash dot
+CFU_UNDERLINETHICKDASHDOTDOT,equ 16 display as dash dot dot
+CFU_UNDERLINETHICKDOTTED,equ 17 display as dot
+CFU_UNDERLINETHICKLONGDASH,equ 18 display as dash
 CFU_UNDERLINEWAVE,equ 8
-CFU_UNDERLINEWORD,equ 2,(*) display as single
+CFU_UNDERLINEWORD,equ 2 display as single
 CF_RETEXTOBJ,equ TEXT("RichEdit Text and Objects")
 CF_RTF,equ TEXT("Rich Text Format")
 CF_RTFNOOBJS,equ TEXT("Rich Text Format Without Objects")
@@ -1280,20 +1339,20 @@ ECO_NOHIDESEL,equ 100h
 ECO_READONLY,equ 800h
 ECO_SAVESEL,equ 8000h
 ECO_SELECTIONBAR,equ 1000000h
-ECO_VERTICAL,equ 400000h,FE specific
+ECO_VERTICAL,equ 400000h
 ECO_WANTRETURN,equ 1000h
-ELLIPSIS_END,equ 1,ellipsis at the end (forced break)
-ELLIPSIS_MASK,equ 3,all meaningful bits
-ELLIPSIS_NONE,equ 0,ellipsis disabled
-ELLIPSIS_WORD,equ 3,ellipsis at the end (word break)
-EMO_ENTER,equ 1h,Enter outline mode, lparam ignored
-EMO_EXIT,equ 0h,Enter normal mode,  lparam ignored
-EMO_EXPAND,equ 3h,HIWORD(lparam) = EMO_EXPANDSELECTION
+ELLIPSIS_END,equ 1
+ELLIPSIS_MASK,equ 3
+ELLIPSIS_NONE,equ 0
+ELLIPSIS_WORD,equ 3
+EMO_ENTER,equ 1h
+EMO_EXIT,equ 0h
+EMO_EXPAND,equ 3h
 EMO_EXPANDDOCUMENT,equ 1h
 EMO_EXPANDSELECTION,equ 0
-EMO_GETVIEWMODE,equ 5h,Returns VM_NORMAL or VM_OUTLINE
-EMO_MOVESELECTION,equ 4h,LOWORD(lparam) != 0 -> move current
-EMO_PROMOTE,equ 2h,LOWORD(lparam) == 0 ==>
+EMO_GETVIEWMODE,equ 5h
+EMO_MOVESELECTION,equ 4h
+EMO_PROMOTE,equ 2h
 EM_AUTOURLDETECT,equ WM_USER + 91
 EM_CALLAUTOCORRECTPROC,equ WM_USER + 255
 EM_CANPASTE,equ WM_USER + 50
@@ -1410,13 +1469,13 @@ EM_STREAMIN,equ WM_USER + 73
 EM_STREAMOUT,equ WM_USER + 74
 ENM_CHANGE  ,equ 1
 ENM_CLIPFORMAT,equ 80h
-ENM_CORRECTTEXT,equ 00000h,PenWin specific
+ENM_CORRECTTEXT,equ 00000h
 ENM_DRAGDROPDONE,equ 10h
 ENM_DROPFILES,equ 100000h
 ENM_ENDCOMPOSITION,equ 20000000h
 ENM_GROUPTYPINGCHANGE,equ 40000000h
 ENM_HIDELINKTOOLTIP,equ 80000000h
-ENM_IMECHANGE,equ 800000h,Used by RE1.0 compatibility
+ENM_IMECHANGE,equ 800000h
 ENM_KEYEVENTS,equ 10000h
 ENM_LANGCHANGE,equ 1000000h
 ENM_LINK,equ 4000000h
@@ -1433,14 +1492,14 @@ ENM_SCROLLEVENTS,equ 8h
 ENM_SELCHANGE,equ 80000h
 ENM_STARTCOMPOSITION,equ 10000000h
 ENM_UPDATE,equ 2h
-EN_ALIGNLTR,equ 710h,BiDi specific notification
-EN_ALIGNRTL,equ 711h,BiDi specific notification
+EN_ALIGNLTR,equ 710h
+EN_ALIGNRTL,equ 711h
 EN_CLIPFORMAT,equ 712h
-EN_CORRECTTEXT,equ 705h,PenWin specific
+EN_CORRECTTEXT,equ 705h
 EN_DRAGDROPDONE,equ 70ch
 EN_DROPFILES,equ 703h
 EN_ENDCOMPOSITION,equ 714h
-EN_IMECHANGE,equ 707h,East Asia specific
+EN_IMECHANGE,equ 707h
 EN_LINK,equ 70bh
 EN_LOWFIRTF,equ 70fh
 EN_MSGFILTER,equ 700h
@@ -1454,36 +1513,36 @@ EN_SAVECLIPBOARD,equ 708h
 EN_SELCHANGE,equ 702h
 EN_STARTCOMPOSITION,equ 713h
 EN_STOPNOUNDO,equ 706h
-EPR_0,equ 0,Text flows left to right and top to bottom
-EPR_180,equ 2,Text flows right to left and bottom to top
-EPR_270,equ 1,Text flows top to bottom and right to left
-EPR_90,equ 3,Text flows bottom to top and left to right
-EPR_SE,equ 5,Text flows top to bottom and left to right (Mongolian text layout)
+EPR_0,equ 0
+EPR_180,equ 2
+EPR_270,equ 1
+EPR_90,equ 3
+EPR_SE,equ 5
 ES_DISABLENOSCROLL,equ 2000h
-ES_EX_NOCALLOLEINIT,equ 0,Not supported in RE 2.0/3.0
+ES_EX_NOCALLOLEINIT,equ 0
 ES_NOIME,equ 80000h
 ES_NOOLEDRAGDROP,equ 8
 ES_SAVESEL,equ 8000h
 ES_SELECTIONBAR,equ 1000000h
 ES_SELFIME,equ 40000h
 ES_SUNKEN,equ 4000h
-ES_VERTICAL,equ 400000h,Not supported in RE 2.0/3.0
+ES_VERTICAL,equ 400000h
 FR_MATCHALEFHAMZA,equ 80000000h
 FR_MATCHDIAC,equ 20000000h
 FR_MATCHKASHIDA,equ 40000000h
 GCMF_GRIPPER,equ 1
 GCMF_MOUSEMENU,equ 2000
-GCMF_SPELLING,equ 2,pSpellingSuggestions is valid
+GCMF_SPELLING,equ 2
 GCMF_TOUCHMENU,equ 4000
-GCM_MOUSEMENU,equ 2000,Deprecated: Use GCMF_MOUSEMENU
+GCM_MOUSEMENU,equ 2000
 GCM_RIGHTMOUSEDROP,equ 8000
-GCM_TOUCHMENU,equ 4000,Deprecated: Use GCMF_TOUCHMENU
-GTL_CLOSE,equ 4,Fast computation of a "close" answer
-GTL_DEFAULT,equ 0,Do default (return # of chars)
-GTL_NUMBYTES,equ 16,Return number of _bytes_
-GTL_NUMCHARS,equ 8,Return number of characters
-GTL_PRECISE,equ 2,Compute a precise answer
-GTL_USECRLF,equ 1,Compute answer using CRLFs for paragraphs
+GCM_TOUCHMENU,equ 4000
+GTL_CLOSE,equ 4
+GTL_DEFAULT,equ 0
+GTL_NUMBYTES,equ 16
+GTL_NUMCHARS,equ 8
+GTL_PRECISE,equ 2
+GTL_USECRLF,equ 1
 GT_DEFAULT,equ 0
 GT_NOHIDDENTEXT,equ 8
 GT_RAWTEXT,equ 4
@@ -1508,7 +1567,7 @@ IMF_FORCEINACTIVE,equ 80h
 IMF_FORCENONE,equ 1h
 IMF_FORCEREMEMBER,equ 100h
 IMF_IMEALWAYSSENDNOTIFY,equ 8h
-IMF_IMECANCELCOMPLETE,equ 4hHigh completes comp string when aborting, low cancels
+IMF_IMECANCELCOMPLETE,equ 4h
 IMF_IMEUIINTEGRATION,equ 2000h
 IMF_MULTIPLEEDIT,equ 400h
 IMF_NOIMPLICITLANG,equ 40h
@@ -1528,63 +1587,63 @@ PC_FOLLOWING,equ 1
 PC_LEADING,equ 2
 PC_OVERFLOW,equ 3
 PFA_CENTER,equ 3
-PFA_FULL_GLYPHS,equ 8,Not implemented
-PFA_FULL_INTERLETTER,equ 6,Not implemented
-PFA_FULL_INTERWORD,equ 4,These are supported in 3.0 with advanced
-PFA_FULL_NEWSPAPER,equ 5,Not implemented
-PFA_FULL_SCALED,equ 7,Not implemented
-PFA_JUSTIFY,equ 4,New paragraph-alignment option 2.0 (*)
+PFA_FULL_GLYPHS,equ 8
+PFA_FULL_INTERLETTER,equ 6
+PFA_FULL_INTERWORD,equ 4
+PFA_FULL_NEWSPAPER,equ 5
+PFA_FULL_SCALED,equ 7
+PFA_JUSTIFY,equ 4
 PFA_LEFT,equ 1
 PFA_RIGHT,equ 2
 PFE_BOX,equ PFM_BOX >> 16,(+)
 PFE_COLLAPSED,equ PFM_COLLAPSED >> 16,(+)
-PFE_DONOTHYPHEN,equ PFM_DONOTHYPHEN >> 16,(*)
-PFE_KEEP,equ PFM_KEEP >> 16,(*)
-PFE_KEEPNEXT,equ PFM_KEEPNEXT >> 16,(*)
-PFE_NOLINENUMBER,equ PFM_NOLINENUMBER >> 16,(*)
-PFE_NOWIDOWCONTROL,equ PFM_NOWIDOWCONTROL >> 16,(*)
-PFE_PAGEBREAKBEFORE,equ PFM_PAGEBREAKBEFORE >> 16,(*)
+PFE_DONOTHYPHEN,equ PFM_DONOTHYPHEN >> 16
+PFE_KEEP,equ PFM_KEEP >> 16
+PFE_KEEPNEXT,equ PFM_KEEPNEXT >> 16
+PFE_NOLINENUMBER,equ PFM_NOLINENUMBER >> 16
+PFE_NOWIDOWCONTROL,equ PFM_NOWIDOWCONTROL >> 16
+PFE_PAGEBREAKBEFORE,equ PFM_PAGEBREAKBEFORE >> 16
 PFE_RTLPARA,equ PFM_RTLPARA >> 16
-PFE_SIDEBYSIDE,equ PFM_SIDEBYSIDE >> 16,(*)
-PFE_TABLE,equ PFM_TABLE >> 16,Inside table row. RE 3.0
-PFE_TABLEROWDELIMITER,equ PFM_TABLEROWDELIMITER >> 16,Table row start. RE 4.0
-PFE_TEXTWRAPPINGBREAK,equ PFM_TEXTWRAPPINGBREAK >> 16,(*)
+PFE_SIDEBYSIDE,equ PFM_SIDEBYSIDE >> 16
+PFE_TABLE,equ PFM_TABLE >> 16
+PFE_TABLEROWDELIMITER,equ PFM_TABLEROWDELIMITER >> 16
+PFE_TEXTWRAPPINGBREAK,equ PFM_TEXTWRAPPINGBREAK >> 16
 PFM_ALIGNMENT,equ 8h
 PFM_ALL
 PFM_ALL2
-PFM_BORDER,equ 800h,(*)
-PFM_BOX,equ 4000000h,RE 3.0
-PFM_COLLAPSED,equ 1000000h,RE 3.0
-PFM_DONOTHYPHEN,equ 400000h,(*)
+PFM_BORDER,equ 800h
+PFM_BOX,equ 4000000h
+PFM_COLLAPSED,equ 1000000h
+PFM_DONOTHYPHEN,equ 400000h
 PFM_EFFECTS
-PFM_KEEP,equ 20000h,(*)
-PFM_KEEPNEXT,equ 40000h,(*)
+PFM_KEEP,equ 20000h
+PFM_KEEPNEXT,equ 40000h
 PFM_LINESPACING,equ 100h
-PFM_NOLINENUMBER,equ 100000h,(*)
-PFM_NOWIDOWCONTROL,equ 200000h,(*)
+PFM_NOLINENUMBER,equ 100000h
+PFM_NOWIDOWCONTROL,equ 200000h
 PFM_NUMBERING,equ 20h
-PFM_NUMBERINGSTART,equ 8000h,RE 3.0
-PFM_NUMBERINGSTYLE,equ 2000h,RE 3.0
-PFM_NUMBERINGTAB,equ 4000h,RE 3.0
+PFM_NUMBERINGSTART,equ 8000h
+PFM_NUMBERINGSTYLE,equ 2000h
+PFM_NUMBERINGTAB,equ 4000h
 PFM_OFFSET,equ 4h
 PFM_OFFSETINDENT,equ 80000000h
-PFM_OUTLINELEVEL,equ 2000000h,RE 3.0
-PFM_PAGEBREAKBEFORE,equ 80000h,(*)
-PFM_RESERVED2,equ 8000000h,RE 4.0
+PFM_OUTLINELEVEL,equ 2000000h
+PFM_PAGEBREAKBEFORE,equ 80000h
+PFM_RESERVED2,equ 8000000h
 PFM_RIGHTINDENT,equ 2h
 PFM_RTLPARA,equ 10000h
-PFM_SHADING,equ 1000h,(*)
-PFM_SIDEBYSIDE,equ 800000h,(*)
+PFM_SHADING,equ 1000h
+PFM_SIDEBYSIDE,equ 800000h
 PFM_SPACEAFTER,equ 80h
 PFM_SPACEBEFORE,equ 40h
 PFM_STARTINDENT,equ 1h
 PFM_STYLE,equ 400h
-PFM_TABLE,equ 40000000h,RE 3.0
-PFM_TABLEROWDELIMITER,equ 10000000h,RE 4.0
+PFM_TABLE,equ 40000000h
+PFM_TABLEROWDELIMITER,equ 10000000h
 PFM_TABSTOPS,equ 10h
-PFM_TEXTWRAPPINGBREAK,equ 20000000h,RE 3.0
-PFNS_NEWNUMBER,equ 8000h,Start new number with wNumberingStart
-PFNS_NONUMBER,equ 400h,Used for continuation w/o number
+PFM_TEXTWRAPPINGBREAK,equ 20000000h
+PFNS_NEWNUMBER,equ 8000h
+PFNS_NONUMBER,equ 400h
 PFNS_PAREN,equ 0h
 PFNS_PARENS,equ 100h
 PFNS_PERIOD,equ 200h
@@ -1598,15 +1657,15 @@ PFN_UCROMAN,equ 6h
 RTO_DISABLEHANDLES,equ 2
 RTO_READINGMODE,equ 3
 RTO_SHOWHANDLES,equ 1
-SCF_ALL,equ 4h,Not valid with SCF_SELECTION or SCF_WORD
-SCF_ASSOCIATEFONT,equ 10h,Associate fontname with bCharSet (one
-SCF_ASSOCIATEFONT2,equ 40h,Associate plane-2 (surrogate) font
-SCF_CHARREPFROMLCID,equ 100h,Get character repertoire from lcid (5.0)
-SCF_DEFAULT,equ 0h,Set default charformat or paraformat
-SCF_NOKBUPDATE,equ 20h,Do not update KB layout for this change
+SCF_ALL,equ 4h
+SCF_ASSOCIATEFONT,equ 10h
+SCF_ASSOCIATEFONT2,equ 40h
+SCF_CHARREPFROMLCID,equ 100h
+SCF_DEFAULT,equ 0h
+SCF_NOKBUPDATE,equ 20h
 SCF_SELECTION,equ 1h
-SCF_SMARTFONT,equ 80h,Apply font only if it can handle script (5.0)
-SCF_USEUIRULES,equ 8h,Modifier for SCF_SELECTION; says that
+SCF_SMARTFONT,equ 80h
+SCF_USEUIRULES,equ 8h
 SCF_WORD,equ 2h
 SEL_EMPTY,equ 0
 SEL_MULTICHAR,equ 4
@@ -1623,24 +1682,24 @@ SES_CTFNOLOCK,equ 10000000h
 SES_CUSTOMLOOK,equ 80000h
 SES_DEFAULTLATINLIGA,equ 16
 SES_DRAFTMODE,equ 32768
-SES_EMULATE10,equ 16,Obsolete (never used)
+SES_EMULATE10,equ 16
 SES_EMULATESYSEDIT,equ 1
 SES_EXTENDBACKCOLOR,equ 4
 SES_EX_HANDLEFRIENDLYURL,equ 100h
 SES_EX_HIDETEMPFORMAT,equ 10000000h
-SES_EX_MULTITOUCH,equ 8000000h,Only works under Win8+
+SES_EX_MULTITOUCH,equ 8000000h
 SES_EX_NOACETATESELECTION,equ 100000h
 SES_EX_NOMATH,equ 40
 SES_EX_NOTABLE,equ 4
 SES_EX_NOTHEMING,equ 80000h
-SES_EX_USEMOUSEWPARAM,equ 20000000h,Use wParam when handling WM_MOUSEMOVE message and do not call GetAsyncKeyState
+SES_EX_USEMOUSEWPARAM,equ 20000000h
 SES_EX_USESINGLELINE,equ 200000h
 SES_HIDEGRIDLINES,equ 20000h
 SES_HYPERLINKTOOLTIPS,equ 8
 SES_LBSCROLLNOTIFY,equ 100000h
 SES_LOGICALCARET,equ 1000000h
 SES_LOWERCASE,equ 1024
-SES_MAPCPS,equ 8,Obsolete (never used)
+SES_MAPCPS,equ 8
 SES_MAX,equ 20000000h
 SES_MULTISELECT,equ 8000000h
 SES_NOEALINEHEIGHTADJUST,equ 20000000h
@@ -1652,7 +1711,7 @@ SES_SMARTDRAGDROP,equ 4000000h
 SES_UPPERCASE,equ 512
 SES_USEAIMM,equ 64
 SES_USEATFONT,equ 40000h
-SES_USECRLF,equ 32,Obsolete (never used)
+SES_USECRLF,equ 32
 SES_USECTF,equ 10000h
 SES_WORDDRAGDROP,equ 2000000h
 SES_XLTCRCRLFTOCR,equ 16384
@@ -1661,17 +1720,17 @@ SFF_PERSISTVIEWSCALE,equ 2000h
 SFF_PLAINRTF,equ 4000h
 SFF_PWD,equ 800h
 SFF_SELECTION,equ 8000h
-SFF_WRITEXTRAPAR,equ 80h,Output \par at end
-SF_NCRFORNONASCII,equ 40h,Output \uN for nonASCII
+SFF_WRITEXTRAPAR,equ 80h
+SF_NCRFORNONASCII,equ 40h
 SF_RTF,equ 2h
-SF_RTFNOOBJS,equ 3h,Write only
+SF_RTFNOOBJS,equ 3h
 SF_RTFVAL,equ 700h
 SF_TEXT,equ 1h
-SF_TEXTIZED,equ 4h,Write only
-SF_UNICODE,equ 10h,Unicode file (UCS2 little endian)
-SF_USECODEPAGE,equ 20h,CodePage given by high word
-SPF_DONTSETDEFAULT,equ 2h,Suppress setting default on empty control
-SPF_SETDEFAULT,equ 4h,Set the default paraformat
+SF_TEXTIZED,equ 4h
+SF_UNICODE,equ 10h
+SF_USECODEPAGE,equ 20h
+SPF_DONTSETDEFAULT,equ 2h
+SPF_SETDEFAULT,equ 4h
 ST_DEFAULT,equ 0
 ST_KEEPUNDO,equ 1
 ST_NEWCHARS,equ 4
@@ -1681,9 +1740,9 @@ TO_ADVANCEDLAYOUT,equ 8
 TO_ADVANCEDTYPOGRAPHY,equ 1
 TO_DISABLECUSTOMTEXTOUT,equ 4
 TO_SIMPLELINEBREAK,equ 2
-VM_NORMAL,equ 4,Agrees with RTF \viewkindN
+VM_NORMAL,equ 4
 VM_OUTLINE,equ 2
-VM_PAGE,equ 9,Screen page view (not print layout)
+VM_PAGE,equ 9,
 WBF_BREAKAFTER,equ (BYTE) 40h
 WBF_BREAKLINE,equ (BYTE) 20h
 WBF_CLASS,equ (BYTE) 0Fh
@@ -1707,21 +1766,20 @@ WCH_EMBEDDING,equ (WCHAR)0FFFCh
 lDefaultTab,equ 720
 yHeightCharPtsMost,equ 1638
 ; TextServ.h
-CN_GENERIC,equ 0, Nothing special happened
-CN_TEXTCHANGED,equ 1, the text changed
-CN_NEWUNDO,equ 2, A new undo action was added
-CN_NEWREDO,equ 4, A new redo action was added
+CN_GENERIC,equ 0
+CN_TEXTCHANGED,equ 1
+CN_NEWUNDO,equ 2
+CN_NEWREDO,equ 4
 ; ------------------------------------------------------------------------------
 ;   What : Scroll Bar Messages
 ;   Where: WinUser.h
-;   Web  : https://tiny.one/scroll-bars-messages
 ; ------------------------------------------------------------------------------
-SBM_SETPOS,equ 0E0h,not in win3.1
-SBM_GETPOS,equ 0E1h,not in win3.1
-SBM_SETRANGE,equ 0E2h,not in win3.1
-SBM_SETRANGEREDRAW,equ 0E6h,not in win3.1
-SBM_GETRANGE,equ 0E3h,not in win3.1
-SBM_ENABLE_ARROWS,equ 0E4h,not in win3.1
+SBM_SETPOS,equ 0E0h
+SBM_GETPOS,equ 0E1h
+SBM_SETRANGE,equ 0E2h
+SBM_SETRANGEREDRAW,equ 0E6h
+SBM_GETRANGE,equ 0E3h
+SBM_ENABLE_ARROWS,equ 0E4h
 SBM_SETSCROLLINFO,equ 0E9h
 SBM_GETSCROLLINFO,equ 0EAh
 SBM_GETSCROLLBARINFO,equ 0EBh
@@ -1741,7 +1799,6 @@ SBS_SIZEGRIP,equ 10h
 ; ------------------------------------------------------------------------------
 ;   What : Static Control Messages
 ;   Where: winuser.h
-;   Web  : https://tiny.one/static-control-messages
 ; ------------------------------------------------------------------------------
 STM_SETICON,equ 0170h
 STM_GETICON,equ 0171h
@@ -1773,7 +1830,7 @@ SS_ETCHEDVERT,equ 11h
 SS_ETCHEDFRAME,equ 12h
 SS_TYPEMASK,equ 1Fh
 SS_REALSIZECONTROL,equ 40h
-SS_NOPREFIX,equ 80h,Don't do "&" character translation
+SS_NOPREFIX,equ 80h
 SS_NOTIFY,equ 100h
 SS_CENTERIMAGE,equ 200h
 SS_RIGHTJUST,equ 400h
@@ -1787,7 +1844,6 @@ SS_ELLIPSISMASK,equ 0C000h
 ; ------------------------------------------------------------------------------
 ;   What : Status Bar Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/status-bars-messages
 ; ------------------------------------------------------------------------------
 SB_SETTEXTA,equ WM_USER+1
 SB_SETTEXTW,equ WM_USER+11
@@ -1815,7 +1871,7 @@ SB_GETTIPTEXTW,equ WM_USER+19
 SB_GETICON,equ WM_USER+20
 SB_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 SB_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
-SB_SETBKCOLOR,equ CCM_SETBKCOLOR,lParam = bkColor
+SB_SETBKCOLOR,equ CCM_SETBKCOLOR
 SB_SIMPLEID,equ 0FFh
 SBARS_SIZEGRIP,equ 100h
 SBT_TOOLTIPS,equ 800h
@@ -1829,7 +1885,6 @@ SBT_NOTABPARSING,equ 800h
 ; ------------------------------------------------------------------------------
 ;   What : SysLink Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/syslink-control-messages
 ; ------------------------------------------------------------------------------
 LM_HITTEST,equ WM_USER+0x300h
 LM_GETIDEALHEIGHT,equ WM_USER+0x301h
@@ -1850,11 +1905,10 @@ LIS_FOCUSED,equ 1h
 LIS_ENABLED,equ 2h
 LIS_VISITED,equ 4h
 LIS_HOTTRACK,equ 8h
-LIS_DEFAULTCOLORS ,equ 10h,Don't use any custom text colors
+LIS_DEFAULTCOLORS ,equ 10h
 ; ------------------------------------------------------------------------------
 ;   What : Tab Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/tab-control-messages
 ; ------------------------------------------------------------------------------
 TCM_GETIMAGELIST,equ TCM_FIRST + 2
 TCM_SETIMAGELIST,equ TCM_FIRST + 3
@@ -1887,7 +1941,7 @@ TCM_SETCURFOCUS,equ TCM_FIRST + 48
 TCM_SETMINTABWIDTH,equ TCM_FIRST + 49
 TCM_DESELECTALL,equ TCM_FIRST + 50
 TCM_HIGHLIGHTITEM,equ TCM_FIRST + 51
-TCM_SETEXTENDEDSTYLE,equ TCM_FIRST + 52,optional wParam == mask
+TCM_SETEXTENDEDSTYLE,equ TCM_FIRST + 52
 TCM_GETEXTENDEDSTYLE,equ TCM_FIRST + 53
 TCM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 TCM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
@@ -1900,10 +1954,10 @@ TCN_GETOBJECT,equ TCN_FIRST - 3
 TCN_FOCUSCHANGE,equ TCN_FIRST - 4
 TCIS_BUTTONPRESSED,equ 1h
 TCIS_HIGHLIGHTED,equ 2h
-TCS_SCROLLOPPOSITE,equ 1h,assumes multiline tab
+TCS_SCROLLOPPOSITE,equ 1h
 TCS_BOTTOM,equ 2h
 TCS_RIGHT,equ 2h
-TCS_MULTISELECT,equ 4h,allow multi-select in button mode
+TCS_MULTISELECT,equ 4h
 TCS_FLATBUTTONS,equ 8h
 TCS_FORCEICONLEFT,equ 10h
 TCS_FORCELABELLEFT,equ 20h
@@ -1929,7 +1983,7 @@ TCS_EX_REGISTERDROP,equ 2h
 TDF_ENABLE_HYPERLINKS,equ 1h
 TDF_USE_HICON_MAIN,equ 2h
 TDF_USE_HICON_FOOTER,equ 4h
-TDF_ALLOW_DIALOG_CANCELLATION  ,equ 8h
+TDF_ALLOW_DIALOG_CANCELLATION,equ 8h
 TDF_USE_COMMAND_LINKS,equ 10h
 TDF_USE_COMMAND_LINKS_NO_ICON,equ 20h
 TDF_EXPAND_FOOTER_AREA,equ 40h
@@ -1942,34 +1996,34 @@ TDF_POSITION_RELATIVE_TO_WINDOW,equ 1000h
 TDF_RTL_LAYOUT,equ 2000h
 TDF_NO_DEFAULT_RADIO_BUTTON,equ 4000h
 TDF_CAN_BE_MINIMIZED,equ 8000h
-TDF_NO_SET_FOREGROUND,equ 10000h,Don't call SetForegroundWindow() when activating the dialog
-TDF_SIZE_TO_CONTENT,equ 1000000h,used by ShellMessageBox to emulate MessageBox sizing behavior
-TDM_NAVIGATE_PAGE,equ WM_USER+101,
-TDM_CLICK_BUTTON,equ WM_USER+102,wParam = Button ID
-TDM_SET_MARQUEE_PROGRESS_BAR,equ WM_USER+103,wParam = 0 (nonMarque) wParam != 0 (Marquee)
-TDM_SET_PROGRESS_BAR_STATE,equ WM_USER+104,wParam = new progress state
-TDM_SET_PROGRESS_BAR_RANGE,equ WM_USER+105,lParam = MAKELPARAM(nMinRange, nMaxRange)
-TDM_SET_PROGRESS_BAR_POS,equ WM_USER+106,wParam = new position
-TDM_SET_PROGRESS_BAR_MARQUEE,equ WM_USER+107,wParam = 0 (stop marquee), wParam != 0 (start marquee), lparam = speed (milliseconds between repaints)
-TDM_SET_ELEMENT_TEXT,equ WM_USER+108,wParam = element (TASKDIALOG_ELEMENTS), lParam = new element text (LPCWSTR)
-TDM_CLICK_RADIO_BUTTON,equ WM_USER+110,wParam = Radio Button ID
-TDM_ENABLE_BUTTON,equ WM_USER+111,lParam = 0 (disable), lParam != 0 (enable), wParam = Button ID
-TDM_ENABLE_RADIO_BUTTON,equ WM_USER+112,lParam = 0 (disable), lParam != 0 (enable), wParam = Radio Button ID
-TDM_CLICK_VERIFICATION,equ WM_USER+113,wParam = 0 (unchecked), 1 (checked), lParam = 1 (set key focus)
-TDM_UPDATE_ELEMENT_TEXT,equ WM_USER+114,wParam = element (TASKDIALOG_ELEMENTS), lParam = new element text (LPCWSTR)
-TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE,equ WM_USER+115,wParam = Button ID, lParam = 0 (elevation not required), lParam != 0 (elevation required)
-TDM_UPDATE_ICON,equ WM_USER+116,wParam = icon element (TASKDIALOG_ICON_ELEMENTS), lParam = new icon (hIcon if TDF_USE_HICON_* was set, PCWSTR otherwise)
+TDF_NO_SET_FOREGROUND,equ 10000h
+TDF_SIZE_TO_CONTENT,equ 1000000h
+TDM_NAVIGATE_PAGE,equ WM_USER+101
+TDM_CLICK_BUTTON,equ WM_USER+102
+TDM_SET_MARQUEE_PROGRESS_BAR,equ WM_USER+103
+TDM_SET_PROGRESS_BAR_STATE,equ WM_USER+104
+TDM_SET_PROGRESS_BAR_RANGE,equ WM_USER+105
+TDM_SET_PROGRESS_BAR_POS,equ WM_USER+106
+TDM_SET_PROGRESS_BAR_MARQUEE,equ WM_USER+107
+TDM_SET_ELEMENT_TEXT,equ WM_USER+108
+TDM_CLICK_RADIO_BUTTON,equ WM_USER+110
+TDM_ENABLE_BUTTON,equ WM_USER+111
+TDM_ENABLE_RADIO_BUTTON,equ WM_USER+112
+TDM_CLICK_VERIFICATION,equ WM_USER+113
+TDM_UPDATE_ELEMENT_TEXT,equ WM_USER+114
+TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE
+TDM_UPDATE_ICON,equ WM_USER+116
 TDN_CREATED,equ 0
 TDN_NAVIGATED,equ 1
-TDN_BUTTON_CLICKED,equ 2,wParam = Button ID
-TDN_HYPERLINK_CLICKED,equ 3,lParam = (LPCWSTR)pszHREF
-TDN_TIMER,equ 4,wParam = Milliseconds since dialog created or timer reset
+TDN_BUTTON_CLICKED,equ 2
+TDN_HYPERLINK_CLICKED,equ 3
+TDN_TIMER,equ 4
 TDN_DESTROYED,equ 5
-TDN_RADIO_BUTTON_CLICKED,equ 6,wParam = Radio Button ID
+TDN_RADIO_BUTTON_CLICKED,equ 6
 TDN_DIALOG_CONSTRUCTED,equ 7
-TDN_VERIFICATION_CLICKED,equ 8,wParam = 1 if checkbox checked, 0 if not, lParam is unused and always 0
+TDN_VERIFICATION_CLICKED,equ 8
 TDN_HELP,equ 9
-TDN_EXPANDO_BUTTON_CLICKED,equ 10,wParam = 0 (dialog is now collapsed), wParam != 0 (dialog is now expanded)
+TDN_EXPANDO_BUTTON_CLICKED,equ 10
 TDE_CONTENT
 TDE_EXPANDED_INFORMATION
 TDE_FOOTER
@@ -1980,16 +2034,15 @@ TD_WARNING_ICON
 TD_ERROR_ICON
 TD_INFORMATION_ICON
 TD_SHIELD_ICON
-TDCBF_OK_BUTTON,equ 0x0001,selected control return value IDOK
-TDCBF_YES_BUTTON,equ 0x0002,selected control return value IDYES
-TDCBF_NO_BUTTON,equ 0x0004,selected control return value IDNO
-TDCBF_CANCEL_BUTTON,equ 0x0008,selected control return value IDCANCEL
-TDCBF_RETRY_BUTTON,equ 0x0010,selected control return value IDRETRY
-TDCBF_CLOSE_BUTTON,equ 0x0020 selected control return value IDCLOSE
+TDCBF_OK_BUTTON
+TDCBF_YES_BUTTON
+TDCBF_NO_BUTTON
+TDCBF_CANCEL_BUTTON
+TDCBF_RETRY_BUTTON
+TDCBF_CLOSE_BUTTON
 ; ------------------------------------------------------------------------------
 ;   What : Toolbar Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/toolbar-control-messages
 ; ------------------------------------------------------------------------------
 TB_ENABLEBUTTON,equ WM_USER + 1
 TB_CHECKBUTTON,equ WM_USER + 2
@@ -2037,7 +2090,7 @@ TB_SETINDENT,equ WM_USER + 47
 TB_SETIMAGELIST,equ WM_USER + 48
 TB_GETIMAGELIST,equ WM_USER + 49
 TB_LOADIMAGES,equ WM_USER + 50
-TB_GETRECT,equ WM_USER + 51,wParam is the Cmd instead of index
+TB_GETRECT,equ WM_USER + 51
 TB_SETHOTIMAGELIST,equ WM_USER + 52
 TB_GETHOTIMAGELIST,equ WM_USER + 53
 TB_SETDISABLEDIMAGELIST,equ WM_USER + 54
@@ -2051,28 +2104,28 @@ TB_GETTEXTROWS,equ WM_USER + 61
 TB_GETBUTTONTEXT,equ TB_GETBUTTONTEXTW/TB_GETBUTTONTEXTA
 TB_SAVERESTORE,equ TB_SAVERESTOREW/TB_SAVERESTOREA
 TB_ADDSTRING,equ TB_ADDSTRINGW/TB_ADDSTRINGA
-TB_GETOBJECT,equ WM_USER + 62,wParam == IID, lParam void **ppv
+TB_GETOBJECT,equ WM_USER + 62
 TB_GETHOTITEM,equ WM_USER + 71
-TB_SETHOTITEM,equ WM_USER + 72,wParam == iHotItem
-TB_SETANCHORHIGHLIGHT,equ WM_USER + 73,wParam == TRUE/FALSE
+TB_SETHOTITEM,equ WM_USER + 72
+TB_SETANCHORHIGHLIGHT,equ WM_USER + 73
 TB_GETANCHORHIGHLIGHT,equ WM_USER + 74
-TB_MAPACCELERATORA,equ WM_USER + 78,wParam == ch, lParam int * pidBtn
-TB_GETINSERTMARK,equ WM_USER + 79,lParam == LPTBINSERTMARK
-TB_SETINSERTMARK,equ WM_USER + 80,lParam == LPTBINSERTMARK
-TB_INSERTMARKHITTEST,equ WM_USER + 81,wParam == LPPOINT lParam == LPTBINSERTMARK
+TB_MAPACCELERATORA,equ WM_USER + 78
+TB_GETINSERTMARK,equ WM_USER + 79
+TB_SETINSERTMARK,equ WM_USER + 80
+TB_INSERTMARKHITTEST,equ WM_USER + 81
 TB_MOVEBUTTON,equ WM_USER + 82
-TB_GETMAXSIZE,equ WM_USER + 83,lParam == LPSIZE
-TB_SETEXTENDEDSTYLE,equ WM_USER + 84,For TBSTYLE_EX_*
-TB_GETEXTENDEDSTYLE,equ WM_USER + 85,For TBSTYLE_EX_*
+TB_GETMAXSIZE,equ WM_USER + 83
+TB_SETEXTENDEDSTYLE,equ WM_USER + 84
+TB_GETEXTENDEDSTYLE,equ WM_USER + 85
 TB_GETPADDING,equ WM_USER + 86
 TB_SETPADDING,equ WM_USER + 87
 TB_SETINSERTMARKCOLOR,equ WM_USER + 88
 TB_GETINSERTMARKCOLOR,equ WM_USER + 89
-TB_SETCOLORSCHEME,equ CCM_SETCOLORSCHEME,lParam is color scheme
-TB_GETCOLORSCHEME,equ CCM_GETCOLORSCHEME,fills in COLORSCHEME pointed to by lParam
+TB_SETCOLORSCHEME,equ CCM_SETCOLORSCHEME
+TB_GETCOLORSCHEME,equ CCM_GETCOLORSCHEME
 TB_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 TB_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
-TB_MAPACCELERATORW,equ WM_USER + 90,wParam == ch, lParam int * pidBtn
+TB_MAPACCELERATORW,equ WM_USER + 90
 TB_MAPACCELERATOR,equ TB_MAPACCELERATORW/TB_MAPACCELERATORA
 TB_GETBITMAPFLAGS,equ WM_USER + 41
 TB_GETBUTTONINFOW,equ WM_USER + 63
@@ -2086,20 +2139,20 @@ TB_ADDBUTTONSW,equ WM_USER + 68
 TB_HITTEST,equ WM_USER + 69
 TB_INSERTBUTTON,equ TB_INSERTBUTTONW/TB_INSERTBUTTONA
 TB_ADDBUTTONS,equ TB_ADDBUTTONSW/TB_ADDBUTTONSA
-TB_SETDRAWTEXTFLAGS,equ WM_USER + 70,wParam == mask lParam == bit values
+TB_SETDRAWTEXTFLAGS,equ WM_USER + 70
 TB_GETSTRINGW,equ WM_USER + 91
 TB_GETSTRINGA,equ WM_USER + 92
 TB_GETSTRING,equ TB_GETSTRINGW/TB_GETSTRINGA
 TB_SETBOUNDINGSIZE,equ WM_USER + 93
-TB_SETHOTITEM2,equ WM_USER + 94,wParam == iHotItem,  lParam = dwFlags
-TB_HASACCELERATOR,equ WM_USER + 95,wParam == char, lParam = &iCount
+TB_SETHOTITEM2,equ WM_USER + 94
+TB_HASACCELERATOR,equ WM_USER + 95
 TB_SETLISTGAP,equ WM_USER + 96
 TB_GETIMAGELISTCOUNT,equ WM_USER + 98
-TB_GETIDEALSIZE,equ WM_USER + 99,wParam == fHeight, lParam = psize
+TB_GETIDEALSIZE,equ WM_USER + 99
 TB_TRANSLATEACCELERATOR,equ CCM_TRANSLATEACCELERATOR
 TB_GETMETRICS,equ WM_USER + 101
 TB_SETMETRICS,equ WM_USER + 102
-TB_GETITEMDROPDOWNRECT,equ WM_USER + 103,Rect of item's drop down button
+TB_GETITEMDROPDOWNRECT,equ WM_USER + 103
 TB_SETPRESSEDIMAGELIST,equ WM_USER + 104
 TB_GETPRESSEDIMAGELIST,equ WM_USER + 105
 TB_SETWINDOWTHEME,equ CCM_SETWINDOWTHEME
@@ -2118,10 +2171,10 @@ TBN_CUSTHELP,equ TBN_FIRST-9
 TBN_DROPDOWN,equ TBN_FIRST - 10
 TBN_GETOBJECT,equ TBN_FIRST - 12
 TBN_HOTITEMCHANGE,equ TBN_FIRST - 13
-TBN_DRAGOUT,equ TBN_FIRST - 14, this is sent when the user clicks down on a button then drags off the button
-TBN_DELETINGBUTTON,equ TBN_FIRST - 15, uses TBNOTIFY
-TBN_GETDISPINFOA,equ TBN_FIRST - 16, This is sent when the  toolbar needs  some display information
-TBN_GETDISPINFOW,equ TBN_FIRST - 17, This is sent when the  toolbar needs  some display information
+TBN_DRAGOUT,equ TBN_FIRST - 14
+TBN_DELETINGBUTTON,equ TBN_FIRST - 15
+TBN_GETDISPINFOA,equ TBN_FIRST - 16
+TBN_GETDISPINFOW,equ TBN_FIRST - 17
 TBN_GETINFOTIPA,equ TBN_FIRST - 18
 TBN_GETINFOTIPW,equ TBN_FIRST - 19
 TBN_GETBUTTONINFOW,equ TBN_FIRST - 20
@@ -2148,14 +2201,14 @@ TBSTATE_INDETERMINATE,equ 10h
 TBSTATE_WRAP,equ 20h
 TBSTATE_ELLIPSES,equ 40h
 TBSTATE_MARKED,equ 80h
-TBSTYLE_BUTTON,equ 0h, obsolete; use BTNS_BUTTON instead
-TBSTYLE_SEP,equ 1h, obsolete; use BTNS_SEP instead
-TBSTYLE_CHECK,equ 2h, obsolete; use BTNS_CHECK instead
-TBSTYLE_GROUP,equ 4h, obsolete; use BTNS_GROUP instead
-TBSTYLE_CHECKGROUP,equ TBSTYLE_GROUP or TBSTYLE_CHECK, obsolete; use BTNS_CHECKGROUP instead
-TBSTYLE_DROPDOWN,equ 8h, obsolete; use BTNS_DROPDOWN instead
-TBSTYLE_AUTOSIZE,equ 10h, obsolete; use BTNS_AUTOSIZE instead
-TBSTYLE_NOPREFIX,equ 20h, obsolete; use BTNS_NOPREFIX instead
+TBSTYLE_BUTTON,equ 0h
+TBSTYLE_SEP,equ 1h
+TBSTYLE_CHECK,equ 2h
+TBSTYLE_GROUP,equ 4h
+TBSTYLE_CHECKGROUP,equ TBSTYLE_GROUP or TBSTYLE_CHECK
+TBSTYLE_DROPDOWN,equ 8h
+TBSTYLE_AUTOSIZE,equ 10h
+TBSTYLE_NOPREFIX,equ 20h
 TBSTYLE_TOOLTIPS,equ 100h
 TBSTYLE_WRAPABLE,equ 200h
 TBSTYLE_ALTDRAG,equ 400h
@@ -2176,18 +2229,18 @@ BTNS_CHECK,equ TBSTYLE_CHECK, 0x0002
 BTNS_GROUP,equ TBSTYLE_GROUP, 0x0004
 BTNS_CHECKGROUP,equ TBSTYLE_CHECKGROUP, TBSTYLE_GROUP or TBSTYLE_CHECK
 BTNS_DROPDOWN,equ TBSTYLE_DROPDOWN, 0x0008
-BTNS_AUTOSIZE,equ TBSTYLE_AUTOSIZE, 0x0010; automatically calculate the cx of the button
-BTNS_NOPREFIX,equ TBSTYLE_NOPREFIX, 0x0020; this button should not have accel prefix
-BTNS_SHOWTEXT,equ 40h, ignored unless TBSTYLE_EX_MIXEDBUTTONS is set
-BTNS_WHOLEDROPDOWN,equ 0080h, draw drop-down arrow, but without split arrow section
-TBCDRF_NOEDGES,equ 00010000h, Don't draw button edges
-TBCDRF_HILITEHOTTRACK,equ 00020000h, Use color of the button bk when hottracked
-TBCDRF_NOOFFSET,equ 00040000h, Don't offset button if pressed
-TBCDRF_NOMARK,equ 00080000h, Don't draw default highlight of image/text for TBSTATE_MARKED
-TBCDRF_NOETCHEDEFFECT,equ 00100000h, Don't draw etched effect for disabled items
-TBCDRF_BLENDICON,equ 00200000h, Use ILD_BLEND50 on the icon image
-TBCDRF_NOBACKGROUND,equ 00400000h, Use ILD_BLEND50 on the icon image
-TBCDRF_USECDCOLORS,equ 00800000h, Use CustomDrawColors to RenderText regardless of VisualStyle
+BTNS_AUTOSIZE,equ TBSTYLE_AUTOSIZE, 0x0010
+BTNS_NOPREFIX,equ TBSTYLE_NOPREFIX, 0x0020
+BTNS_SHOWTEXT,equ 40h
+BTNS_WHOLEDROPDOWN,equ 0080h
+TBCDRF_NOEDGES,equ 00010000h
+TBCDRF_HILITEHOTTRACK,equ 00020000h
+TBCDRF_NOOFFSET,equ 00040000h
+TBCDRF_NOMARK,equ 00080000h
+TBCDRF_NOETCHEDEFFECT,equ 00100000h
+TBCDRF_BLENDICON,equ 00200000h
+TBCDRF_NOBACKGROUND,equ 00400000h
+TBCDRF_USECDCOLORS,equ 00800000h
 HINST_COMMCTRL,equ (HINSTANCE)-1
 IDB_STD_SMALL_COLOR,equ 0
 IDB_STD_LARGE_COLOR,equ 1
@@ -2232,8 +2285,8 @@ HIST_FORWARD,equ 1
 HIST_FAVORITES,equ 2
 HIST_ADDTOFAVORITES,equ 3
 HIST_VIEWTREE,equ 4
-TBIMHT_AFTER,equ 1h, TRUE = insert After iButton, otherwise before
-TBIMHT_BACKGROUND,equ 2h, TRUE iff missed buttons completely
+TBIMHT_AFTER,equ 1h
+TBIMHT_BACKGROUND,equ 2h
 TBBF_LARGE,equ 0001h
 TBIF_IMAGE,equ 1h
 TBIF_TEXT,equ 2h
@@ -2242,20 +2295,20 @@ TBIF_STYLE,equ 8h
 TBIF_LPARAM,equ 10h
 TBIF_COMMAND,equ 20h
 TBIF_SIZE,equ 40h
-TBIF_BYINDEX,equ 80000000h, this specifies that the wparam in Get/SetButtonInfo is an index, not id
+TBIF_BYINDEX,equ 80000000h
 TBMF_PAD,equ 1h
 TBMF_BARPAD,equ 2h
 TBMF_BUTTONSPACING,equ 4h
 HICF_OTHER,equ 0h
-HICF_MOUSE,equ 1h, Triggered by mouse
-HICF_ARROWKEYS,equ 2h, Triggered by arrow keys
-HICF_ACCELERATOR,equ 4h, Triggered by accelerator
-HICF_DUPACCEL,equ 8h, This accelerator is not unique
-HICF_ENTERING,equ 10h, idOld is invalid
-HICF_LEAVING,equ 20h, idNew is invalid
-HICF_RESELECT,equ 40h, hot item reselected
-HICF_LMOUSE,equ 80h, left mouse button selected
-HICF_TOGGLEDROPDOWN,equ 100h, Toggle button's dropdown state
+HICF_MOUSE,equ 1h
+HICF_ARROWKEYS,equ 2h
+HICF_ACCELERATOR,equ 4h
+HICF_DUPACCEL,equ 8h
+HICF_ENTERING,equ 10h
+HICF_LEAVING,equ 20h
+HICF_RESELECT,equ 40h
+HICF_LMOUSE,equ 80h
+HICF_TOGGLEDROPDOWN,equ 100h
 TBNRF_HIDEHELP,equ 1h
 TBNRF_ENDCUSTOMIZE,equ 2h
 TBNF_IMAGE,equ 1h
@@ -2263,23 +2316,10 @@ TBNF_TEXT,equ 2h
 TBNF_DI_SETITEM,equ 10000000h
 TBDDRET_DEFAULT,equ 0
 TBDDRET_NODEFAULT,equ 1
-TBDDRET_TREATPRESSED,equ 2, Treat as a standard press button
-; ------------------------------------------------------------------------------
-;   What : ToolTip Icons (Set with TTM_SETTITLE)
-;   Where: CommCtrl.h
-;   Web  : https://tiny.one/ttm-settitle
-; ------------------------------------------------------------------------------
-TTI_NONE,equ 0
-TTI_INFO,equ 1
-TTI_WARNING,equ 2
-TTI_ERROR,equ 3
-TTI_INFO_LARGE,equ 4
-TTI_WARNING_LARGE,equ 5
-TTI_ERROR_LARGE,equ 6
+TBDDRET_TREATPRESSED,equ 2
 ; ------------------------------------------------------------------------------
 ;   What : Tooltip Control Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/tooltip-control-messages
 ; ------------------------------------------------------------------------------
 TTM_ACTIVATE,equ WM_USER + 1
 TTM_SETDELAYTIME,equ WM_USER + 3
@@ -2289,7 +2329,7 @@ TTM_DELTOOLA,equ WM_USER + 5
 TTM_DELTOOLW,equ WM_USER + 51
 TTM_NEWTOOLRECTA,equ WM_USER + 6
 TTM_NEWTOOLRECTW,equ WM_USER + 52
-TTM_RELAYEVENT,equ WM_USER + 7,Win7: wParam = GetMessageExtraInfo() when relaying WM_MOUSEMOVE
+TTM_RELAYEVENT,equ WM_USER + 7
 TTM_GETTOOLINFOA,equ WM_USER + 8
 TTM_GETTOOLINFOW,equ WM_USER + 53
 TTM_SETTOOLINFOA,equ WM_USER + 9
@@ -2306,8 +2346,8 @@ TTM_ENUMTOOLSW,equ WM_USER +58
 TTM_GETCURRENTTOOLA,equ WM_USER + 15
 TTM_GETCURRENTTOOLW,equ WM_USER + 59
 TTM_WINDOWFROMPOINT,equ WM_USER + 16
-TTM_TRACKACTIVATE,equ WM_USER + 17,wParam = TRUE/FALSE start end  lparam = LPTOOLINFO
-TTM_TRACKPOSITION,equ WM_USER + 18,lParam = dwPos
+TTM_TRACKACTIVATE,equ WM_USER + 17
+TTM_TRACKPOSITION,equ WM_USER + 18
 TTM_SETTIPBKCOLOR,equ WM_USER + 19
 TTM_SETTIPTEXTCOLOR,equ WM_USER + 20
 TTM_GETDELAYTIME,equ WM_USER + 21
@@ -2315,27 +2355,76 @@ TTM_GETTIPBKCOLOR,equ WM_USER + 22
 TTM_GETTIPTEXTCOLOR,equ WM_USER + 23
 TTM_SETMAXTIPWIDTH,equ WM_USER + 24
 TTM_GETMAXTIPWIDTH,equ WM_USER + 25
-TTM_SETMARGIN,equ WM_USER + 26,lParam = lprc
-TTM_GETMARGIN,equ WM_USER + 27,lParam = lprc
+TTM_SETMARGIN,equ WM_USER + 26
+TTM_GETMARGIN,equ WM_USER + 27
 TTM_POP,equ WM_USER + 28
 TTM_UPDATE,equ WM_USER + 29
 TTM_GETBUBBLESIZE,equ WM_USER + 30
 TTM_ADJUSTRECT,equ WM_USER + 31
-TTM_SETTITLEA,equ WM_USER + 32,wParam = TTI_*, lParam = char* szTitle
-TTM_SETTITLEW,equ WM_USER + 33,wParam = TTI_*, lParam = wchar* szTitle
+TTM_SETTITLEA,equ WM_USER + 32
+TTM_SETTITLEW,equ WM_USER + 33
 TTM_POPUP,equ WM_USER + 34
-TTM_GETTITLE,equ WM_USER + 35wParam = 0, lParam = TTGETTITLE*
-;
-TTN_NEEDTEXT
-TTN_NEEDTEXTW
-TTN_SHOW
-TTN_POP
-TTN_GETDISPINFO
-TTN_GETDISPINFOW
+TTM_GETTITLE,equ WM_USER + 35
+TTM_ADDTOOL,equ TTM_ADDTOOLW/TTM_ADDTOOLA
+TTM_DELTOOL,equ TTM_DELTOOLW/TTM_DELTOOLA
+TTM_NEWTOOLRECT,equ TTM_NEWTOOLRECTW/TTM_NEWTOOLRECTA
+TTM_GETTOOLINFO,equ TTM_GETTOOLINFOW/TTM_GETTOOLINFOA
+TTM_SETTOOLINFO,equ TTM_SETTOOLINFOW/TTM_SETTOOLINFOA
+TTM_HITTEST,equ TTM_HITTESTW/TTM_HITTESTA
+TTM_GETTEXT,equ TTM_GETTEXTW/TTM_GETTEXTA
+TTM_UPDATETIPTEXT,equ TTM_UPDATETIPTEXTW/TTM_UPDATETIPTEXTA
+TTM_ENUMTOOLS,equ TTM_ENUMTOOLSW/TTM_ENUMTOOLSA
+TTM_GETCURRENTTOOL,equ TTM_GETCURRENTTOOLW/TTM_GETCURRENTTOOLA
+TTM_SETTITLE,equ TTM_SETTITLEW/TTM_SETTITLEA
+TTM_SETWINDOWTHEME,equ CCM_SETWINDOWTHEME
+TTN_FIRST,equ 0U-520U
+TTN_LAST,equ 0U-549U
+TTN_GETDISPINFOA,equ TTN_FIRST - 0
+TTN_GETDISPINFOW,equ TTN_FIRST - 10
+TTN_SHOW,equ TTN_FIRST - 1
+TTN_POP,equ TTN_FIRST - 2
+TTN_LINKCLICK,equ TTN_FIRST - 3
+TTN_GETDISPINFO,equ TTN_GETDISPINFOW/TTN_GETDISPINFOA       
+TTN_NEEDTEXT,equ TTN_GETDISPINFO
+TTN_NEEDTEXTA,equ TTN_GETDISPINFOA
+TTN_NEEDTEXTW,equ TTN_GETDISPINFOW
+TTS_ALWAYSTIP,equ 1h
+TTS_NOPREFIX,equ 2h
+TTS_NOANIMATE,equ 10h
+TTS_NOFADE,equ 20h
+TTS_BALLOON,equ 40h
+TTS_CLOSE,equ 80h
+TTS_USEVISUALSTYLE,equ 100h
+TTI_NONE,equ 0
+TTI_INFO,equ 1
+TTI_WARNING,equ 2
+TTI_ERROR,equ 3
+TTI_INFO_LARGE,equ 4
+TTI_WARNING_LARGE,equ 5
+TTI_ERROR_LARGE,equ 6
+TTF_IDISHWND,equ 1h
+TTF_CENTERTIP,equ 2h
+TTF_RTLREADING,equ 4h
+TTF_SUBCLASS,equ 10h
+TTF_TRACK,equ 20h
+TTF_ABSOLUTE,equ 80h
+TTF_TRANSPARENT,equ 100h
+TTF_PARSELINKS,equ 1000h
+TTF_DI_SETITEM,equ 8000h
+TTDT_AUTOMATIC,equ 0
+TTDT_RESHOW,equ 1
+TTDT_AUTOPOP,equ 2
+TTDT_INITIAL,equ 3
+TTI_NONE,equ 0
+TTI_INFO,equ 1
+TTI_WARNING,equ 2
+TTI_ERROR,equ 3
+TTI_INFO_LARGE,equ 4
+TTI_WARNING_LARGE,equ 5
+TTI_ERROR_LARGE,equ 6
 ; ------------------------------------------------------------------------------
 ;   What : Trackbar Contol Messages
 ;   Where: Commctrl.h
-;   Web  : https://tiny.one/trackbar-control-messages
 ; ------------------------------------------------------------------------------
 TBM_GETPOS,equ WM_USER
 TBM_GETRANGEMIN,equ WM_USER+1
@@ -2346,7 +2435,7 @@ TBM_SETPOS,equ WM_USER+5
 TBM_SETRANGE,equ WM_USER+6
 TBM_SETRANGEMIN,equ WM_USER+7
 TBM_SETRANGEMAX,equ WM_USER+8
-TBM_CLEARTICS,equ WM_USER+9)
+TBM_CLEARTICS,equ WM_USER+9
 TBM_SETSEL,equ WM_USER+10
 TBM_SETSELSTART,equ WM_USER+11
 TBM_SETSELEND,equ WM_USER+12
@@ -2368,21 +2457,48 @@ TBM_GETTHUMBLENGTH,equ WM_USER+28
 TBM_SETTOOLTIPS,equ WM_USER+29
 TBM_GETTOOLTIPS,equ WM_USER+30
 TBM_SETTIPSIDE,equ WM_USER+31
-; Trackbar Tip Side Flags
+TBM_SETBUDDY,equ WM_USER+32
+TBM_GETBUDDY,equ WM_USER+33
+TBM_SETPOSNOTIFY,equ WM_USER+34
+TBM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
+TBM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
+TRBN_THUMBPOSCHANGING,equ TRBN_FIRST-1
+TB_LINEUP,equ 0
+TB_LINEDOWN,equ 1
+TB_PAGEUP,equ 2
+TB_PAGEDOWN,equ 3
+TB_THUMBPOSITION,equ 4
+TB_THUMBTRACK,equ 5
+TB_TOP,equ 6
+TB_BOTTOM,equ 7
+TB_ENDTRACK,equ 8
+TBCD_TICS,equ 1
+TBCD_THUMB,equ 2
+TBCD_CHANNEL,equ 3
 TBTS_TOP,equ 0
 TBTS_LEFT,equ 1
 TBTS_BOTTOM,equ 2
 TBTS_RIGHT,equ 3
-;
-TBM_SETBUDDY,equ  WM_USER+32
-TBM_GETBUDDY,equ  WM_USER+33
-TBM_SETPOSNOTIFY,equ WM_USER+34
-TBM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
-TBM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
+TBS_AUTOTICKS,equ 1
+TBS_VERT,equ 2
+TBS_HORZ,equ 0
+TBS_TOP,equ 4
+TBS_BOTTOM,equ 0
+TBS_LEFT,equ 4
+TBS_RIGHT,equ 0
+TBS_BOTH,equ 8
+TBS_NOTICKS,equ 10h
+TBS_ENABLESELRANGE,equ 20h
+TBS_FIXEDLENGTH,equ 40h
+TBS_NOTHUMB,equ 80h
+TBS_TOOLTIPS,equ 100h
+TBS_REVERSED,equ 200h
+TBS_DOWNISLEFT,equ 400h
+TBS_NOTIFYBEFOREMOVE,equ 800h
+TBS_TRANSPARENTBKGND,equ 1000h
 ; ------------------------------------------------------------------------------
 ;   What : Treeview Messages
 ;   Where: Commctrl.h
-;   Web  : https://tiny.one/tree-view-control-messages
 ; ------------------------------------------------------------------------------
 TVM_INSERTITEMA,equ TV_FIRST + 0
 TVM_INSERTITEMW,equ TV_FIRST + 50
@@ -2442,7 +2558,6 @@ TVM_SETHOT,equ TV_FIRST + 58
 TVM_GETSELECTEDCOUNT,equ TV_FIRST + 70
 TVM_SHOWINFOTIP,equ TV_FIRST + 71
 TVM_GETITEMPARTRECT,equ TV_FIRST + 72
-; Tree View Notifications
 TVN_SELCHANGINGA,equ TVN_FIRST-1
 TVN_SELCHANGINGW,equ TVN_FIRST-50
 TVN_SELCHANGEDA,equ TVN_FIRST-2
@@ -2502,7 +2617,6 @@ TVN_ITEMCHANGING,equ TVN_ITEMCHANGINGW
 TVN_ITEMCHANGED,equ TVN_ITEMCHANGEDW
 TVN_ITEMCHANGING,equ TVN_ITEMCHANGINGA
 TVN_ITEMCHANGED,equ TVN_ITEMCHANGEDA
-; Tree-View Control Extended Styles
 TVS_EX_NOSINGLECOLLAPSE,equ 0001
 TVS_EX_MULTISELECT,equ 0002
 TVS_EX_DOUBLEBUFFER,equ 0004
@@ -2514,7 +2628,6 @@ TVS_EX_PARTIALCHECKBOXES,equ 0080
 TVS_EX_EXCLUSIONCHECKBOXES,equ 0100
 TVS_EX_DIMMEDCHECKBOXES,equ 0200
 TVS_EX_DRAWIMAGEASYNC,equ 0400
-; Tree-View Control Item States
 TVIS_SELECTED,equ 00002h
 TVIS_CUT,equ 00004h
 TVIS_DROPHILITED,equ 00008h
@@ -2528,7 +2641,6 @@ TVIS_USERMASK,equ 0F000h
 TVIS_EX_FLAT,equ 00001h
 TVIS_EX_DISABLED,equ 00002h
 TVIS_EX_ALL,equ 00002h
-; Tree-View Control Window Styles
 TVS_HASBUTTONS,equ 0001
 TVS_HASLINES,equ 0002
 TVS_LINESATROOT,equ 0004
@@ -2544,8 +2656,7 @@ TVS_INFOTIP,equ 0800
 TVS_FULLROWSELECT,equ 1000
 TVS_NOSCROLL,equ 2000
 TVS_NONEVENHEIGHT,equ 4000
-TVS_NOHSCROLL,equ 8000,TVS_NOSCROLL overrides this
-; Tree view next item types
+TVS_NOHSCROLL,equ 8000
 TVGN_ROOT,equ 0h
 TVGN_NEXT,equ 1h
 TVGN_PREVIOUS,equ 2h
@@ -2558,12 +2669,10 @@ TVGN_DROPHILITE,equ 8h
 TVGN_CARET,equ 9h
 TVGN_LASTVISIBLE,equ 0Ah
 TVGN_NEXTSELECTED,equ 0Bh
-;
 TVI_ROOT,equ 0FFFF0000h
 TVI_FIRST,equ 0FFFF0001h
 TVI_LAST,equ 0FFFF0002h
 TVI_SORT,equ 0FFFF0003h
-;
 TVIF_TEXT,equ 1h
 TVIF_IMAGE,equ 2h
 TVIF_PARAM,equ 4h
@@ -2578,7 +2687,6 @@ TVIF_DI_SETITEM,equ 1000h
 ; ------------------------------------------------------------------------------
 ;   What : Up-Down Messages
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/up-down-control-messages
 ; ------------------------------------------------------------------------------
 UDM_SETRANGE,equ WM_USER+101
 UDM_GETRANGE,equ WM_USER+102
@@ -2591,40 +2699,50 @@ UDM_GETACCEL,equ WM_USER+108
 UDM_SETBASE,equ WM_USER+109
 UDM_GETBASE,equ WM_USER+110
 UDM_SETRANGE32,equ WM_USER+111
-UDM_GETRANGE32,equ WM_USER+112,wParam & lParam are LPINT
+UDM_GETRANGE32,equ WM_USER+112
 UDM_SETUNICODEFORMAT,equ CCM_SETUNICODEFORMAT
 UDM_GETUNICODEFORMAT,equ CCM_GETUNICODEFORMAT
 UDM_SETPOS32,equ WM_USER+113
 UDM_GETPOS32,equ WM_USER+114
-;
-UDN_DELTAPOS
+UDN_DELTAPOS,equ UDN_FIRST - 1
+UD_MAXVAL,equ 07fffh
+UD_MINVAL,equ -UD_MAXVAL
+UDS_WRAP,equ 1h
+UDS_SETBUDDYINT,equ 2h
+UDS_ALIGNRIGHT,equ 4h
+UDS_ALIGNLEFT,equ 8h
+UDS_AUTOBUDDY,equ 10h
+UDS_ARROWKEYS,equ 20h
+UDS_HORZ,equ 40h
+UDS_NOTHOUSANDS,equ 80h
+UDS_HOTTRACK,equ 100h
 ; ------------------------------------------------------------------------------
 ;   What : Generic WM_NOTIFY notification codes
 ;   Where: CommCtrl.h
 ;   Web  : https://tiny.one/general-control-notifications
 ; ------------------------------------------------------------------------------
-NM_OUTOFMEMORY,equ NM_FIRST-1,
-NM_CLICK,equ NM_FIRST-2,uses NMCLICK struct
-NM_DBLCLK,equ NM_FIRST-3,
-NM_RETURN,equ NM_FIRST-4,
-NM_RCLICK,equ NM_FIRST-5,,uses NMCLICK struct
-NM_RDBLCLK,equ NM_FIRST-6,
-NM_SETFOCUS,equ NM_FIRST-7,
-NM_KILLFOCUS,equ NM_FIRST-8,
-NM_CUSTOMDRAW,equ NM_FIRST-12,
-NM_HOVER,equ NM_FIRST-13,
-NM_NCHITTEST,equ NM_FIRST-14,uses NMMOUSE struct
-NM_KEYDOWN,equ NM_FIRST-15,uses NMKEY struct
-NM_RELEASEDCAPTURE,equ NM_FIRST-16,
-NM_SETCURSOR,equ NM_FIRST-17,uses NMMOUSE struct
-NM_CHAR,equ NM_FIRST-18,uses NMCHAR struct
-NM_TOOLTIPSCREATED,equ NM_FIRST-19,notify of when the tooltips window is create
-NM_LDOWN,equ NM_FIRST-20,
-NM_RDOWN,equ NM_FIRST-21,
-NM_THEMECHANGED,equ NM_FIRST-22,
-NM_FONTCHANGED,equ NM_FIRST-23,
-NM_CUSTOMTEXT,equ NM_FIRST-24,uses NMCUSTOMTEXT struct
-NM_TVSTATEIMAGECHANGING,equ NM_FIRST-24,uses NMTVSTATEIMAGECHANGING struct, defined after HTREEITEM
+NM_OUTOFMEMORY,equ NM_FIRST-1
+NM_CLICK,equ NM_FIRST-2
+NM_DBLCLK,equ NM_FIRST-3
+NM_RETURN,equ NM_FIRST-4
+NM_RCLICK,equ NM_FIRST-5
+NM_RDBLCLK,equ NM_FIRST-6
+NM_SETFOCUS,equ NM_FIRST-7
+NM_KILLFOCUS,equ NM_FIRST-8
+NM_CUSTOMDRAW,equ NM_FIRST-12
+NM_HOVER,equ NM_FIRST-13
+NM_NCHITTEST,equ NM_FIRST-14
+NM_KEYDOWN,equ NM_FIRST-15
+NM_RELEASEDCAPTURE,equ NM_FIRST-16
+NM_SETCURSOR,equ NM_FIRST-17
+NM_CHAR,equ NM_FIRST-18
+NM_TOOLTIPSCREATED,equ NM_FIRST-19
+NM_LDOWN,equ NM_FIRST-20
+NM_RDOWN,equ NM_FIRST-21
+NM_THEMECHANGED,equ NM_FIRST-22
+NM_FONTCHANGED,equ NM_FIRST-23
+NM_CUSTOMTEXT,equ NM_FIRST-24
+NM_TVSTATEIMAGECHANGING,equ NM_FIRST-24
 ;
 ; pixel types
 ; wingdi.h
