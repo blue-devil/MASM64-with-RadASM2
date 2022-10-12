@@ -104,6 +104,7 @@ AT_INFO,JobTime,DaysOfMonth,DaysOfWeek,Flags,Command
 AUDIT_ENTRY,ae_len,ae_reserved,ae_time,ae_type,ae_data_offset,ae_data_size
 AUXCAPS,wMid,wPid,vDriverVersion,szPname,wTechnology,dwSupport
 AUXCAPSA,wMid,wPid,vDriverVersion,szPname,wTechnology,dwSupport
+BIDIOPTIONS,cbSize,wMask,wEffects
 BITMAP,bmType,bmWidth,bmHeight,bmWidthBytes,bmPlanes,bmBitsPixel,bmBits
 BITMAPCOREHEADER,bcSize,bcWidth,bcHeight,bcPlanes,bcBitCount
 BITMAPCOREINFO,bmciHeader:BITMAPCOREHEADER,bmciColors:RGBTRIPLE
@@ -128,15 +129,16 @@ CANDIDATELIST,dwSize,dwStyle,dwCount,dwSelection,dwPageStart,dwPageSize,dwOffset
 CBTACTIVATESTRUCT,fMouse,hWndActive
 CBT_CREATEWND,lpcs,hWndInsertAfter
 CBT_CREATEWNDA,lpcs,hWndInsertAfter
+CHANGENOTIFY,dwChangeType,pvCookieData
 CHARDEVQ_INFO_0,cq0_dev
 CHARDEVQ_INFO_1,cq1_dev,cq1_priority,cq1_devs,cq1_numusers,cq1_numahead
 CHARDEVQ_INFO_1002,cq1002_priority
 CHARDEVQ_INFO_1003,cq1003_devs
 CHARDEV_INFO_0,ch0_dev
 CHARDEV_INFO_1,ch1_dev,ch1_status,ch1_username,ch1_time
-CHARFORMAT,cbSize,dwMask,dwEffects,yHeight,yOffset,crTextColor,bCharSet,bPitchAndFamily,szFaceName,_wPad2
+CHARFORMAT,cbSize,dwMask,dwEffects,yHeight,yOffset,crTextColor,bCharSet,bPitchAndFamily,szFaceName
 CHARFORMAT2,cbSize,dwMask,dwEffects,yHeight,yOffset,crTextColor,bCharSet,bPitchAndFamily,szFaceName,_wPad2,wWeight,sSpacing,crBackColor,lcid,dwReserved,sStyle,wKerning,bUnderlineType,bAnimation,bRevAuthor,bReserved1
-CHARFORMATA,cbSize,dwMask,dwEffects,yHeight,yOffset,crTextColor,bCharSet,bPitchAndFamily,szFaceName,_wPad2
+CHARFORMATA,cbSize,dwMask,dwEffects,yHeight,yOffset,crTextColor,bCharSet,bPitchAndFamily,szFaceName
 CHARRANGE,cpMin,cpMax
 CHARSETINFO,ciCharset,ciACP,xlfs:FONTSIGNATURE
 CHAR_INFO,Char:CHARTYPE,Attributes
@@ -148,6 +150,7 @@ CIDA,cidl,aoffset
 CIEXYZ,ciexyzX,ciexyzY,ciexyzZ
 CIEXYZTRIPLE,ciexyzRed:CIEXYZ,ciexyzGreen:CIEXYZ,ciexyzBlue:CIEXYZ
 CLIENTCREATESTRUCT,hWindowMenu,idFirstChild
+CLIPBOARDFORMAT,nmhdr:NMHDR,cf
 CLIPDATA,cbSize,ulClipFmt,pClipData
 CLSID,Data1,Data2,Data3,Data4
 CMINVOKECOMMANDINFO,cbSize,fMask,hwnd,lpVerb,lpParameters,lpDirectory,nShow,dwHotKey,hIcon
@@ -373,11 +376,14 @@ EMRSTROKEPATH,emr:EMR,rclBounds:RECTL
 EMRTEXT,ptlReference:POINTL,nchars,offString,fOptions,ircl:RECTL,offDx
 EMRWIDENPATH,emr:EMR
 ENCORRECTTEXT,nmhdr:NMHDR,chrg:CHARRANGE,seltyp
+ENDCOMPOSITIONNOTIFY,nmhdr:NMHDR,dwCode
 ENDROPFILES,nmhdr:NMHDR,hDrop,cp,fProtected
 ENHMETAHEADER,iType,nSize,rclBounds:RECTL,rclFrame:RECTL,dSignature,nVersion,nBytes,nRecords,nHandles,sReserved,nDescription,offDescription,nPalEntries,szlDevice:SIZEL,szlMillimeters:SIZEL,cbPixelFormat,offPixelFormat,bOpenGL
 ENHMETARECORD,iType,nSize,dParm1
+ENLINK,nmhdr:NMHDR,msg,wParam,lParam,chrg:CHARRANGE
+ENLOWFIRTF,nmhdr:NMHDR,szControl
 ENOLEOPFAILED,nmhdr:NMHDR,iob,lOper,hr
-ENPROTECTED,nmhdr:NMHDR,msg,wPad1,wParam,wPad2,lParam,chrg:CHARRANGE
+ENPROTECTED,nmhdr:NMHDR,msg,wParam,lParam,chrg:CHARRANGE
 ENSAVECLIPBOARD,nmhdr:NMHDR,cObjectCount,cch
 ENTRYID,abFlags,ab
 ENUMLOGFONT,elfLogFont:LOGFONTA,elfFullName,elfStyle
@@ -439,6 +445,7 @@ GCP_RESULTS,lStructSize,lpOutString,lpOrder,lpDX,lpCaretPos,lpClass,lpGlyphs,nGl
 GCP_RESULTSA,lStructSize,lpOutString,lpOrder,lpDX,lpCaretPos,lpClass,lpGlyphs,nGlyphs,nMaxFit
 GDI_NONREMOTE,fContext,u.hInproc,u.hRemote
 GENERIC_MAPPING,GenericRead,GenericWrite,GenericExecute,GenericAll
+GETCONTEXTMENUEX,chrg:CHARRANGE,dwFlags,pt:POINT,pvReserved;
 GETTEXTEX,cb,flags,codepage,lpDefaultChar,lpUsedDefChar
 GETTEXTLENGTHEX,flags,codepage
 GLYPHMETRICS,gmBlackBoxX,gmBlackBoxY,gmptGlyphOrigin:POINT,gmCellIncX,gmCellIncY
@@ -495,6 +502,7 @@ HLOG,time,last_flags,offset1,rec_offset
 HSZPAIR,hszSvc,hszTopic
 HTTP_VERSION_INFO,dwMajorVersion,dwMinorVersion
 HYPER_SIZEDARR,clSize,pData
+HYPHENATEINFO,cbSize,dxHyphenateZone,pfnHyphenate
 ICMP_ECHO_REPLY,Address,Status,RoundTripTime,DataSize,Reserved,DataPointer,Options,zData
 ICMP_OPTIONS,Ttl,Tos,Flags,OptionsSize,OptionsData
 ICONINFO,fIcon,xHotspot,yHotspot,hbmMask,hbmColor
@@ -507,6 +515,7 @@ IMAGEHLP_LINE,SizeOfStruct,Key,LineNumber,FileName,Address
 IMAGEHLP_MODULE,SizeOfStruct,BaseOfImage,ImageSize,TimeDateStamp,CheckSum,NumSyms,SymType1,ModuleName,ImageName,LoadedImageName
 IMAGEHLP_SYMBOL,SizeOfStruct,Address,Size1,Flags,MaxNameLength,Name1
 IMAGEINFO,hbmImage,hbmMask,Unused1,Unused2,rcImage:RECT
+IMAGELISTDRAWPARAMS,cbSize,himl,i,hdcDst,x,y,_cx,cy,xBitmap,yBitmap,rgbBk,rgbFg,fStyle,dwRop,fState,Frame,crEffect
 IMAGELISTDRADWORDS,cbSize,himl,i,hdcDst,x,y,_cx,cy,xBitmap,yBitmap,rgbBk,rgbFg,fStyle,dwRop
 IMAGE_ARCHIVE_MEMBER_HEADER,Name1,Date,UserID,GroupID,Mode,Size1,EndHeader
 IMAGE_AUX_SYMBOL,Sym.TagIndex,Sym.Misc.LnSz.Linenumber,Sym.Misc.LnSz.Size1,Sym.Misc.TotalSize,Sym.FcnAry.Function.PointerToLinenumber,Sym.FcnAry.Function.PointerToNextFunction,Sym.FcnAry.Array.Dimension,Sym.TvIndex,File.Name1,Section.Length1,Section.NumberOfRelocations,Section.NumberOfLinenumbers,Section.CheckSum,Section.Number,Section.Selection
@@ -548,6 +557,7 @@ IMAGE_THUNK_DATA32,u1.ForwarderString,u1.Function,u1.Ordinal,u1.AddressOfData
 IMAGE_TLS_DIRECTORY,StartAddressOfRawData,EndAddressOfRawData,AddressOfIndex,AddressOfCallBacks,SizeOfZeroFill,Characteristics
 IMAGE_TLS_DIRECTORY32,StartAddressOfRawData,EndAddressOfRawData,AddressOfIndex,AddressOfCallBacks,SizeOfZeroFill,Characteristics
 IMAGE_VXD_HEADER,e32_magic,e32_border,e32_worder,e32_level,e32_cpu,e32_os,e32_ver,e32_mflags,e32_mpages,e32_startobj,e32_eip,e32_stackobj,e32_esp,e32_pagesize,e32_lastpagesize,e32_fixupsize,e32_fixupsum,e32_ldrsize,e32_ldrsum,e32_objtab,e32_objcnt,e32_objmap,e32_itermap,e32_rsrctab,e32_rsrccnt,e32_restab,e32_enttab,e32_dirtab,e32_dircnt,e32_fpagetab,e32_frectab,e32_impmod,e32_impmodcnt,e32_impproc,e32_pagesum,e32_datapage,e32_preload,e32_nrestab,e32_cbnrestab,e32_nressum,e32_autodata,e32_debuginfo,e32_debuglen,e32_instpreload,e32_instdemand,e32_heapsize,e32_res3,e32_winresoff,e32_winreslen,e32_devid,e32_ddkver
+IMECOMPTEXT,cb,flags
 IMPORT_OBJECT_HEADER,Sig1,Sig2,Version,Machine,TimeDateStamp,SizeOfData,Ordinal,Hint,rImport:ImportRec
 INITCOMMONCONTROLSEX,dwSize,dwICC
 INTERNET_ASYNC_RESULT,dwResult,dwError
@@ -583,7 +593,9 @@ LARGE_INTEGER,QuadPart
 LAYERPLANEDESCRIPTOR,nSize,nVersion,dwFlags,iPixelType,cColorBits,cRedBits,cRedShift,cGreenBits,cGreenShift,cBlueBits,cBlueShift,cAlphaBits,cAlphaShift,cAccumBits,cAccumRedBits,cAccumGreenBits,cAccumBlueBits,cAccumAlphaBits,cDepthBits,cStencilBits,cAuxBuffers,iLayerPlane,bReserved,crTransparent
 LDT_BYTES,BaseMid,Flags1,Flags2,BaseHi
 LDT_ENTRY,LimitLow,BaseLow,HighWord1.Bytes:LDT_BYTES,HighWord1.Bits:LDTBits
+LHITTESTINFO,pt:POINT,item
 LIST_ENTRY,Flink,Blink
+LITEM,mask,iLink,state,stateMask,szID,szUrl
 LOADED_IMAGE,ModuleName,hFile,MappedAddress,FileHeader,LastRvaSection,NumberOfSections,Sections,Characteristics,fSystemImage,align,fDOSImage,Links,SizeOfImage
 LOAD_DLL_DEBUG_INFO,hFile,lpBaseOfDll,dwDebugInfoFileOffset,nDebugInfoSize,lpImageName,fUnicode
 LOCALESIGNATURE,lsUsb4,lsCsbDefault,lsCsbSupported
@@ -621,7 +633,8 @@ MAPIINIT_0,ulVersion,ulFlags
 MAPINAMEID,lpguid,ulKind,Kind.lID,Kind.lpwstrName
 MAPIUID,ab
 MAT2,eM11:FIXED,eM12:FIXED,eM21:FIXED,eM22:FIXED
-MCHITTESTINFO,cbSize,pt:POINT,uHit,_st:SYSTEMTIME
+MCGRIDINFO,cbSize,dwPart,dwFlags,iCalendar,iRow,iCol,bSelected,stStart:SYSTEMTIME,stEnd:SYSTEMTIME,rc:RECT,pszName,cchName
+MCHITTESTINFO,cbSize,pt:POINT,uHit,_st:SYSTEMTIME,rc:RECT,iOffset,iRow,iCol
 MCI_ANIM_OPEN_PARMS,dwCallback,wDeviceID,lpstrDeviceType,lpstrElementName,lpstrAlias,dwStyle,hWndParent
 MCI_ANIM_OPEN_PARMSA,dwCallback,wDeviceID,lpstrDeviceType,lpstrElementName,lpstrAlias,dwStyle,hWndParent
 MCI_ANIM_PLAY_PARMS,dwCallback,dwFrom,dwTo,dwSpeed
@@ -788,14 +801,17 @@ NMDATETIMESTRINGW,nmhdr:NMHDR,pszUserString,_st:SYSTEMTIME,dwFlags
 NMDATETIMEWMKEYDOWN,nmhdr:NMHDR,nVirtKey,pszFormat,_st:SYSTEMTIME
 NMDATETIMEWMKEYDOWNA,nmhdr:NMHDR,nVirtKey,pszFormat,_st:SYSTEMTIME
 NMDATETIMEWMKEYDOWNW,nmhdr:NMHDR,nVirtKey,pszFormat,_st:SYSTEMTIME
+NMDAYSTATE,nmhdr:NMHDR,stStart:SYSTEMTIME,cDayState,prgDayState
 NMDWORDESS,hdr:NMHDR,iField,iValue
 NMHDDISPINFO,hdr:NMHDR,iItem,_mask,pszText,cchTextMax,iImage,lParam
 NMHDDISPINFOA,hdr:NMHDR,iItem,_mask,pszText,cchTextMax,iImage,lParam
 NMHDFILTERBTNCLICK,hdr:NMHDR,iItem,rc:RECT
 NMHDR,hwndFrom,idFrom,code
 NMHEADER,hdr:NMHDR,iItem,iButton,pitem
+NMIPADDRESS,hdr:NMHDR,iField,iValue
 NMITEMACTIVATE,hdr:NMHDR,iItem,iSubItem,uNewState,uOldState,uChanged,ptAction:POINT,lParam,uKeyFlags
 NMKEY,hdr:NMHDR,nVKey,uFlags
+NMLINK,hdr:NMHDR,item
 NMLISTVIEW,hdr:NMHDR,iItem,iSubItem,uNewState,uOldState,uChanged,ptAction:POINT,lParam
 NMLVCACHEHDWORD,hdr:NMHDR,iFrom,iTo
 NMLVCUSTOMDRAW,nmcd:NMCUSTOMDRAW,clrText,clrTextBk,iSubItem
@@ -805,12 +821,16 @@ NMLVKEYDOWN,hdr:NMHDR,wVKey,flags
 NMLVODSTATECHANGE,hdr:NMHDR,iFrom,iTo,uNewState,uOldState
 NMMOUSE,hdr:NMHDR,dwItemSpec,dwItemData,pt:POINT,dwHitInfo
 NMPGCALCSIZE,hdr:NMHDR,dwFlag,iWidth,iHeight
+NMPGHOTITEM,hdr:NMHDR,idOld,idNew,dwFlags;
 NMPGSCROLL,hdr:NMHDR,fwKeys,rcParent:RECT,iDir,iXpos,iYpos,iScroll
 NMRBAUTOSIZE,hdr:NMHDR,fChanged,rcTarget:RECT,rcActual:RECT
 NMREBAR,hdr:NMHDR,dwMask,uBand,fStyle,wID,lParam
+NMREBARAUTOBREAK,hdr:NMHDR,uBand,wID,lParam,uMsg,fStyleCurrent,fAutoBreak
 NMREBARCHEVRON,hdr:NMHDR,uBand,wID,lParam,rc:RECT,lParamNM
 NMREBARCHILDSIZE,hdr:NMHDR,uBand,wID,rcChild:RECT,rcBand:RECT
+NMREBARSPLITTER,hdr:NMHDR,rcSizing
 NMSELCHANGE,nmhdr:NMHDR,stSelStart:SYSTEMTIME,stSelEnd:SYSTEMTIME
+NMTBCUSTOMDRAW,nmcd:NMCUSTOMDRAW,hbrMonoDither,hbrLines,hpenLines,clrText,clrMark,clrTextHighlight,clrBtnFace,clrBtnHighlight,clrHighlightHotTrack,rcText:RECT,nStringBkMode,nHLStringBkMode,iListGap
 NMTBDISPINFO,hdr:NMHDR,dwMask,idCommand,lParam,iImage,pszText,cchText
 NMTBDISPINFOA,hdr:NMHDR,dwMask,idCommand,lParam,iImage,pszText,cchText
 NMTBGETINFOTIP,hdr:NMHDR,pszText,cchTextMax,iItem,lParam
@@ -819,9 +839,10 @@ NMTBHOTITEM,hdr:NMHDR,idOld,idNew,dwFlags
 NMTBRESTORE,hdr:NMHDR,pData,pCurrent,cbData,iItem,cButtons,cbBytesPerRecord,tbButton:TBBUTTON
 NMTBSAVE,hdr:NMHDR,pData,pCurrent,cbData,iItem,cButtons,tbButton:TBBUTTON
 NMTCKEYDOWN,hdr:NMHDR,wVKey,flags
-NMTOOLBAR,hdr:NMHDR,iItem,tbButton:TBBUTTON,cchText,pszText
+NMTOOLBAR,hdr:NMHDR,iItem,tbButton:TBBUTTON,cchText,pszText,rcButton:RECT
 NMTOOLBARA,hdr:NMHDR,iItem,tbButton:TBBUTTON,cchText,pszText,rcButton:RECT
 NMTOOLTIPSCREATED,hdr:NMHDR,hwndToolTips
+NMTRBTHUMBPOSCHANGING,hdr:NMHDR,dwPos,nReason;
 NMTREEVIEW,hdr:NMHDR,action,itemOld:TVITEM,itemNew:TVITEM,ptDrag:POINT
 NMTTCUSTOMDRAW,nmcd:NMCUSTOMDRAW,uDrawFlags
 NMTTDISPINFO,hdr:NMHDR,lpszText,szText,hInst,hinst,uFlags,lParam
@@ -833,6 +854,7 @@ NMTVGETINFOTIP,hdr:NMHDR,pszText,cchTextMax,hItem,lParam
 NMTVGETINFOTIPA,hdr:NMHDR,pszText,cchTextMax,hItem,lParam
 NMTVGETINFOTIPW,hdr:NMHDR,pszText,cchTextMax,hItem,lParam
 NMTVKEYDOWN,hdr:NMHDR,wVKey,flags
+NMVIEWCHANGE,nmhdr:NMHDR,DWORD dwOldView,DWORD dwNewView
 NMUPDOWN,hdr:NMHDR,iPos,iDelta
 NM_LISTVIEW,hdr:NMHDR,iItem,iSubItem,uNewState,uOldState,uChanged,ptAction:POINT,lParam
 NM_TREEVIEW,hdr:NMHDR,action,itemOld:TVITEM,itemNew:TVITEM,ptDrag:POINT
@@ -849,6 +871,7 @@ NT_TIB,ExceptionList,StackBase,StackLimit,SubSystemTib,FiberData,Version,Arbitra
 NUMBERFMT,NumDigits,LeadingZero,Grouping,lpDecimalSep,lpThousandSep,NegativeOrder
 NUMBERFMTA,NumDigits,LeadingZero,Grouping,lpDecimalSep,lpThousandSep,NegativeOrder
 OBJECTID,Lineage:GUID,Uniquifier
+OBJECTPOSITIONS,nmhdr:NMHDR,cObjectCount,pcpPositions
 OBJECT_NOTIFICATION,cbEntryID,lpEntryID,ulObjType,cbParentID,lpParentID,cbOldID,lpOldID,cbOldParentID,lpOldParentID,lpPropTagArray
 OBJECT_TYPE_LIST,Level,Sbz,ObjectType
 OFSTRUCT,cBytes,fFixedDisk,nErrCode,Reserved1,Reserved2,szPathName
@@ -977,8 +1000,9 @@ RAS_PPP_PROJECTION_RESULT,nbf:RAS_PPP_NBFCP_RESULT,ip:RAS_PPP_IPCP_RESULT,ipx:RA
 RAS_SERVER_0,TotalPorts,PortsInUse,RasVersion
 RAS_USER_0,bfPrivilege,szPhoneNumber
 RBHITTESTINFO,pt:POINT,flags,iBand
-REBARBANDINFO,cbSize,fMask,fStyle,clrFore,clrBack,lpText,cch,iImage,hwndChild,cxMinChild,cyMinChild,lx,hbmBack,wID,cyChild,cyMaxChild,cyIntegral,cxIdeal,lParam,cxHeader
-REBARBANDINFOA,cbSize,fMask,fStyle,clrFore,clrBack,lpText,cch,iImage,hwndChild,cxMinChild,cyMinChild,lx,hbmBack,wID,cyChild,cyMaxChild,cyIntegral,cxIdeal,lParam,cxHeader
+REBARBANDINFO,cbSize,fMask,fStyle,clrFore,clrBack,lpText,cch,iImage,hwndChild,cxMinChild,cyMinChild,_cx,hbmBack,wID,cyChild,cyMaxChild,cyIntegral,cxIdeal,lParam,cxHeader,rcChevronLocation:RECT,uChevronState
+REBARBANDINFOA,cbSize,fMask,fStyle,clrFore,clrBack,lpText,cch,iImage,hwndChild,cxMinChild,cyMinChild,_cx,hbmBack,wID,cyChild,cyMaxChild,cyIntegral,cxIdeal,lParam,cxHeader,rcChevronLocation:RECT,uChevronState
+REBARBANDINFOW,cbSize,fMask,fStyle,clrFore,clrBack,lpText,cch,iImage,hwndChild,cxMinChild,cyMinChild,_cx,hbmBack,wID,cyChild,cyMaxChild,cyIntegral,cxIdeal,lParam,cxHeader,rcChevronLocation:RECT,uChevronState
 REBARINFO,cbSize,fMask,himl
 RECOVERY_AGENT_INFORMATION,NextEntryOffset,AgentNameLength,AgentInformation
 RECOVERY_AGENT_INFORMATIONA,NextEntryOffset,AgentNameLength,AgentInformation
@@ -986,6 +1010,7 @@ RECT,left:DWORD,top:DWORD,right:DWORD,bottom:DWORD
 RECTL,left:DWORD,top:DWORD,right:DWORD,bottom:DWORD
 REMOTE_NAME_INFO,lpUniversalName,lpConnectionName,lpRemainingPath
 REMOTE_NAME_INFOA,lpUniversalName,lpConnectionName,lpRemainingPath
+REOBJECT,cbStruct,cp,clsid,poleobj,pstg,polesite,sizel,dvaspect,dwFlags,dwUser
 REPARSE_DATA_BUFFER,ReparseTag,ReparseDataLength,Reserved,SymbolicLinkReparseBuffer.SubstituteNameOffset,SymbolicLinkReparseBuffer.SubstituteNameLength,SymbolicLinkReparseBuffer.PrintNameOffset,SymbolicLinkReparseBuffer.PrintNameLength,SymbolicLinkReparseBuffer.PathBuffer,MountPointReparseBuffer.SubstituteNameOffset,MountPointReparseBuffer.SubstituteNameLength,MountPointReparseBuffer.PrintNameOffset,MountPointReparseBuffer.PrintNameLength,MountPointReparseBuffer.PathBuffer,GenericReparseBuffer.DataBuffer
 REPARSE_GUID_DATA_BUFFER,ReparseTag,ReparseDataLength,Reserved,ReparseGuid:GUID,GenericReparseBuffer.DataBuffer
 REPARSE_POINT_INFORMATION,ReparseDataLength,UnparsedNameLength
@@ -1007,6 +1032,7 @@ RGBQUAD,rgbBlue,rgbGreen,rgbRed,rgbReserved
 RGBTRIPLE,rgbtBlue,rgbtGreen,rgbtRed
 RGNDATA,rdh:RGNDATAHEADER,Buffer
 RGNDATAHEADER,dwSize,iType,nCount,nRgnSize,rcBound:RECT
+RICHEDIT_IMAGE_PARAMETERS,xWidth,yHeight,Ascent,Type,pwszAlternateText,pIStream
 RIP_INFO,dwError,dwType
 RTL_CRITICAL_SECTION,DebugInfo,LockCount,RecursionCount,OwningThread,LockSemaphore,SpinCount
 RTL_CRITICAL_SECTION_DEBUG,Type1,CreatorBackTraceIndex,CriticalSection,ProcessLocksList:LIST_ENTRY,EntryCount,ContentionCount,Spare
@@ -1022,6 +1048,7 @@ SAppTimeArray,cValues,lpat
 SBinary,cb,lpb
 SBinaryArray,cValues,lpbin
 SBitMaskRestriction,relBMR,ulPropTag,ulMask
+SCROLLBARINFO,cbSize,rcScrollBar:RECT,dxyLineButton,xyThumbTop,xyThumbBottom,reserved,rgstate
 SCROLLINFO,cbSize,fMask,nMin,nMax,nPage,nPos,nTrackPos
 SCommentRestriction,cValues,lpRes,lpProp
 SComparePropsRestriction,relop,ulPropTag1,ulPropTag2
@@ -1252,10 +1279,11 @@ TAPE_SET_MEDIA_PARAMETERS,BlockSize
 TAPE_SET_POSITION,Method,Partition,Offset1,Immediate
 TAPE_WRITE_MARKS,Type1,Count,Immediate
 TBADDBITMAP,hInst,nID
-TBBUTTON,iBitmap,idCommand,fsState,fsStyle,_wPad1,dwData,iString
+TBBUTTON,iBitmap,idCommand,fsState,fsStyle,bReserved,dwData,iString
 TBBUTTONINFO,cbSize,dwMask,idCommand,iImage,fsState,fsStyle,lx,lParam,pszText,cchText
 TBBUTTONINFOA,cbSize,dwMask,idCommand,iImage,fsState,fsStyle,lx,lParam,pszText,cchText
 TBINSERTMARK,iButton,dwFlags
+TBMETRICS,cbSize,dwMask,cxPad,cyPad,cxBarPad,cyBarPad,cxButtonSpacing,cyButtonSpacing
 TBNOTIFY,hdr:NMHDR,iItem,tbButton:TBBUTTON,cchText,pszText
 TBREPLACEBITMAP,hInstOld,nIdOld,hInstNew,nIdNew,nButtons
 TBSAVEPARAMS,hkr,pszSubKey,pszValueName
@@ -1271,6 +1299,7 @@ TEXTMETRIC,tmHeight,tmAscent,tmDescent,tmInternalLeading,tmExternalLeading,tmAve
 TEXTMETRICA,tmHeight,tmAscent,tmDescent,tmInternalLeading,tmExternalLeading,tmAveCharWidth,tmMaxCharWidth,tmWeight,tmOverhang,tmDigitizedAspectX,tmDigitizedAspectY,tmFirstChar,tmLastChar,tmDefaultChar,tmBreakChar,tmItalic,tmUnderlined,tmStruckOut,tmPitchAndFamily,tmCharSet
 TEXTRANGE,chrg:CHARRANGE,lpstrText
 TEXTRANGEA,chrg:CHARRANGE,lpstrText
+TEXTRANGEW,chrg:CHARRANGE,lpstrText
 THREADENTRY32,dwSize,cntUsage,th32ThreadID,th32OwnerProcessID,tpBasePri,tpDeltaPri,dwFlags
 TIMECAPS,wPeriodMin,wPeriodMax
 TIMESTAMP_STRUCT,year,month,day,hour,minute,second,fraction

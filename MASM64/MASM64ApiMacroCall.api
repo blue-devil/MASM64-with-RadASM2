@@ -83,259 +83,569 @@ Button_SetStyle,hwndCtl, style, fRedraw
 ;   What : ComboBox Control Macros
 ;   Where: Commctrl.h, windowsx.h
 ; ------------------------------------------------------------------------------
-ComboBox_Enable(hwndCtl, fEnable)
-ComboBox_GetText(hwndCtl, lpch, cchMax)
-ComboBox_GetTextLength(hwndCtl)
-ComboBox_SetText(hwndCtl, lpsz)
-ComboBox_LimitText(hwndCtl, cchLimit)
-ComboBox_GetEditSel(hwndCtl)
-ComboBox_SetEditSel(hwndCtl, ichStart, ichEnd)
-ComboBox_GetCount(hwndCtl)
-ComboBox_ResetContent(hwndCtl)
-ComboBox_AddString(hwndCtl, lpsz)
-ComboBox_InsertString(hwndCtl, index, lpsz)
-ComboBox_AddItemData(hwndCtl, data)
-ComboBox_InsertItemData(hwndCtl, index, data)
-ComboBox_DeleteString(hwndCtl, index)
-ComboBox_GetLBTextLen(hwndCtl, index)
-ComboBox_GetLBText(hwndCtl, index, lpszBuffer)
-ComboBox_GetItemData(hwndCtl, index)
-ComboBox_SetItemData(hwndCtl, index, data)
-ComboBox_FindString(hwndCtl, indexStart, lpszFind)
-ComboBox_FindItemData(hwndCtl, indexStart, data)
-ComboBox_GetCurSel(hwndCtl)
-ComboBox_SetCurSel(hwndCtl, index)
-ComboBox_SelectString(hwndCtl, indexStart, lpszSelect)
-ComboBox_SelectItemData(hwndCtl, indexStart, data)
-ComboBox_Dir(hwndCtl, attrs, lpszFileSpec)
-ComboBox_ShowDropdown(hwndCtl, fShow)
-ComboBox_FindStringExact(hwndCtl, indexStart, lpszFind)
-ComboBox_GetDroppedState(hwndCtl)
-ComboBox_GetDroppedControlRect(hwndCtl, lprc)
-ComboBox_GetItemHeight(hwndCtl)
-ComboBox_SetItemHeight(hwndCtl, index, cyItem)
-ComboBox_GetExtendedUI(hwndCtl)
-ComboBox_SetExtendedUI(hwndCtl, flags)
-ComboBox_SetMinVisible(hwnd, iMinVisible)
-ComboBox_GetMinVisible(hwnd)
-ComboBox_SetCueBannerText(hwnd, lpcwText)
-ComboBox_GetCueBannerText(hwnd, lpwText, cchText)
-; ------------------------------------------------------------------------------
-;   What : ComboBox Control Macros
-;   Where: Commctrl.h, windowsx.h
-; ------------------------------------------------------------------------------
-Edit_SetCueBannerText(hwnd, lpcwText)
-Edit_SetCueBannerTextFocused(hwnd, lpcwText, fDrawFocused)
-Edit_GetCueBannerText(hwnd, lpwText, cchText)
-Edit_ShowBalloonTip(hwnd, peditballoontip)
-Edit_HideBalloonTip(hwnd)
-Edit_SetHilite(hwndCtl, ichStart, ichEnd)
-Edit_GetHilite(hwndCtl)
-Edit_NoSetFocus(hwndCtl)
-Edit_TakeFocus(hwndCtl)
-Edit_SetExtendedStyle(hwndCtl, dw, dwMask)
-Edit_GetExtendedStyle(hwndCtl)
-Edit_SetEndOfLine(hwndCtl, eolType)
-Edit_GetEndOfLine(hwndCtl)
-Edit_EnableSearchWeb(hwndCtl, enable)
-Edit_SearchWeb(hwndCtl)
-Edit_SetCaretIndex(hwndCtl, newCaretPosition)
-Edit_GetCaretIndex(hwndCtl)
-Edit_GetZoom(hwndCtl, numerator, denominator)
-Edit_SetZoom(hwndCtl, numerator, denominator)
-Edit_GetFileLineFromChar(hwndCtl, characterIndex)
-Edit_GetFileLineIndex(hwndCtl, lineNumber)
-Edit_GetFileLineLength(hwndCtl, characterIndex)
-Edit_GetFileLine(hwndCtl, lineNumber, textBuffer)
-Edit_GetFileLineCount(hwndCtl)
-Edit_Enable(hwndCtl, fEnable)
-Edit_GetText(hwndCtl, lpch, cchMax)
-Edit_GetTextLength(hwndCtl)
-Edit_SetText(hwndCtl, lpsz)
-Edit_LimitText(hwndCtl, cchMax)
-Edit_GetLineCount(hwndCtl)
-Edit_GetLine(hwndCtl, line, lpch, cchMax)
-Edit_GetLine(hwndCtl, line, lpch, cchMax)
-Edit_GetRect(hwndCtl, lprc)
-Edit_SetRect(hwndCtl, lprc)
-Edit_SetRectNoPaint(hwndCtl, lprc)
-Edit_GetSel(hwndCtl)
-Edit_SetSel(hwndCtl, ichStart, ichEnd)
-Edit_ReplaceSel(hwndCtl, lpszReplace)
-Edit_GetModify(hwndCtl)
-Edit_SetModify(hwndCtl, fModified)
-Edit_ScrollCaret(hwndCtl)
-Edit_LineFromChar(hwndCtl, ich)
-Edit_LineIndex(hwndCtl, line)
-Edit_LineLength(hwndCtl, line)
-Edit_Scroll(hwndCtl, dv, dh)
-Edit_CanUndo(hwndCtl)
-Edit_Undo(hwndCtl)
-Edit_EmptyUndoBuffer(hwndCtl)
-Edit_SetPasswordChar(hwndCtl, ch)
-Edit_SetTabStops(hwndCtl, cTabs, lpTabs)
-Edit_FmtLines(hwndCtl, fAddEOL)
-Edit_GetHandle(hwndCtl)
-Edit_SetHandle(hwndCtl, h)
-Edit_GetFirstVisibleLine(hwndCtl)
-Edit_SetReadOnly(hwndCtl, fReadOnly)
-Edit_GetPasswordChar(hwndCtl)
-Edit_SetWordBreakProc(hwndCtl, lpfnWordBreak)
-Edit_GetWordBreakProc(hwndCtl)
+ComboBox_Enable,hwndCtl, fEnable
+ComboBox_GetText,hwndCtl, lpch, cchMax
+ComboBox_GetTextLength,hwndCtl
+ComboBox_SetText,hwndCtl, lpsz
+ComboBox_LimitText,hwndCtl, cchLimit
+ComboBox_GetEditSel,hwndCtl
+ComboBox_SetEditSel,hwndCtl, ichStart, ichEnd
+ComboBox_GetCount,hwndCtl
+ComboBox_ResetContent,hwndCtl
+ComboBox_AddString,hwndCtl, lpsz
+ComboBox_InsertString,hwndCtl, index, lpsz
+ComboBox_AddItemData,hwndCtl, data
+ComboBox_InsertItemData,hwndCtl, index, data
+ComboBox_DeleteString,hwndCtl, index
+ComboBox_GetLBTextLen,hwndCtl, index
+ComboBox_GetLBText,hwndCtl, index, lpszBuffer
+ComboBox_GetItemData,hwndCtl, index
+ComboBox_SetItemData,hwndCtl, index, data
+ComboBox_FindString,hwndCtl, indexStart, lpszFind
+ComboBox_FindItemData,hwndCtl, indexStart, data
+ComboBox_GetCurSel,hwndCtl
+ComboBox_SetCurSel,hwndCtl, index
+ComboBox_SelectString,hwndCtl, indexStart, lpszSelect
+ComboBox_SelectItemData,hwndCtl, indexStart, data
+ComboBox_Dir,hwndCtl, attrs, lpszFileSpec
+ComboBox_ShowDropdown,hwndCtl, fShow
+ComboBox_FindStringExact,hwndCtl, indexStart, lpszFind
+ComboBox_GetDroppedState,hwndCtl
+ComboBox_GetDroppedControlRect,hwndCtl, lprc
+ComboBox_GetItemHeight,hwndCtl
+ComboBox_SetItemHeight,hwndCtl, index, cyItem
+ComboBox_GetExtendedUI,hwndCtl
+ComboBox_SetExtendedUI,hwndCtl, flags
+ComboBox_SetMinVisible,hwnd, iMinVisible
+ComboBox_GetMinVisible,hwnd
+ComboBox_SetCueBannerText,hwnd, lpcwText
+ComboBox_GetCueBannerText,hwnd, lpwText, cchText
 ; ------------------------------------------------------------------------------
 ;   What : DateTime Control Macros
 ;   Where: Commctrl.h
 ; ------------------------------------------------------------------------------
-DateTime_GetSystemtime(hdp, pst)
-DateTime_SetSystemtime(hdp, gd, pst)
-DateTime_GetRange(hdp, rgst)
-DateTime_SetRange(hdp, gd, rgst)
-DateTime_SetFormat(hdp, sz)
-DateTime_SetMonthCalColor(hdp, iColor, clr)
-DateTime_GetMonthCalColor(hdp, iColor)
-DateTime_GetMonthCal(hdp)
-DateTime_SetMonthCalFont(hdp, hfont, fRedraw)
-DateTime_GetMonthCalFont(hdp)
-DateTime_SetMonthCalStyle(hdp, dwStyle)
-DateTime_GetMonthCalStyle(hdp)
-DateTime_CloseMonthCal(hdp)
-DateTime_GetDateTimePickerInfo(hdp, pdtpi)
-DateTime_GetIdealSize(hdp, psize)
+DateTime_GetSystemtime,hdp, pst
+DateTime_SetSystemtime,hdp, gd, pst
+DateTime_GetRange,hdp, rgst
+DateTime_SetRange,hdp, gd, rgst
+DateTime_SetFormat,hdp, sz
+DateTime_SetMonthCalColor,hdp, iColor, clr
+DateTime_GetMonthCalColor,hdp, iColor
+DateTime_GetMonthCal,hdp
+DateTime_SetMonthCalFont,hdp, hfont, fRedraw
+DateTime_GetMonthCalFont,hdp
+DateTime_SetMonthCalStyle,hdp, dwStyle
+DateTime_GetMonthCalStyle,hdp
+DateTime_CloseMonthCal,hdp
+DateTime_GetDateTimePickerInfo,hdp, pdtpi
+DateTime_GetIdealSize,hdp, psize
 ; ------------------------------------------------------------------------------
 ;   What : Edit Control Macros
 ;   Where: shared\windowsx.h
 ; ------------------------------------------------------------------------------
-
-Edit_Enable(hwndCtl, fEnable)
-Edit_GetText(hwndCtl, lpch, cchMax)
-Edit_GetTextLength(hwndCtl)
-Edit_SetText(hwndCtl, lpsz)
-Edit_LimitText(hwndCtl, cchMax)
-Edit_GetLineCount(hwndCtl)
-Edit_GetLine(hwndCtl, line, lpch, cchMax)
-Edit_GetLine(hwndCtl, line, lpch, cchMax)
-Edit_GetRect(hwndCtl, lprc)
-Edit_SetRect(hwndCtl, lprc)
-Edit_SetRectNoPaint(hwndCtl, lprc)
-Edit_GetSel(hwndCtl)
-Edit_SetSel(hwndCtl, ichStart, ichEnd)
-Edit_ReplaceSel(hwndCtl, lpszReplace)
-Edit_GetModify(hwndCtl)
-Edit_SetModify(hwndCtl, fModified)
-Edit_ScrollCaret(hwndCtl)
-Edit_LineFromChar(hwndCtl, ich)
-Edit_LineIndex(hwndCtl, line)
-Edit_LineLength(hwndCtl, line)
-Edit_Scroll(hwndCtl, dv, dh)
-Edit_CanUndo(hwndCtl)
-Edit_Undo(hwndCtl)
-Edit_EmptyUndoBuffer(hwndCtl)
-Edit_SetPasswordChar(hwndCtl, ch)
-Edit_SetTabStops(hwndCtl, cTabs, lpTabs)
-Edit_FmtLines(hwndCtl, fAddEOL)
-Edit_GetHandle(hwndCtl)
-Edit_SetHandle(hwndCtl, h)
-Edit_GetFirstVisibleLine(hwndCtl)
-Edit_SetReadOnly(hwndCtl, fReadOnly)
-Edit_GetPasswordChar(hwndCtl)
-Edit_SetWordBreakProc(hwndCtl, lpfnWordBreak)
-Edit_GetWordBreakProc(hwndCtl)
+Edit_Enable,hwndCtl, fEnable
+Edit_GetText,hwndCtl, lpch, cchMax
+Edit_GetTextLength,hwndCtl
+Edit_SetText,hwndCtl, lpsz
+Edit_LimitText,hwndCtl, cchMax
+Edit_GetLineCount,hwndCtl
+Edit_GetLine,hwndCtl, line, lpch, cchMax
+Edit_GetLine,hwndCtl, line, lpch, cchMax
+Edit_GetRect,hwndCtl, lprc
+Edit_SetRect,hwndCtl, lprc
+Edit_SetRectNoPaint,hwndCtl, lprc
+Edit_GetSel,hwndCtl
+Edit_SetSel,hwndCtl, ichStart, ichEnd
+Edit_ReplaceSel,hwndCtl, lpszReplace
+Edit_GetModify,hwndCtl
+Edit_SetModify,hwndCtl, fModified
+Edit_ScrollCaret,hwndCtl
+Edit_LineFromChar,hwndCtl, ich
+Edit_LineIndex,hwndCtl, line
+Edit_LineLength,hwndCtl, line
+Edit_Scroll,hwndCtl, dv, dh
+Edit_CanUndo,hwndCtl
+Edit_Undo,hwndCtl
+Edit_EmptyUndoBuffer,hwndCtl
+Edit_SetPasswordChar,hwndCtl, ch
+Edit_SetTabStops,hwndCtl, cTabs, lpTabs
+Edit_FmtLines,hwndCtl, fAddEOL
+Edit_GetHandle,hwndCtl
+Edit_SetHandle,hwndCtl, h
+Edit_GetFirstVisibleLine,hwndCtl
+Edit_SetReadOnly,hwndCtl, fReadOnly
+Edit_GetPasswordChar,hwndCtl
+Edit_SetWordBreakProc,hwndCtl, lpfnWordBreak
+Edit_GetWordBreakProc,hwndCtl
 ; CommCtrl.h
-Edit_SetCueBannerText(hwnd, lpcwText)
-Edit_SetCueBannerTextFocused(hwnd, lpcwText, fDrawFocused)
-Edit_GetCueBannerText(hwnd, lpwText, cchText)
-Edit_ShowBalloonTip(hwnd, peditballoontip)
-Edit_HideBalloonTip(hwnd)
-Edit_SetHilite(hwndCtl, ichStart, ichEnd)
-Edit_GetHilite(hwndCtl)
-Edit_NoSetFocus(hwndCtl)
-Edit_TakeFocus(hwndCtl)
-Edit_SetExtendedStyle(hwndCtl, dw, dwMask)
-Edit_GetExtendedStyle(hwndCtl)
-Edit_SetEndOfLine(hwndCtl, eolType)
-Edit_GetEndOfLine(hwndCtl)
-Edit_EnableSearchWeb(hwndCtl, enable)
-Edit_SearchWeb(hwndCtl)
-Edit_SetCaretIndex(hwndCtl, newCaretPosition)
-Edit_GetCaretIndex(hwndCtl)
-Edit_GetZoom(hwndCtl, numerator, denominator)
-Edit_SetZoom(hwndCtl, numerator, denominator)
-Edit_GetFileLineFromChar(hwndCtl, characterIndex)
-Edit_GetFileLineIndex(hwndCtl, lineNumber)
-Edit_GetFileLineLength(hwndCtl, characterIndex)
-Edit_GetFileLine(hwndCtl, lineNumber, textBuffer)
-Edit_GetFileLineCount(hwndCtl)
+Edit_SetCueBannerText,hwnd, lpcwText
+Edit_SetCueBannerTextFocused,hwnd, lpcwText, fDrawFocused
+Edit_GetCueBannerText,hwnd, lpwText, cchText
+Edit_ShowBalloonTip,hwnd, peditballoontip
+Edit_HideBalloonTip,hwnd
+Edit_SetHilite,hwndCtl, ichStart, ichEnd
+Edit_GetHilite,hwndCtl
+Edit_NoSetFocus,hwndCtl
+Edit_TakeFocus,hwndCtl
+Edit_SetExtendedStyle,hwndCtl, dw, dwMask
+Edit_GetExtendedStyle,hwndCtl
+Edit_SetEndOfLine,hwndCtl, eolType
+Edit_GetEndOfLine,hwndCtl
+Edit_EnableSearchWeb,hwndCtl, enable
+Edit_SearchWeb,hwndCtl
+Edit_SetCaretIndex,hwndCtl, newCaretPosition
+Edit_GetCaretIndex,hwndCtl
+Edit_GetZoom,hwndCtl, numerator, denominator
+Edit_SetZoom,hwndCtl, numerator, denominator
+Edit_GetFileLineFromChar,hwndCtl, characterIndex
+Edit_GetFileLineIndex,hwndCtl, lineNumber
+Edit_GetFileLineLength,hwndCtl, characterIndex
+Edit_GetFileLine,hwndCtl, lineNumber, textBuffer
+Edit_GetFileLineCount,hwndCtl
+; ------------------------------------------------------------------------------
+;   What : Header Control Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+Header_GetItemCount,hwndHD
+Header_InsertItem,hwndHD, i, phdi
+Header_DeleteItem,hwndHD, i
+Header_GetItem,hwndHD, i, phdi
+Header_SetItem,hwndHD, i, phdi
+Header_Layout,hwndHD, playout
+Header_GetItemRect,hwnd, iItem, lprc
+Header_SetImageList,hwnd, himl
+Header_SetStateImageList,hwnd, himl
+Header_GetImageList,hwnd
+Header_GetStateImageList,hwnd
+Header_OrderToIndex,hwnd, i
+Header_CreateDragImage,hwnd, i
+Header_GetOrderArray,hwnd, iCount, lpi
+Header_SetOrderArray,hwnd, iCount, lpi
+Header_SetHotDivider,hwnd, fPos, dw
+Header_SetBitmapMargin,hwnd, iWidth
+Header_GetBitmapMargin,hwnd
+Header_SetUnicodeFormat,hwnd, fUnicode
+Header_GetUnicodeFormat,hwnd
+Header_SetFilterChangeTimeout,hwnd, i
+Header_EditFilter,hwnd, i, fDiscardChanges
+Header_ClearFilter,hwnd, i
+Header_ClearAllFilters,hwnd
+Header_GetItemDropDownRect,hwnd, iItem, lprc
+Header_GetOverflowRect,hwnd, lprc
+Header_GetFocusedItem,hwnd
+Header_SetFocusedItem,hwnd, iItem
+; ------------------------------------------------------------------------------
+;   What : ImageList Control Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+ImageList_AddIcon,himl, hicon
+ImageList_RemoveAll,himl
+ImageList_ExtractIcon,hi, himl, i
+ImageList_LoadBitmap,hi, lpbmp, cx, cGrow, crMask
+; ------------------------------------------------------------------------------
+;   What : IP Address Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+MAKEIPRANGE,low, high
+MAKEIPADDRESS,b1,b2,b3,b4
+FIRST_IPADDRESS,x
+SECOND_IPADDRESS,x
+THIRD_IPADDRESS,x
+FOURTH_IPADDRESS,x
+; ------------------------------------------------------------------------------
+;   What : ListBox Macros
+;   Where: shared\windowsx.h
+; ------------------------------------------------------------------------------
+ListBox_Enable,hwndCtl, fEnable
+ListBox_GetCount,hwndCtl
+ListBox_ResetContent,hwndCtl
+ListBox_AddString,hwndCtl, lpsz
+ListBox_InsertString,hwndCtl, index, lpsz
+ListBox_AddItemData,hwndCtl, data
+ListBox_InsertItemData,hwndCtl, index, data
+ListBox_DeleteString,hwndCtl, index
+ListBox_GetTextLen,hwndCtl, index
+ListBox_GetText,hwndCtl, index, lpszBuffer
+ListBox_GetItemData,hwndCtl, index
+ListBox_SetItemData,hwndCtl, index, data
+ListBox_FindString,hwndCtl, indexStart, lpszFind
+ListBox_FindItemData,hwndCtl, indexStart, data
+ListBox_SetSel,hwndCtl, fSelect, index
+ListBox_SelItemRange,hwndCtl, fSelect, first, last
+ListBox_GetCurSel,hwndCtl
+ListBox_SetCurSel,hwndCtl, index
+ListBox_SelectString,hwndCtl, indexStart, lpszFind
+ListBox_SelectItemData,hwndCtl, indexStart, data
+ListBox_GetSel,hwndCtl, index
+ListBox_GetSelCount,hwndCtl
+ListBox_GetTopIndex,hwndCtl
+ListBox_GetSelItems,hwndCtl, cItems, lpItems
+ListBox_SetTopIndex,hwndCtl, indexTop
+ListBox_SetColumnWidth,hwndCtl, cxColumn
+ListBox_GetHorizontalExtent,hwndCtl
+ListBox_SetHorizontalExtent,hwndCtl, cxExtent
+ListBox_SetTabStops,hwndCtl, cTabs, lpTabs
+ListBox_GetItemRect,hwndCtl, index, lprc
+ListBox_SetCaretIndex,hwndCtl, index
+ListBox_GetCaretIndex,hwndCtl
+ListBox_FindStringExact,hwndCtl, indexStart, lpszFind
+ListBox_SetItemHeight,hwndCtl, index, cy
+ListBox_GetItemHeight,hwndCtl, index
+ListBox_Dir,hwndCtl, attrs, lpszFileSpec
+; ------------------------------------------------------------------------------
+;   What : ListView Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+ListView_SetUnicodeFormat,hwnd, fUnicode
+ListView_GetUnicodeFormat,hwnd
+ListView_GetBkColor,hwnd
+ListView_SetBkColor,hwnd, clrBk
+ListView_GetImageList,hwnd, iImageList
+ListView_SetImageList,hwnd, himl, iImageList
+ListView_GetItemCount,hwnd
+ListView_GetItem,hwnd, pitem
+ListView_SetItem,hwnd, pitem
+ListView_InsertItem,hwnd, pitem
+ListView_DeleteItem,hwnd, i
+ListView_DeleteAllItems,hwnd
+ListView_GetCallbackMask,hwnd
+ListView_SetCallbackMask,hwnd, mask
+ListView_GetNextItem,hwnd, i, flags
+ListView_FindItem,hwnd, iStart, plvfi
+ListView_GetItemRect,hwnd, i, prc, code
+ListView_SetItemPosition,hwndLV, i, x, y
+ListView_GetItemPosition,hwndLV, i, ppt
+ListView_GetStringWidth,hwndLV, psz
+ListView_HitTest,hwndLV, pinfo
+ListView_HitTestEx,hwndLV, pinfo
+ListView_EnsureVisible,hwndLV, i, fPartialOK
+ListView_Scroll,hwndLV, dx, dy
+ListView_RedrawItems,hwndLV, iFirst, iLast
+ListView_Arrange,hwndLV, code
+ListView_EditLabel,hwndLV, i
+ListView_GetEditControl,hwndLV
+ListView_GetColumn,hwnd, iCol, pcol
+ListView_SetColumn,hwnd, iCol, pcol
+ListView_InsertColumn,hwnd, iCol, pcol
+ListView_DeleteColumn,hwnd, iCol
+ListView_GetColumnWidth,hwnd, iCol
+ListView_SetColumnWidth,hwnd, iCol, cx
+ListView_GetHeader,hwnd)\
+ListView_CreateDragImage,hwnd, i, lpptUpLeft
+ListView_GetViewRect,hwnd, prc
+ListView_GetTextColor,hwnd
+ListView_SetTextColor,hwnd, clrText
+ListView_GetTextBkColor,hwnd
+ListView_SetTextBkColor,hwnd, clrTextBk
+ListView_GetTopIndex,hwndLV
+ListView_GetCountPerPage,hwndLV
+ListView_GetOrigin,hwndLV, ppt
+ListView_Update,hwndLV, i
+ListView_SetItemState,hwndLV, i, data, mask
+ListView_SetCheckState,hwndLV, i, fCheck
+ListView_GetItemState,hwndLV, i, mask
+ListView_GetCheckState,hwndLV, i
+ListView_GetItemText,hwndLV, i, iSubItem_, pszText_, cchTextMax_
+ListView_SetItemText,hwndLV, i, iSubItem_, pszText_
+ListView_SetItemCount,hwndLV, cItems
+ListView_SetItemCountEx,hwndLV, cItems, dwFlags
+ListView_SortItems,hwndLV, _pfnCompare, _lPrm
+ListView_SetItemPosition32,hwndLV, i, x0, y0
+ListView_GetSelectedCount,hwndLV
+ListView_GetItemSpacing,hwndLV, fSmall
+ListView_GetISearchString,hwndLV, lpsz
+ListView_SetIconSpacing,hwndLV, cx, cy
+ListView_SetExtendedListViewStyle,hwndLV, dw)\
+ListView_SetExtendedListViewStyleEx,hwndLV, dwMask, dw)\
+ListView_GetExtendedListViewStyle,hwndLV)\
+ListView_GetSubItemRect,hwnd, iItem, iSubItem, code, prc
+ListView_SubItemHitTest,hwnd, plvhti
+ListView_SubItemHitTestEx,hwnd, plvhti
+ListView_SetColumnOrderArray,hwnd, iCount, pi
+ListView_GetColumnOrderArray,hwnd, iCount, pi
+ListView_SetHotItem,hwnd, i
+ListView_GetHotItem,hwnd
+ListView_SetHotCursor,hwnd, hcur
+ListView_GetHotCursor,hwnd
+ListView_ApproximateViewRect,hwnd, iWidth, iHeight, iCount
+ListView_SetWorkAreas,hwnd, nWorkAreas, prc
+ListView_GetWorkAreas,hwnd, nWorkAreas, prc
+ListView_GetNumberOfWorkAreas,hwnd, pnWorkAreas
+ListView_GetSelectionMark,hwnd
+ListView_SetSelectionMark,hwnd, i
+ListView_SetHoverTime,hwndLV, dwHoverTimeMs)\
+ListView_GetHoverTime,hwndLV)\
+ListView_SetToolTips,hwndLV, hwndNewHwnd)\
+ListView_GetToolTips,hwndLV)\
+ListView_SortItemsEx,hwndLV, _pfnCompare, _lPrm
+ListView_SetSelectedColumn,hwnd, iCol
+ListView_SetView,hwnd, iView
+ListView_GetView,hwnd
+ListView_InsertGroup,hwnd, index, pgrp
+ListView_SetGroupInfo,hwnd, iGroupId, pgrp
+ListView_GetGroupInfo,hwnd, iGroupId, pgrp
+ListView_RemoveGroup,hwnd, iGroupId
+ListView_MoveGroup,hwnd, iGroupId, toIndex
+ListView_GetGroupCount,hwnd
+ListView_GetGroupInfoByIndex,hwnd, iIndex, pgrp
+ListView_MoveItemToGroup,hwnd, idItemFrom, idGroupTo
+ListView_GetGroupRect,hwnd, iGroupId, type, prc
+ListView_SetGroupMetrics,hwnd, pGroupMetrics
+ListView_GetGroupMetrics,hwnd, pGroupMetrics
+ListView_EnableGroupView,hwnd, fEnable
+ListView_SortGroups,hwnd, _pfnGroupCompate, _plv
+ListView_InsertGroupSorted,hwnd, structInsert
+ListView_RemoveAllGroups,hwnd
+ListView_HasGroup,hwnd, dwGroupId
+ListView_SetGroupState,hwnd, dwGroupId, dwMask, dwState
+ListView_GetGroupState,hwnd, dwGroupId, dwMask
+ListView_GetFocusedGroup,hwnd
+ListView_SetTileViewInfo,hwnd, ptvi
+ListView_GetTileViewInfo,hwnd, ptvi
+ListView_SetTileInfo,hwnd, pti
+ListView_GetTileInfo,hwnd, pti
+ListView_SetInsertMark,hwnd, lvim
+ListView_GetInsertMark,hwnd, lvim
+ListView_InsertMarkHitTest,hwnd, point, lvim
+ListView_GetInsertMarkRect,hwnd, rc
+ListView_SetInsertMarkColor,hwnd, color
+ListView_GetInsertMarkColor,hwnd
+ListView_SetInfoTip,hwndLV, plvInfoTip)\
+ListView_GetSelectedColumn,hwnd
+ListView_IsGroupViewEnabled,hwnd
+ListView_GetOutlineColor,hwnd
+ListView_SetOutlineColor,hwnd, color
+ListView_CancelEditLabel,hwnd
+ListView_MapIndexToID,hwnd, index
+ListView_MapIDToIndex,hwnd, id
+ListView_IsItemVisible,hwnd, index
+ListView_SetGroupHeaderImageList,hwnd, himl
+ListView_GetGroupHeaderImageList,hwnd
+ListView_GetEmptyText,hwnd, pszText, cchText
+ListView_GetFooterRect,hwnd, prc
+ListView_GetFooterInfo,hwnd, plvfi
+ListView_GetFooterItemRect,hwnd, iItem, prc
+ListView_GetFooterItem,hwnd, iItem, pfi
+ListView_GetItemIndexRect,hwnd, plvii, iSubItem, code, prc
+ListView_SetItemIndexState,hwndLV, plvii, data, mask
+ListView_GetNextItemIndex,hwnd, plvii, flags
+ListView_SetBkImage,hwnd, plvbki
+ListView_GetBkImage,hwnd, plvbki
+; ------------------------------------------------------------------------------
+;   What : Month Calendar Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+MonthCal_GetCurSel,hmc, pst
+MonthCal_SetCurSel,hmc, pst
+MonthCal_GetMaxSelCount,hmc
+MonthCal_SetMaxSelCount,hmc, n
+MonthCal_GetSelRange,hmc, rgst
+MonthCal_SetSelRange,hmc, rgst
+MonthCal_GetMonthRange,hmc, gmr, rgst
+MonthCal_SetDayState,hmc, cbds, rgds
+MonthCal_GetMinReqRect,hmc, prc
+MonthCal_SetColor,hmc, iColor, clr
+MonthCal_GetColor,hmc, iColor
+MonthCal_SetToday,hmc, pst
+MonthCal_GetToday,hmc, pst
+MonthCal_HitTest,hmc, pinfo
+MonthCal_SetFirstDayOfWeek,hmc, iDay
+MonthCal_GetFirstDayOfWeek,hmc
+MonthCal_GetRange,hmc, rgst
+MonthCal_SetRange,hmc, gd, rgst
+MonthCal_GetMonthDelta,hmc
+MonthCal_SetMonthDelta,hmc, n
+MonthCal_GetMaxTodayWidth,hmc
+MonthCal_SetUnicodeFormat,hwnd, fUnicode 
+MonthCal_GetUnicodeFormat,hwnd 
+MonthCal_GetCurrentView,hmc
+MonthCal_GetCalendarCount,hmc
+MonthCal_GetCalendarGridInfo,hmc, pmcGridInfo
+MonthCal_GetCALID,hmc
+MonthCal_SetCALID,hmc, calid
+MonthCal_SizeRectToMin,hmc, prc
+MonthCal_SetCalendarBorder,hmc, fset, xyborder
+MonthCal_GetCalendarBorder,hmc
+MonthCal_SetCurrentView,hmc, dwNewView
+; ------------------------------------------------------------------------------
+;   What : Pager Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+Pager_SetChild,hwnd, hwndChild
+Pager_RecalcSize,hwnd
+Pager_ForwardMouse,hwnd, bForward
+Pager_SetBkColor,hwnd, clr
+Pager_GetBkColor,hwnd
+Pager_SetBorder,hwnd, iBorder
+Pager_GetBorder,hwnd
+Pager_SetPos,hwnd, iPos
+Pager_GetPos,hwnd
+Pager_SetButtonSize,hwnd, iSize
+Pager_GetButtonSize,hwnd
+Pager_GetButtonState,hwnd, iButton
+Pager_GetDropTarget,hwnd, ppdt
+Pager_SetScrollInfo,hwnd, cTimeOut, cLinesPer, cPixelsPerLine
+; ------------------------------------------------------------------------------
+;   What : Property Sheet Macros
+;   Where: prsht.h
+; ------------------------------------------------------------------------------
+PropSheet_SetCurSel,hDlg, hpage, index
+PropSheet_RemovePage,hDlg, index, hpage
+PropSheet_AddPage,hDlg, hpage
+PropSheet_Changed,hDlg, hwnd
+PropSheet_RestartWindows,hDlg
+PropSheet_RebootSystem,hDlg
+PropSheet_CancelToClose,hDlg
+PropSheet_QuerySiblings,hDlg, wParam, lParam
+PropSheet_UnChanged,hDlg, hwnd
+PropSheet_Apply,hDlg
+PropSheet_SetTitle,hDlg, wStyle, lpszText)\
+PropSheet_SetWizButtons,hDlg, dwFlags
+PropSheet_PressButton,hDlg, iButton
+PropSheet_SetCurSelByID,hDlg, id
+PropSheet_SetFinishText,hDlg, lpszText
+PropSheet_GetTabControl,hDlg
+PropSheet_IsDialogMessage,hDlg, pMsg
+PropSheet_GetCurrentPageHwnd,hDlg
+PropSheet_InsertPage,hDlg, index, hpage
+PropSheet_SetHeaderTitle,hDlg, index, lpszText
+PropSheet_SetHeaderSubTitle,hDlg, index, lpszText
+PropSheet_HwndToIndex,hDlg, hwnd
+PropSheet_IndexToHwnd,hDlg, i
+PropSheet_PageToIndex,hDlg, hpage
+PropSheet_IndexToPage,hDlg, i
+PropSheet_IdToIndex,hDlg, id
+PropSheet_IndexToId,hDlg, i
+PropSheet_GetResult,hDlg
+PropSheet_RecalcPageSizes,hDlg
+PropSheet_SetNextText,hDlg, lpszText
+PropSheet_ShowWizButtons,hDlg, dwFlag, dwButton
+PropSheet_EnableWizButtons,hDlg, dwState, dwMask
+PropSheet_SetButtonText,hDlg, dwButton, lpszText
+; ------------------------------------------------------------------------------
+;   What : Scroll Bar Macros
+;   Where: shared\windowsx.h
+; ------------------------------------------------------------------------------
+ScrollBar_Enable,hwndCtl, flags
+ScrollBar_Show,hwndCtl, fShow
+ScrollBar_SetPos,hwndCtl, pos, fRedraw
+ScrollBar_GetPos,hwndCtl
+ScrollBar_SetRange,hwndCtl, posMin, posMax, fRedraw
+ScrollBar_GetRange,hwndCtl, lpposMin, lpposMax
+; ------------------------------------------------------------------------------
+;   What : Static Control Macros
+;   Where: shared\windowsx.h
+; ------------------------------------------------------------------------------
+Static_Enable,hwndCtl, fEnable
+Static_GetText,hwndCtl, lpch, cchMax
+Static_GetTextLength,hwndCtl
+Static_SetText,hwndCtl, lpsz
+Static_SetIcon,hwndCtl, hIcon
+Static_GetIcon,hwndCtl, hIcon
+; ------------------------------------------------------------------------------
+;   What : Tab Control Macros
+;   Where: Commctrl.h
+; ------------------------------------------------------------------------------
+TabCtrl_GetImageList,hwnd
+TabCtrl_SetImageList,hwnd, himl
+TabCtrl_GetItemCount,hwnd
+TabCtrl_GetItem,hwnd, iItem, pitem
+TabCtrl_SetItem,hwnd, iItem, pitem
+TabCtrl_InsertItem,hwnd, iItem, pitem 
+TabCtrl_DeleteItem,hwnd, i
+TabCtrl_DeleteAllItems,hwnd
+TabCtrl_GetItemRect,hwnd, i, prc
+TabCtrl_GetCurSel,hwnd
+TabCtrl_SetCurSel,hwnd, i
+TabCtrl_HitTest,hwndTC, pinfo
+TabCtrl_SetItemExtra,hwndTC, cb
+TabCtrl_AdjustRect,hwnd, bLarger, prc
+TabCtrl_SetItemSize,hwnd, x, y
+TabCtrl_RemoveImage,hwnd, i
+TabCtrl_SetPadding,hwnd,  cx, cy
+TabCtrl_GetRowCount,hwnd
+TabCtrl_GetToolTips,hwnd
+TabCtrl_SetToolTips,hwnd, hwndTT
+TabCtrl_GetCurFocus,hwnd
+TabCtrl_SetCurFocus,hwnd, i
+TabCtrl_SetMinTabWidth,hwnd, x
+TabCtrl_DeselectAll,hwnd, fExcludeFocus
+TabCtrl_HighlightItem,hwnd, i, fHighlight
+TabCtrl_SetExtendedStyle,hwnd, dw
+TabCtrl_GetExtendedStyle,hwnd
+TabCtrl_SetUnicodeFormat,hwnd, fUnicode
+TabCtrl_GetUnicodeFormat,hwnd
 ; ------------------------------------------------------------------------------
 ;   What : Tree View Macros
 ;   Where: Commctrl.h
 ; ------------------------------------------------------------------------------
-TreeView_InsertItem(hwnd, lpis)
-TreeView_DeleteItem(hwnd, hitem)
-TreeView_DeleteAllItems(hwnd)
-TreeView_Expand(hwnd, hitem, code)
-TreeView_GetItemRect(hwnd, hitem, prc, code)
-TreeView_GetCount(hwnd)
-TreeView_GetIndent(hwnd)
-TreeView_SetIndent(hwnd, indent)
-TreeView_GetImageList(hwnd, iImage)
-TreeView_SetImageList(hwnd, himl, iImage)
-TreeView_GetNextItem(hwnd, hitem, code)
-TreeView_GetChild(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem, TVGN_CHILD)
-TreeView_GetNextSibling(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem, TVGN_NEXT)
-TreeView_GetPrevSibling(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem, TVGN_PREVIOUS)
-TreeView_GetParent(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem, TVGN_PARENT)
-TreeView_GetFirstVisible(hwnd), equ TreeView_GetNextItem(hwnd, NULL,  TVGN_FIRSTVISIBLE)
-TreeView_GetNextVisible(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem, TVGN_NEXTVISIBLE)
-TreeView_GetPrevVisible(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem, TVGN_PREVIOUSVISIBLE)
-TreeView_GetSelection(hwnd), equ TreeView_GetNextItem(hwnd, NULL,  TVGN_CARET)
-TreeView_GetDropHilight(hwnd), equ TreeView_GetNextItem(hwnd, NULL,  TVGN_DROPHILITE)
-TreeView_GetRoot(hwnd), equ TreeView_GetNextItem(hwnd, NULL,  TVGN_ROOT)
-TreeView_GetLastVisible(hwnd), equ TreeView_GetNextItem(hwnd, NULL,  TVGN_LASTVISIBLE)
-TreeView_GetNextSelected(hwnd, hitem), equ TreeView_GetNextItem(hwnd, hitem,  TVGN_NEXTSELECTED)
-TreeView_Select(hwnd, hitem, code)
-TreeView_SelectItem(hwnd, hitem), equ TreeView_Select(hwnd, hitem, TVGN_CARET)
-TreeView_SelectDropTarget(hwnd, hitem), equ TreeView_Select(hwnd, hitem, TVGN_DROPHILITE)
-TreeView_SelectSetFirstVisible(hwnd, hitem), equ TreeView_Select(hwnd, hitem, TVGN_FIRSTVISIBLE)
-TreeView_GetItem(hwnd, pitem)
-TreeView_SetItem(hwnd, pitem)
-TreeView_EditLabel(hwnd, hitem)
-TreeView_GetEditControl(hwnd)
-TreeView_GetVisibleCount(hwnd)
-TreeView_HitTest(hwnd, lpht)
-TreeView_CreateDragImage(hwnd, hitem)
-TreeView_SortChildren(hwnd, hitem, recurse)
-TreeView_EnsureVisible(hwnd, hitem)
-TreeView_SortChildrenCB(hwnd, psort, recurse)
-TreeView_EndEditLabelNow(hwnd, fCancel)
-TreeView_SetToolTips(hwnd,  hwndTT)
-TreeView_GetToolTips(hwnd)
-TreeView_GetISearchString(hwndTV, lpsz)
-TreeView_SetInsertMark(hwnd, hItem, fAfter)
-TreeView_SetUnicodeFormat(hwnd, fUnicode) 
-TreeView_GetUnicodeFormat(hwnd) 
-TreeView_SetItemHeight(hwnd,  iHeight)
-TreeView_GetItemHeight(hwnd)
-TreeView_SetBkColor(hwnd, clr)
-TreeView_SetTextColor(hwnd, clr)
-TreeView_GetBkColor(hwnd)
-TreeView_GetTextColor(hwnd)
-TreeView_SetScrollTime(hwnd, uTime)
-TreeView_GetScrollTime(hwnd)
-TreeView_SetInsertMarkColor(hwnd, clr)
-TreeView_GetInsertMarkColor(hwnd)
-TreeView_SetBorder(hwnd,  dwFlags, xBorder, yBorder)
-TreeView_SetItemState(hwndTV, hti, data, _mask)
-TreeView_SetCheckState(hwndTV, hti, fCheck)
-TreeView_GetItemState(hwndTV, hti, mask)
-TreeView_GetCheckState(hwndTV, hti)
-TreeView_SetLineColor(hwnd, clr)
-TreeView_GetLineColor(hwnd)
-TreeView_MapAccIDToHTREEITEM(hwnd, id)
-TreeView_MapHTREEITEMToAccID(hwnd, htreeitem)
-TreeView_SetExtendedStyle(hwnd, dw, mask)
-TreeView_GetExtendedStyle(hwnd)
-TreeView_SetAutoScrollInfo(hwnd, uPixPerSec, uUpdateTime)
-TreeView_SetHot(hwnd, hitem)
-TreeView_GetSelectedCount(hwnd)
-TreeView_ShowInfoTip(hwnd, hitem)
-TreeView_GetItemPartRect(hwnd, hitem, prc, partid)
+TreeView_InsertItem,hwnd, lpis
+TreeView_DeleteItem,hwnd, hitem
+TreeView_DeleteAllItems,hwnd
+TreeView_Expand,hwnd, hitem, code
+TreeView_GetItemRect,hwnd, hitem, prc, code
+TreeView_GetCount,hwnd
+TreeView_GetIndent,hwnd
+TreeView_SetIndent,hwnd, indent
+TreeView_GetImageList,hwnd, iImage
+TreeView_SetImageList,hwnd, himl, iImage
+TreeView_GetNextItem,hwnd, hitem, code
+TreeView_GetChild,hwnd, hitem
+TreeView_GetNextSibling,hwnd, hitem
+TreeView_GetPrevSibling,hwnd, hitem
+TreeView_GetParent,hwnd, hitem
+TreeView_GetFirstVisible,hwnd
+TreeView_GetNextVisible,hwnd, hitem
+TreeView_GetPrevVisible,hwnd, hitem
+TreeView_GetSelection,hwnd
+TreeView_GetDropHilight,hwnd
+TreeView_GetRoot,hwnd
+TreeView_GetLastVisible,hwnd
+TreeView_GetNextSelected,hwnd, hitem
+TreeView_Select,hwnd, hitem, code
+TreeView_SelectItem,hwnd, hitem
+TreeView_SelectDropTarget,hwnd, hitem
+TreeView_SelectSetFirstVisible,hwnd, hitem
+TreeView_GetItem,hwnd, pitem
+TreeView_SetItem,hwnd, pitem
+TreeView_EditLabel,hwnd, hitem
+TreeView_GetEditControl,hwnd
+TreeView_GetVisibleCount,hwnd
+TreeView_HitTest,hwnd, lpht
+TreeView_CreateDragImage,hwnd, hitem
+TreeView_SortChildren,hwnd, hitem, recurse
+TreeView_EnsureVisible,hwnd, hitem
+TreeView_SortChildrenCB,hwnd, psort, recurse
+TreeView_EndEditLabelNow,hwnd, fCancel
+TreeView_SetToolTips,hwnd,  hwndTT
+TreeView_GetToolTips,hwnd
+TreeView_GetISearchString,hwndTV, lpsz
+TreeView_SetInsertMark,hwnd, hItem, fAfter
+TreeView_SetUnicodeFormat,hwnd, fUnicode 
+TreeView_GetUnicodeFormat,hwnd 
+TreeView_SetItemHeight,hwnd,  iHeight
+TreeView_GetItemHeight,hwnd
+TreeView_SetBkColor,hwnd, clr
+TreeView_SetTextColor,hwnd, clr
+TreeView_GetBkColor,hwnd
+TreeView_GetTextColor,hwnd
+TreeView_SetScrollTime,hwnd, uTime
+TreeView_GetScrollTime,hwnd
+TreeView_SetInsertMarkColor,hwnd, clr
+TreeView_GetInsertMarkColor,hwnd
+TreeView_SetBorder,hwnd,  dwFlags, xBorder, yBorder
+TreeView_SetItemState,hwndTV, hti, data, _mask
+TreeView_SetCheckState,hwndTV, hti, fCheck
+TreeView_GetItemState,hwndTV, hti, mask
+TreeView_GetCheckState,hwndTV, hti
+TreeView_SetLineColor,hwnd, clr
+TreeView_GetLineColor,hwnd
+TreeView_MapAccIDToHTREEITEM,hwnd, id
+TreeView_MapHTREEITEMToAccID,hwnd, htreeitem
+TreeView_SetExtendedStyle,hwnd, dw, mask
+TreeView_GetExtendedStyle,hwnd
+TreeView_SetAutoScrollInfo,hwnd, uPixPerSec, uUpdateTime
+TreeView_SetHot,hwnd, hitem
+TreeView_GetSelectedCount,hwnd
+TreeView_ShowInfoTip,hwnd, hitem
+TreeView_GetItemPartRect,hwnd, hitem, prc, partid

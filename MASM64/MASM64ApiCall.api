@@ -836,7 +836,7 @@ CreateProcessA,lpApplicationName,lpCommandLine,lpProcessAttributes,lpThreadAttri
 CreateProcessW,lpApplicationName,lpCommandLine,lpProcessAttributes,lpThreadAttributes,bInheritHandles,dwCreationFlags,lpEnvironment,lpCurrentDriectory,lpStartupInfo,lpProcessInformation
 CreateProcessAsUser,hToken,lpApplicationName,lpCommandLine,lpProcessAttributes,lpThreadAttributes,bInheritHandles,dwCreationFlags,lpEnvironment,lpCurrentDirectory,lpStartupInfo,lpProcessInformation
 CreateProfileFromLogColorSpace,lplogcolorspacea,pbyte
-CreatePropertySheetPage,lpcpropsheetpagea
+CreatePropertySheetPage,constPropSheetPagePointer
 CreateProxyArpEntry,dwAddress,dwMask,dwIfIndex
 CreateRectRgn,X1,Y1,X2,Y2
 CreateRectRgnIndirect,lpRect
@@ -1822,6 +1822,8 @@ GetMailslotInfo,hMailslot,lpMaxMessageSize,lpNextSize,lpMessageCount,lpReadTimeo
 GetMangledSiteSid,pSid,cchMangledSite,ppwszMangledSite
 GetMapMode,hdc
 GetMappedFileName,hProcess,lpv,lpFilename,nSize
+GetMathAlphanumeric,ch,MathStyle
+GetMathAlphanumericCode,chTrail,pch
 GetMenu,hwnd
 GetMenuBarInfo,hwnd,idObject,idItem,pmbi
 GetMenuCheckMarkDimensions
@@ -1957,7 +1959,7 @@ GetRunningObjectTable,reserved,pprot
 GetSaveFileName,pOpenfilename
 GetSaveFileNamePreview,lpofn
 GetScrollBarInfo,hwnd,idObject,psbi
-GetScrollInfo,hWnd,n,lpScrollInfo
+GetScrollInfo,hWnd,nBar,lpScrollInfo
 GetScrollPos,hwnd,nBar
 GetScrollRange,hwnd,nBar,lpMinPos,lpMaxPos
 GetSecurityDescriptorControl,pSecurityDescriptor,pControl,lpdwRevision
@@ -2698,9 +2700,11 @@ ImageGetCertificateHeader,FileHandle,CertificateIndex,Certificateheader
 ImageGetDigestStream,FileHandle,DigestLevel,DigestFunction,DigestHandle
 ImagehlpApiVersion
 ImagehlpApiVersionEx,AppVersion
+HIMAGELIST_QueryInterface,himl,riid,ppv
 ImageList_Add,himl,hbmImage,hbmMask
 ImageList_AddMasked,himl,hbmImage,crMask
 ImageList_BeginDrag,himlTrack,iTrack,dxHotspot,dyHotspot
+ImageList_CoCreateInstance,rclsid,punkOuter,riid,ppv
 ImageList_Copy,himlDst,iDst,himlSrc,iSrc,uFlags
 ImageList_Create,cx,cy,flags,cInitial,cGrow
 ImageList_Destroy,himl
@@ -2722,15 +2726,18 @@ ImageList_GetImageInfo,himl,i,pImageInfo
 ImageList_LoadImage,hInst,lpszbmp,cx,cGrow,crMask,uType,uFlags
 ImageList_Merge,himl1,i1,himl2,i2,dx,dy
 ImageList_Read,pstm
+ImageList_ReadEx,dwFlags,pstm,riid,ppv
 ImageList_Remove,himl,i
 ImageList_Replace,himl,i,hbmImage,hbmMask
 ImageList_ReplaceIcon,himl,i,hicon
 ImageList_SetBkColor,himl,clrBk
+ImageList_SetColorTable,himl,start,len,prgb
 ImageList_SetDragCursorImage,himlDrag,iDrag,dxHotspot,dyHotspot
 ImageList_SetIconSize,himl,cx,cy
 ImageList_SetImageCount,himl,uNewCount
 ImageList_SetOverlayImage,himl,iImage,iOverlay
 ImageList_Write,himl,pstm
+ImageList_WriteEx,himl,dwFlags,pstm
 ImageLoad,DllName,DllPath
 ImageNtHeader,Base
 ImageRemoveCertificate,FileHandle,ByValdex
@@ -3304,6 +3311,9 @@ MapVirtualKeyEx,uCode,uMapType,dwhkl
 MapWindowPoints,hwndFrom,hwndTo,lppt,cPoints
 MarshalBlob,hBlob,pSize,ppBytes
 MaskBlt,hdcDest,nXDest,nYDest,nWidth,nHeight,hdcSrc,nXSrc,nYSrc,hbmMask,xMask,yMask,dwRop
+MathBuildDown,prg,pstrs,Flags
+MathBuildUp,prg,pstrs,Flags
+MathTranslate,prg,Flags
 McastApiCleanup
 McastApiStartup,Version
 McastEnumerateScopes,AddrFamily,ReQuery,pScopeList,pScopeLen,pScopeCount
@@ -4579,6 +4589,7 @@ recv,s,buf,lLen,flags
 recvfrom,s,buf,lLen,flags,from,fromlen
 RecycleSurrogate,lReasonCode
 RedrawWindow,hwnd,lprcUpdate,hrgnUpdate,fuRedraw
+REExtendedRegisterClass
 RefreshPolicy,bMachine
 RegCloseKey,hKey
 RegConnectRegistry,lpMachineName,hKey,phkResult
@@ -5089,7 +5100,7 @@ ScriptXtoCP,iX,cChars,cGlyphs,pwLogClust,psva,piAdvance,psa,piCP,piTrailing
 ScrollConsoleScreenBuffer,hConsoleOutput,lpScrollRectangle,lpClipRectangle,dwDestinationOrigin,lpFill
 ScrollDC,hdc,dx,dy,lprcScroll,lprcClip,hrgnUpdate,lprcUpdate
 ScrollWindow,hWnd,XAmount,YAmount,lpRect,lpClipRect
-ScrollWindowEx,hwnd,dx,dy,lprcScroll,lprcClip,hrgnUpdate,lprcUpdate,fuScroll
+ScrollWindowEx,hwnd,dx,dy,lprcScroll,lprcClip,hrgnUpdate,lprcUpdate,flags
 SearchPath,lpPath,lpFileName,lpExtension,nBufferLength,lpBuffer,lpFilePart
 SearchTreeForFile,RootPath,ByValputPathName,ByValputPathBuffer
 SecurityDescriptorToBinarySD,vVarSecDes,ppSecurityDescriptor,pdwSDLength,pszServerName,userName,passWord,dwFlags
@@ -5278,8 +5289,8 @@ SetRect,lpRect,X1,Y1,X2,Y2
 SetRectEmpty,lpRect
 SetRectRgn,hRgn,X1,Y1,X2,Y2
 SetROP2,hdc,nDrawMode
-SetScrollInfo,hWnd,n,lpcScrollInfo,bool
-SetScrollPos,hwnd,nBar,nPos,fBoolean
+SetScrollInfo,hWnd,nBar,lpcScrollInfo,bool
+SetScrollPos,hwnd,nBar,nPos,bRedraw
 SetScrollRange,hwnd,nBar,nMinPos,nMaxPos,bRedraw
 SetSecurityDescriptorControl,pSecurityDescriptor,ControlBitsOfInterest,ControlBitsToSet
 SetSecurityDescriptorDacl,pSecurityDescriptor,bDaclPresent,pDacl,bDaclDefaulted
@@ -5960,6 +5971,8 @@ tapiGetLocationInfo,lpszCountryCode,lpszCityCode
 tapiRequestDrop,hwnd,wRequestID
 tapiRequestMakeCall,lpszDestAddress,lpszAppName,lpszCalledParty,lpszComment
 tapiRequestMediaCall,hwnd,wRequestID,lpszDeviceClass,lpDeviceID,dwSize,dwSecure,lpszDestAddress,lpszAppName,lpszCalledParty,lpszComment
+TaskDialog,hwndOwner,hInstance,pszWindowTitle,pszMainInstruction,pszContent,dwCommonButtons,pszIcon,pnButton
+TaskDialogIndirect,pTaskConfig,pnButton,pnRadioButton,pfVerificationFlagChecked
 TcAddFilter,FlowHandle,pGenericFilter,pFilterHandle
 TcAddFlow,IfcHandle,ClFlowCtx,Flags,pGenericFlow,pFlowHandle
 TcCloseInterface,IfcHandle
