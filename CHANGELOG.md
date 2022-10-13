@@ -1,6 +1,6 @@
 # Changelog
 
-## [2022.09.02] - 02-09-2022
+## [2022.10.13] - 13-10-2022
 ### Added
 * Added Base WndProc Sniplet
 * OPENFILENAMEW added to MASM64ApiStruct.api
