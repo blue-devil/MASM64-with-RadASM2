@@ -86,10 +86,10 @@ pgoui.dll
 * [x] Add Console64 App Build.bat
 * [x] Fix/Clean build parameters
 * [x] Add batch files which can handle projects with/without rc files
-* [ ] Add templates
-  * [ ] Add Console64 templates
-  * [ ] Add DLL64 templates
-  * [ ] Add Lib64 templates
+* [x] Add templates
+  * [x] Add Console64 templates
+  * [x] Add DLL64 templates
+  * [x] Add Lib64 templates
 
 ## Resources
 * [MASM64 Beta Version 2 Forum Topic][web-masm64-forum-topic]
