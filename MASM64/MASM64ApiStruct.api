@@ -34,24 +34,6 @@
 ; |                                                                       |
 ; | TODO: If this file gets bigger make a separate file for other strucs. |
 ; \_______________________________________________________________________/
-;  _______________________________________________________________________ 
-; |                                                                       |
-; |                            WINDOW CONTROLS                            |
-; |_______________________________________________________________________|
-;  _______________________________________________________________________ 
-; |                                                                       |
-;   What : Button Control Structures
-;   Where: CommCtrl.h
-;   Web  : https://tiny.one/controls-buttons
-; \_______________________________________________________________________/
-BUTTON_IMAGELIST,himl,margin,uAlign
-BUTTON_SPLITINFO,mask,himlGlyph,uSplitStyle,size
-NMBCDROPDOWN,hdr,rcButton
-NMBCHOTITEM,hdr,dwFlags
-;  _______________________________________________________________________ 
-; |                                                                       |
-; |                                WINAPI                                 |
-; |_______________________________________________________________________|
 ABC,abcA,abcB,abcC
 ABCFLOAT,abcfA,abcfB,abcfC
 ACCEL,fVirt,key,cmd
@@ -121,6 +103,8 @@ BROWSER_STATISTICS,StatisticsStartTime:LARGE_INTEGER,NumberOfServerAnnouncements
 BROWSER_STATISTICS_100,StartTime:LARGE_INTEGER,NumberOfServerAnnouncements:LARGE_INTEGER,NumberOfDomainAnnouncements:LARGE_INTEGER,NumberOfElectionPackets,NumberOfMailslotWrites,NumberOfGetBrowserServerListRequests,NumberOfIllegalDatagrams:LARGE_INTEGER
 BROWSER_STATISTICS_101,StartTime:LARGE_INTEGER,NumberOfServerAnnouncements:LARGE_INTEGER,NumberOfDomainAnnouncements:LARGE_INTEGER,NumberOfElectionPackets,NumberOfMailslotWrites,NumberOfGetBrowserServerListRequests,NumberOfIllegalDatagrams:LARGE_INTEGER,NumberOfMissedServerAnnouncements,NumberOfMissedMailslotDatagrams,NumberOfMissedGetBrowserServerListRequests,NumberOfFailedServerAnnounceAllocations,NumberOfFailedMailslotAllocations,NumberOfFailedMailslotReceives,NumberOfFailedMailslotWrites,NumberOfFailedMailslotOpens,NumberOfDuplicateMasterAnnouncements
 BSTRBLOB,cbSize,pData
+BUTTON_IMAGELIST,himl,margin,uAlign
+BUTTON_SPLITINFO,mask,himlGlyph,uSplitStyle,size
 BYTE_BLOB,clSize,abData
 BYTE_SIZEDARR,clSize,pData
 BY_HANDLE_FILE_INFORMATION,dwFileAttributes,ftCreationTime:FILETIME,ftLastAccessTime:FILETIME,ftLastWriteTime:FILETIME,dwVolumeSerialNumber,nFileSizeHigh,nFileSizeLow,nNumberOfLinks,nFileIndexHigh,nFileIndexLow
@@ -776,6 +760,8 @@ NEWTEXTMETRIC,tmHeight,tmAscent,tmDescent,tmInternalLeading,tmExternalLeading,tm
 NEWTEXTMETRICA,tmHeight,tmAscent,tmDescent,tmInternalLeading,tmExternalLeading,tmAveCharWidth,tmMaxCharWidth,tmWeight,tmOverhang,tmDigitizedAspectX,tmDigitizedAspectY,tmFirstChar,tmLastChar,tmDefaultChar,tmBreakChar,tmItalic,tmUnderlined,tmStruckOut,tmPitchAndFamily,tmCharSet,ntmFlags,ntmSizeEM,ntmCellHeight,ntmAveWidth
 NEWTEXTMETRICEX,ntmTm:NEWTEXTMETRICA,ntmFontSig:FONTSIGNATURE
 NEWTEXTMETRICEXA,ntmTm:NEWTEXTMETRICA,ntmFontSig:FONTSIGNATURE
+NMBCDROPDOWN,hdr,rcButton
+NMBCHOTITEM,hdr,dwFlags
 NMBYTE,hdr:NMHDR,_ch,dwItemPrev,dwItemNext
 NMCBEDRAGBEGIN,hdr:NMHDR,iItemid,szText
 NMCBEDRAGBEGINA,hdr:NMHDR,iItemid,szText

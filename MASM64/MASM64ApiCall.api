@@ -37,12 +37,6 @@
 ; |                                                                       |
 ; |                                WINAPI                                 |
 ; |_______________________________________________________________________|
-;  _______________________________________________________________________ 
-; |                                                                       |
-;   What : 
-;   Where: 
-;   Web  : 
-; \_______________________________________________________________________/
 ArgCl,ArgNum,ItemBuffer
 ArgClC,ArgNum,ItemBuffer
 GetCl,ArgNum,ItemBuffer
@@ -7288,11 +7282,23 @@ GdipVectorTransformMatrixPointsI,matrix,pts,count
 GdipWarpPath,path,matrix,Points,count,srcx,srcy,srcwidth,srcheight,WarpMd,flatness
 GdipWidenPath,nativePath,pen,matrix,flatness
 GdipWindingModeOutline,path,matrix,flatness
+;  _______________________________________________________________________ 
+; |                                                                       |
+; | MASM64.LIB                                                            |
+; \_______________________________________________________________________/
+qw2hex,qwValue,lpszDestination
+dw2hex,dwValue,lpszDestination
+dwtoa,dwValue,lpszDestination
+qwtoa,qwValue,lpszDestination
 
+a2qw,lpszDecimalString
+atoqw,lpszDecimalString
+ltoa,dwValue,lpszDestination
 
-;-----------------------------------------------------------------------------------------------------
-; MASM64.LIB
-;-----------------------------------------------------------------------------------------------------
+htodw,lpszHexString
+htoqw,lpszHexString
+
+InString,qwStartPosition,lpszString,lpszSubString
 szAppend,lpszDestination,lpszSource,qwDestinationOffset
 szCatStr,lpszDestination,lpszSource
 szCmp,lpszString1,lpszString2
@@ -7304,7 +7310,7 @@ szLen,lpszString
 szLower,lpszString
 szLtrim,lpszSource,lpszDestination
 szMid,lpszSource,lpszSubString,qwStartPosition,qwLengthToRead
-szMultiCat,pcount,lpBuffer,args
+;szMultiCat,pcount,lpBuffer,args
 szMonoSpace,lpszSource
 szRemove,lpszSource,lpszDestination,lpszSubStringToRemove
 szRep,lpszSource,lpszDestination,lpszTextToReplace,lpszReplacementText
@@ -7313,18 +7319,10 @@ szRight,lpszSource,lpszDestination,qwLengthToRead
 szRtrim,lpszSource,lpszDestination
 szTrim,lpszString
 szUpper,lpszString
-szWcnt,lpszString,lpszSubStringToCount
-InString,qwStartPosition,lpszString,lpszSubString
+;szWcnt,lpszString,lpszSubStringToCount
 exist,lpszFilename
-GetAppPath,lpPathBuffer
-NameFromPath,lpszPath,lpszFilename
 GetPathOnly,lpszFullFilenamePath,lpszPath
-atol,lpszSource
-ltoa,qwValue,lpszDestination
-a2qw,lpszDecimalString
-atoqw,lpszDecimalString
-htoqw,lpszHexString
-qwtoa,qwValue,lpszDestination
-qw2a,qwValue,lpszDestination
-qw2hex,qwValue,lpszDestination
-;-----------------------------------------------------------------------------------------------------
+;GetAppPath,lpPathBuffer
+;NameFromPath,lpszPath,lpszFilename
+;atol,lpszSource
+; \_______________________________________________________________________/
