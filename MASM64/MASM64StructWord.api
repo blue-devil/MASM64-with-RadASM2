@@ -28,8 +28,7 @@
 ; \_______________________________________________________________________/
 ; ------------------------------------------------------------------------------
 ;   What : BUTTON_IMAGELIST Type Constants
-;   Where: CommCtrl.h,
-;   Web  : https://tiny.one/controls-buttons
+;   Where: CommCtrl.h
 ; ------------------------------------------------------------------------------
 BUTTON_IMAGELIST_ALIGN_LEFT,equ 0
 BUTTON_IMAGELIST_ALIGN_RIGHT,equ 1
@@ -38,8 +37,7 @@ BUTTON_IMAGELIST_ALIGN_BOTTOM,equ 3
 BUTTON_IMAGELIST_ALIGN_CENTER,equ 4,Doesn't draw text
 ; ------------------------------------------------------------------------------
 ;   What : BUTTON_SPLITINFO Mask Flags
-;   Where: CommCtrl.h,
-;   Web  : https://tiny.one/controls-buttons
+;   Where: CommCtrl.h
 ; ------------------------------------------------------------------------------
 BCSIF_GLYPH,equ 1
 BCSIF_IMAGE,equ 2
@@ -52,11 +50,9 @@ BCSS_ALIGNLEFT,equ 4
 BCSS_IMAGE,equ 8
 ; ------------------------------------------------------------------------------
 ;   What : Hot item change flags
-;   Where: CommCtrl.h,
-;   Web  : https://tiny.one/controls-buttons
+;   Where: CommCtrl.h
 ;   Note : NMBCHOTITEM Mask Flags uses.
 ; ------------------------------------------------------------------------------
-// 
 HICF_OTHER,equ 0h
 HICF_MOUSE,equ 1h,Triggered by mouse
 HICF_ARROWKEYS,equ 2h,Triggered by arrow keys
@@ -70,7 +66,6 @@ HICF_TOGGLEDROPDOWN,equ 100h,Toggle button's dropdown state
 ; ------------------------------------------------------------------------------
 ;   What : OpenFileName Structure Flag Constants
 ;   Where: commdlg.h
-;   Web  : https://tinyurl.com/ns-commdlg-openfilenamea
 ; ------------------------------------------------------------------------------
 OFN_READONLY,equ 1h
 OFN_EX_NOPLACESBAR,equ 1h
@@ -102,7 +97,6 @@ OFN_FORCESHOWHIDDEN,equ 10000000h
 ; ------------------------------------------------------------------------------
 ;   What : STARTUPINFO Flag Parameter Constants
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/startupinfoa
 ; ------------------------------------------------------------------------------
 STARTF_FORCEONFEEDBACK,equ 40h
 STARTF_FORCEOFFFEEDBACK,equ 80h
@@ -121,7 +115,6 @@ STARTF_USESTDHANDLES,equ 100h
 ; ------------------------------------------------------------------------------
 ;   What : MSLLHOOKSTRUCT Constants
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/msllhookstruct
 ; ------------------------------------------------------------------------------
 ;mouseData
 XBUTTON1,equ 1
@@ -132,35 +125,33 @@ LLMHF_LOWER_IL_INJECTED,equ 2
 ; ------------------------------------------------------------------------------
 ;   What : NOTIFYICONDATA Constants
 ;   Where: Shellapi.h
-;   Web  : https://tiny.one/notifyicondata
 ; ------------------------------------------------------------------------------
 NOTIFYICON_VERSION,equ 3
 NOTIFYICON_VERSION_4,equ 4
-NIF_MESSAGE,equ 0x00000001
-NIF_ICON,equ 0x00000002
-NIF_TIP,equ 0x00000004
-NIF_STATE,equ 0x00000008
-NIF_INFO,equ 0x00000010
-NIF_GUID,equ 0x00000020
-NIF_REALTIME,equ 0x00000040
-NIF_SHOWTIP,equ 0x00000080
+NIF_MESSAGE,equ 1
+NIF_ICON,equ 2
+NIF_TIP,equ 4
+NIF_STATE,equ 8
+NIF_INFO,equ 10h
+NIF_GUID,equ 20h
+NIF_REALTIME,equ 40h
+NIF_SHOWTIP,equ 80h
 ; dwState: State of the Icon
-NIS_HIDDEN,equ 0x00000001
-NIS_SHAREDICON,equ 0x00000002
+NIS_HIDDEN,equ 1
+NIS_SHAREDICON,equ 2
 ; Notify Icon Infotip flags
-NIIF_NONE,equ 0x00000000
-NIIF_INFO,equ 0x00000001
-NIIF_WARNING,equ 0x00000002
-NIIF_ERROR,equ 0x00000003
-NIIF_USER,equ 0x00000004
-NIIF_ICON_MASK,equ 0x0000000F
-NIIF_NOSOUND,equ 0x00000010
-NIIF_LARGE_ICON,equ 0x00000020
-NIIF_RESPECT_QUIET_TIME,equ 0x00000080
+NIIF_NONE,equ 0
+NIIF_INFO,equ 1
+NIIF_WARNING,equ 2
+NIIF_ERROR,equ 3
+NIIF_USER,equ 4
+NIIF_ICON_MASK,equ 0Fh
+NIIF_NOSOUND,equ 10h
+NIIF_LARGE_ICON,equ 20h
+NIIF_RESPECT_QUIET_TIME,equ 80h
 ; ------------------------------------------------------------------------------
 ;   What : DEBUG_EVENT Structure Constants
 ;   Where: minwinbase.h
-;   Web  : https://tiny.one/ns-minwinbase-debugevent
 ; ------------------------------------------------------------------------------
 EXCEPTION_DEBUG_EVENT,equ 1
 CREATE_THREAD_DEBUG_EVENT,equ 2

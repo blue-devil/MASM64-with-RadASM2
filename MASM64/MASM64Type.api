@@ -27,12 +27,10 @@
 ; | This file contains Windows Data Types from M$ Docs                    |
 ; | and some common data types.                                           |
 ; \_______________________________________________________________________/
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : Windows Data Types
 ;   Where: WinDef.h,WinNT.h,BaseTsd.h
-;   Web  : https://tiny.one/windows-data-types
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 APIENTRY,,The calling convention for system functions.WinDef.h
 ATOM,2,Atom (a reference to a character string in an atom table).
 BOOL,4,Boolean variable (should be TRUE or FALSE).
@@ -206,12 +204,11 @@ WCHAR,2,Unicode character.
 WINAPI,,The calling convention for system functions.
 WORD,2,Unsigned word (16 bits).
 WPARAM,8,32-bit message parameter.
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : MASM64 Data Types
 ;   Where: 
 ;   Web  : https://www.pcjs.org/documents/books/mspl13/masm/mpguide/
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 DB,1,Unsigned byte (8 bits).
 DW,2,Unsigned word (16 bits).
 DD,4,Unsigned doubleword (32 bits).
@@ -226,12 +223,10 @@ STDCALL,equ 011b
 PASCAL,equ 100b
 FORTRAN,equ 101b
 BASIC,equ 110b
-;  _______________________________________________________________________ 
-; |                                                                       |
+; ------------------------------------------------------------------------------
 ;   What : Other Data Types
 ;   Where: 
-;   Web  : 
-; \_______________________________________________________________________/
+; ------------------------------------------------------------------------------
 ABORTPROC,4,Pointer to an application-defined callback function that the operating system calls when a print job is to be cancelled during spooling. See AbortProc for information on functions of this type.
 ACMDRIVERENUMCB,4,Pointer to an application-defined callback function that is used with the acmDriverEnum function. See acmDriverEnumCallback for information on functions of this type.
 ACMDRIVERPROC,4,Pointer to an application-defined callback function that is used with an installable audio compression manager (ACM) driver. See acmDriverProc for information on functions of this type.

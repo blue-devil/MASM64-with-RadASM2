@@ -2719,7 +2719,6 @@ UDS_HOTTRACK,equ 100h
 ; ------------------------------------------------------------------------------
 ;   What : Generic WM_NOTIFY notification codes
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/general-control-notifications
 ; ------------------------------------------------------------------------------
 NM_OUTOFMEMORY,equ NM_FIRST-1
 NM_CLICK,equ NM_FIRST-2
@@ -2981,7 +2980,6 @@ IMAGE_ICON, equ 1h
 ; ------------------------------------------------------------------------------
 ;   What : fuLoad
 ;   Where: WinUser.h
-;   Web  : https://tiny.one/loadimagea
 ; ------------------------------------------------------------------------------
 LR_CREATEDIBSECTION, equ 2000h
 LR_DEFAULTCOLOR, equ 0
@@ -2995,7 +2993,6 @@ LR_VGACOLOR, equ 80h
 ; ------------------------------------------------------------------------------
 ;   What : DLL calling reason flags
 ;   Where: winnt.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 DLL_PROCESS_ATTACH,equ 1
 DLL_PROCESS_DETACH,equ 0
@@ -3004,7 +3001,6 @@ DLL_THREAD_DETACH,equ 3
 ; ------------------------------------------------------------------------------
 ;   What : Common Control Styles
 ;   Where: CommCtrl.h
-;   Web  : https://tiny.one/common-control-styles
 ; ------------------------------------------------------------------------------
 CCS_TOP,equ 1h
 CCS_NOMOVEY,equ 2h
@@ -3020,7 +3016,6 @@ CCS_NOMOVEX,equ CCS_VERT OR CCS_NOMOVEY
 ; ------------------------------------------------------------------------------
 ;   What : Common Controls Shared Messages
 ;   Where: CommCtrl.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 CCM_SETCOLORSCHEME,equ CCM_FIRST+2
 CCM_GETCOLORSCHEME,equ CCM_FIRST+3
@@ -3035,7 +3030,6 @@ CCM_DPISCALE,equ CCM_FIRST+0Ch
 ; ------------------------------------------------------------------------------
 ;   What : Memory Protection Constants
 ;   Where: winnt.h
-;   Web  : https://tiny.one/memory-protection-constants
 ; ------------------------------------------------------------------------------
 PAGE_NOACCESS,equ 1h
 PAGE_READONLY,equ 2h
@@ -3078,7 +3072,6 @@ MEM_FREE,equ 00010000h
 ; ------------------------------------------------------------------------------
 ;   What : Window Class Styles
 ;   Where: WinUser.h
-;   Web  : https://tiny.one/window-class-styles
 ; ------------------------------------------------------------------------------
 CS_VREDRAW,equ 1h
 CS_HREDRAW,equ 2h
@@ -3100,7 +3093,6 @@ CW_USEDEFAULT,equ 80000000h
 ; ------------------------------------------------------------------------------
 ;   What : Dialog Box Command IDs
 ;   Where: WinUser.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 IDOK,equ 1
 IDCANCEL,equ 2
@@ -3117,7 +3109,6 @@ IDTIMEOUT,equ 32000
 ; ------------------------------------------------------------------------------
 ;   What : MessageBox Flags
 ;   Where: WinUser.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 MB_OK,equ 0h
 MB_OKCANCEL,equ 1h
@@ -3163,7 +3154,6 @@ MB_MISCMASK,equ 0C000h
 ; ------------------------------------------------------------------------------
 ;   SetWindowsHook() codes
 ;   Header      : WinUser.h
-;   MS Docs     : n/a
 ; ------------------------------------------------------------------------------
 WH_MIN,equ -1
 WH_MSGFILTER,equ -1
@@ -3190,7 +3180,6 @@ WH_MAXHOOK,equ WH_MAX
 ; ------------------------------------------------------------------------------
 ;   Hook Codes
 ;   Header      : WinUser.h
-;   MS Docs     : n/a
 ; ------------------------------------------------------------------------------
 HC_ACTION,equ 0
 HC_GETNEXT,equ 1
@@ -3202,7 +3191,6 @@ HC_SYSMODALOFF,equ 5
 ; ------------------------------------------------------------------------------
 ;   CBT Hook Codes
 ;   Header      : WinUser.h
-;   MS Docs     : n/a
 ; ------------------------------------------------------------------------------
 HCBT_MOVESIZE,equ 0
 HCBT_MINMAX,equ 1
@@ -3217,7 +3205,6 @@ HCBT_SETFOCUS,equ 9
 ; ------------------------------------------------------------------------------
 ;   Class field offsets
 ;   Header      : WinUser.h
-;   MS Docs     : n/a
 ; ------------------------------------------------------------------------------
 GCL_MENUNAME,equ -8
 GCL_HBRBACKGROUND,equ -10
@@ -3240,8 +3227,6 @@ GCLP_HICONSM,equ -34
 ; ------------------------------------------------------------------------------
 ;   Window field offsets
 ;   Header      : WinUser.h
-;   MS Docs     : n/a
-;   Added Date  : 24/09/2022
 ; ------------------------------------------------------------------------------
 GWL_WNDPROC,equ -4
 GWL_HINSTANCE,equ -6
@@ -3258,8 +3243,6 @@ GWLP_ID,equ -12
 ; ------------------------------------------------------------------------------
 ;   Get/SetWindowWord/Long offsets for use with WC_DIALOG windows
 ;   Header      : WinUser.h
-;   MS Docs     : n/a
-;   Added Date  : 24/09/2022
 ; ------------------------------------------------------------------------------
 DWL_MSGRESULT,equ 0
 DWL_DLGPROC,equ 4
@@ -3270,7 +3253,6 @@ DWLP_USER,equ DWLP_DLGPROC + sizeof(DLGPROC)
 ; ------------------------------------------------------------------------------
 ;   What : Status Flags
 ;   Where: winnt.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 STATUS_WAIT_0,equ 000000000
 STATUS_ABANDONED_WAIT_0,equ 000000080
@@ -3337,7 +3319,6 @@ MAXIMUM_SUSPEND_COUNT,equ MAXCHAR,Maximum times thread can be suspended
 ; ------------------------------------------------------------------------------
 ;   What : CONTEXT Flags
 ;   Where: winnt.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 CONTEXT_AMD64,equ 100000h
 CONTEXT_CONTROL,equ CONTEXT_AMD64 or 1
@@ -3357,7 +3338,6 @@ CONTEXT_EXCEPTION_REPORTING,equ 80000000h
 ; ------------------------------------------------------------------------------
 ;   What : Compatibility macros
 ;   Where: minwinbase.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 STILL_ACTIVE,equ STATUS_PENDING
 EXCEPTION_ACCESS_VIOLATION,equ STATUS_ACCESS_VIOLATION
@@ -3387,7 +3367,6 @@ CONTROL_C_EXIT,equ STATUS_CONTROL_C_EXIT
 ; ------------------------------------------------------------------------------
 ;   What : Local Memory Flags
 ;   Where: minwinbase.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 LMEM_FIXED,equ 0000
 LMEM_MOVEABLE,equ 0002
@@ -3405,14 +3384,12 @@ NONZEROLPTR,equ LMEM_FIXED
 ; ------------------------------------------------------------------------------
 ;   What : Flags returned by LocalFlags (in addition to LMEM_DISCARDABLE)
 ;   Where: minwinbase.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 LMEM_DISCARDED,equ 4000
 LMEM_LOCKCOUNT,equ 00FF
 ; ------------------------------------------------------------------------------
 ;   What : Some Constants from WinBase header
 ;   Where: WinBase.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 FILE_TYPE_UNKNOWN,equ 0
 FILE_TYPE_DISK,equ 1
@@ -3448,13 +3425,11 @@ LB_ERR,equ -2
 ; ------------------------------------------------------------------------------
 ;   What : Handle API constant
 ;   Where: handleapi.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 INVALID_HANDLE_VALUE,equ -1
 ; ------------------------------------------------------------------------------
 ;   What : Object Manager Symbolic Link Specific Access Rights.
 ;   Where: winnt.h
-;   Web  : 
 ; ------------------------------------------------------------------------------
 DUPLICATE_CLOSE_SOURCE,equ 1  
 DUPLICATE_SAME_ACCESS,equ 2 

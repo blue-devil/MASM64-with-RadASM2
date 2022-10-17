@@ -29,12 +29,6 @@
 ; | NOTE: If you have an array constant,                                  |
 ; |       put it here instead of *ApiWord.api file.                       |
 ; \_______________________________________________________________________/
-;  _______________________________________________________________________ 
-; |                                                                       |
-;   What : Common array constants
-;   Where: Win64.inc
-;   Web  : 
-; \_______________________________________________________________________/
 MAX_PATH,equ 260
 MAXIMUM_WAIT_OBJECTS,equ 64
 MIN_UCSCHAR,equ 0

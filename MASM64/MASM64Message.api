@@ -29,10 +29,6 @@
 ; | NOTE: This file only contains messages with prefix WM_*. If you have  |
 ; | other messages e.g for control or notification use xxxApiWord file.   |
 ; \_______________________________________________________________________/
-;
-; Window Messages
-; WinUser.h
-;
 WM_USER,equ 0400h
 WM_NULL,equ 0000h
 WM_CREATE,equ 0001h

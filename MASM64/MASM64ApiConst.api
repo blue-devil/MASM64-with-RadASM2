@@ -22,7 +22,7 @@
 ; | @license  : GPLv3                                                     |
 ; |_______________________________________________________________________|
 ; |                                                                       |
-; |     WinAPI Function Parameter Constansts for RadASM2 with MASM64      |
+; |      WinAPI Function Parameter Constants for RadASM2 with MASM64      |
 ; |                                                                       |
 ; | This file contains WinAPI functions from M$ Docs with their           |
 ; | parameter constants. With this file RadASM2 can code complete and     |
@@ -38,12 +38,6 @@
 ; |                                                                       |
 ; |                                WINAPI                                 |
 ; |_______________________________________________________________________|
-;  _______________________________________________________________________ 
-; |                                                                       |
-;   What : 
-;   Where: 
-;   Web  : 
-; \_______________________________________________________________________/
 4AcceptSecurityContext,ASC_REQ_DELEGATE,ASC_REQ_MUTUAL_AUTH,ASC_REQ_REPLAY_DETECT,ASC_REQ_SEQUENCE_DETECT,ASC_REQ_CONFIDENTIALITY,ASC_REQ_USE_SESSION_KEY,ASC_REQ_ALLOCATE_MEMORY,ASC_REQ_USE_DCE_STYLE,ASC_REQ_DATAGRAM,ASC_REQ_CONNECTION,ASC_REQ_CALL_LEVEL,ASC_REQ_EXTENDED_ERROR,ASC_REQ_STREAM,ASC_REQ_INTEGRITY
 3AccessNtmsLibraryDoor,NTMS_INVENTORY_NONE,NTMS_INVENTORY_OMID,NTMS_INVENTORY_FAST,NTMS_INVENTORY_DEFAULT
 5acmDriverAdd,ACM_DRIVERADDF_FUNCTION,ACM_DRIVERADDF_GLOBAL,ACM_DRIVERADDF_LOCAL,ACM_DRIVERADDF_NOTIFYHWND
