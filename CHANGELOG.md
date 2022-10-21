@@ -4,6 +4,7 @@
 ### Changes
 * `MASM64Stdlib.api` deleted, this api file was an old file
 * UPDATE: api files fix typo and cosmetic update
+* UPDATE: api files
 
 ## [2022.10.13] - 13-10-2022
 ### Added
