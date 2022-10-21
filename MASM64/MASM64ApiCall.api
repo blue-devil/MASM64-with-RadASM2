@@ -37,10 +37,6 @@
 ; |                                                                       |
 ; |                                WINAPI                                 |
 ; |_______________________________________________________________________|
-ArgCl,ArgNum,ItemBuffer
-ArgClC,ArgNum,ItemBuffer
-GetCl,ArgNum,ItemBuffer
-ReadDirectoryChangesW,hDirectory,lpBuffer,nBufferLength,bWatchSubtree,dwNotifyFilter,lpBytesReturned,lpOverlapped,lpCompletionRoutine
 AbortDoc,hdc
 AbortPath,hdc
 AbortPrinter,hPrinter
@@ -175,6 +171,8 @@ ApplyPatchToFile,PatchFileName,OldFileName,NewFileName,ApplyOptionFlags
 ApplyPatchToFileByHandles,PatchFileHandle,OldFileHandle,NewFileHandle,ApplyOptionFlags
 ApplyPatchToFileByHandlesEx,PatchFileHandle,OldFileHandle,NewFileHandle,ApplyOptionFlags,ProgressCallback,CallbackContext
 ApplyPatchToFileEx,PatchFileName,OldFileName,NewFileName,ApplyOptionFlags,ProgressCallback,CallbackContext
+ArgCl,ArgNum,ItemBuffer
+ArgClC,ArgNum,ItemBuffer
 Arc,hdc,X1,Y1,X2,Y2,X3,Y3,X4,Y4
 ArcTo,hdc,X1,Y1,X2,Y2,X3,Y3,X4,Y4
 AreAllAccessesGranted,GrantedAccess,DesiredAccess
@@ -1613,6 +1611,7 @@ GetCharWidth,hdc,wFirstChar,wLastChar,lpBuffer
 GetCharWidth32,hdc,iFirstChar,iLastChar,lpBuffer
 GetCharWidthFloat,hdc,iFirstChar,iLastChar,pxBuffer
 GetCharWidthI,hdc,uint,uint,lpword,lpint
+GetCl,ArgNum,ItemBuffer
 GetClassFile,szFilename,pclsid
 GetClassFileOrMime,pbc,szFilename,pBuffer,cbSize,szMime,dwReserved,pclsid
 GetClassIDFromBlob,hBlob,pOwnerName,pCategoryName,pTagName,pclsid
@@ -4558,6 +4557,7 @@ ReadConsoleInput,hConsoleInput,lpBuffer,nLength,lpNumberOfEventsRead
 ReadConsoleOutput,hConsoleOutput,lpBuffer,dwBufferSize,dwBufferCoord,lpReadRegion
 ReadConsoleOutputAttribute,hConsoleOutput,lpAttribute,nLength,dwReadCoord,lpNumberOfAttrsRead
 ReadConsoleOutputCharacter,hConsoleOutput,lpCharacter,nLength,dwReadCoord,lpNumberOfCharsRead
+ReadDirectoryChangesW,hDirectory,lpBuffer,nBufferLength,bWatchSubtree,dwNotifyFilter,lpBytesReturned,lpOverlapped,lpCompletionRoutine
 ReadEncryptedFileRaw,pfExportCallback,pvCallbackContext,pvContext
 ReadEventLog,hEventLog,dwReadFlags,dwRecordOffset,lpBuffer,nNumberOfBytesToRead,pnBytesRead,pnMinNumberOfBytesNeeded
 ReadFile,hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped

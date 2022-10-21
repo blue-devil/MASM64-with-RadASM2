@@ -196,7 +196,7 @@ ULONGLONG,8,A 64-bit unsigned integer. The range is 0 through 184467440737095516
 ULONG_PTR,8,An unsigned LONG_PTR.
 ULONG32,4,An unsigned LONG32.
 ULONG64,64,An unsigned LONG64.
-UNICODE_STRING,,A Unicode string.
+UNICODE_STRING,12,A Unicode string.
 USHORT,2,Unsigned short integer (16 bits).
 USN,8,An update sequence number (USN).
 VOID,0,Any type.
@@ -258,7 +258,7 @@ LCSCSTYPE,4,Color space type.
 LCSGAMUTMATCH,4,Gamut-matching method.
 LINEDDAPROC,4,Pointer to a callback function that processes line coordinates.
 LOCALHANDLE,8,Handle of a local memory block.
-LP,0,Pointer to a null-terminated Unicode� string.
+LP,0,Pointer to a null-terminated Unicode string.
 LPCCH,8,Pointer to a constant Windows character.
 LPCCHOOKPROC,8,Pointer to an application-defined hook function.
 LPCFHOOKPROC,8,Pointer to an application-defined hook function.
