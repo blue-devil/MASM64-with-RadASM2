@@ -34,7 +34,7 @@
 
 mainCRTStartup proc
     
-    ; $ imi konulduðu yerin adresini belirtir.
+    ; $ imi konuldugu yerin adresini belirtir.
     ; dolayisiyla "jmp $" komutu jmp komutunun oldugu yere dallanir
     ; Bu da sonsuz dongu demektir
     jmp $
